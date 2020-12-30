@@ -155,21 +155,21 @@ class FuriousFeatures {
 
 	public function show_search_results_under_the_search_slug_2_callback() {
 		printf(
-			'<input type="checkbox" name="furious_features_option_name[show_search_results_under_the_search_slug_2]" id="show_search_results_under_the_search_slug_2" value="show_search_results_under_the_search_slug_2" %s> <label for="show_search_results_under_the_search_slug_2">This option rewrites the search results page to look like \"sitename.com/search/search+query\"</label>',
+			'<input type="checkbox" name="furious_features_option_name[show_search_results_under_the_search_slug_2]" id="show_search_results_under_the_search_slug_2" value="show_search_results_under_the_search_slug_2" %s> <label for="show_search_results_under_the_search_slug_2">This option rewrites the search results page to look like "sitename.com/search/search+query"</label>',
 			( isset( $this->furious_features_options['show_search_results_under_the_search_slug_2'] ) && $this->furious_features_options['show_search_results_under_the_search_slug_2'] === 'show_search_results_under_the_search_slug_2' ) ? 'checked' : ''
 		);
 	}
 
 	public function replace_read_more_text_3_callback() {
 		printf(
-			'<input type="checkbox" name="furious_features_option_name[replace_read_more_text_3]" id="replace_read_more_text_3" value="replace_read_more_text_3" %s> <label for="replace_read_more_text_3">Enable this option to replace the \"Read more...\" at the end of excerpts with the custom text you provide below</label>',
+			'<input type="checkbox" name="furious_features_option_name[replace_read_more_text_3]" id="replace_read_more_text_3" value="replace_read_more_text_3" %s> <label for="replace_read_more_text_3">Enable this option to replace the "Read more..." at the end of excerpts with the custom text you provide below</label>',
 			( isset( $this->furious_features_options['replace_read_more_text_3'] ) && $this->furious_features_options['replace_read_more_text_3'] === 'replace_read_more_text_3' ) ? 'checked' : ''
 		);
 	}
 
 	public function custom_read_more_text_4_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="furious_features_option_name[custom_read_more_text_4]" id="custom_read_more_text_4" value="%s">',
+			'<input class="regular-text" type="text" name="furious_features_option_name[custom_read_more_text_4]" id="custom_read_more_text_4" value="%s" placeholder="We typically use &hellip;">',
 			isset( $this->furious_features_options['custom_read_more_text_4'] ) ? esc_attr( $this->furious_features_options['custom_read_more_text_4']) : ''
 		);
 	}

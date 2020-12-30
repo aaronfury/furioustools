@@ -10,8 +10,17 @@
 	Text Domain:  furioustools
 	*/
 	
+	// Read options
+	$furious_features_options = get_option( 'furious_features_option_name' ); // Array of All Options
+	$cleanup_wordpress_crud = $furious_features_options['cleanup_wordpress_crud_0']; // Cleanup WordPress Crud
+	$enable_jquery_override_to_latest_version = $furious_features_options['enable_jquery_override_to_latest_version_1']; // Enable jQuery override to latest version
+	$show_search_results_under_the_search_slug_= $furious_features_options['show_search_results_under_the_search_slug_2']; // Show search results under the \"/search\" slug
+	$replace_read_more_text = $furious_features_options['replace_read_more_text_3']; // Replace \"Read more...\" text
+	$custom_read_more_text = $furious_features_options['custom_read_more_text_4']; // Custom \"Read more...\" text
+	$remove_hard_coded_width_on_attachment_containers = $furious_features_options['remove_hard_coded_width_on_attachment_containers_5']; // Remove hard-coded width on attachment containers
+	
 	// Enqueue the CSS and JS files for this plugin on the front-end
-	if ( ! is_admin() ) :
+	if ( ! is_admin() && $cleanup_wordpress_crud_) :
 		cleanup_wp_crud();
 	endif;
 	
@@ -36,7 +45,9 @@
 		wp_register_script( 'jquery', "//code.jquery.com/jquery-3.5.1.min.js" );
 		wp_enqueue_script( 'jquery' );
 	}
-	add_action( 'wp_enqueue_scripts', 'update_jquery' );
+	if ( $enable_jquery_override_to_latest_version ) {
+		add_action( 'wp_enqueue_scripts', 'update_jquery' );
+	}
 
 
 	// Makes the search results show under a "Search" slug
@@ -46,13 +57,25 @@
 			exit();
 		endif;
 	}
-	add_action( 'template_redirect', 'search_url_rewrite_rule' );
+	if ( $show_search_results_under_the_search_slug ) {
+		add_action( 'template_redirect', 'search_url_rewrite_rule' );
+	}
 
 	// Change the "Read More" behavior on excerpts
 	function new_excerpt_more( $more ) {
-		return '&hellip;';
+		return $custom_read_more_text;
 	}
-	add_filter( 'excerpt_more', 'new_excerpt_more' );
+	if ( $replace_read_more_text ) {
+		add_filter( 'excerpt_more', 'new_excerpt_more' );
+	}
+	
+	// Remove the hard-coded width on attachment containers
+	function my_img_caption_shortcode_width($width, $atts, $content) {
+		return 0;
+	}
+	if ( $remove_hard_coded_width_on_attachment_containers ) {
+		add_filter('img_caption_shortcode_width', 'my_img_caption_shortcode_width', 10, 3);
+	}
 
 	// For content (announcements, statements, etc.) that may be very short (less than 200 words), echoes " shortpost ". Useful to call this when populating the CSS class of the parent container and styling it appropriately.
 	function style_short_posts() {
@@ -64,11 +87,6 @@
 		endif;
 	}
 
-	// Remove the hard-coded width on attachment containers
-	function my_img_caption_shortcode_width($width, $atts, $content) {
-		return 0;
-	}
-	add_filter('img_caption_shortcode_width', 'my_img_caption_shortcode_width', 10, 3);
 
 	// Create a shortcode to list the Ajax URL. Useful to more easily pass in the URL to JS functions.
 	function return_ajax_url() {
