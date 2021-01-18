@@ -160,7 +160,7 @@ class Furious_Features_Settings {
 	public function random_tagline_list_callback() {
 ?>
 		<label for="furious_random_tagline_list">Separate taglines with a line break (ENTER or RETURN key)</label><br />
-		<textarea name="furious_random_tagline_list" id="furious_random_tagline_enabled"><?= get_option('furious_random_tagline_enabled',''); ?></textarea>
+		<textarea name="furious_random_tagline_list" id="furious_random_tagline_list"><?= get_option('furious_random_tagline_list',''); ?></textarea>
 <?php
 	}
 

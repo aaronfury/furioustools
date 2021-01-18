@@ -12,6 +12,7 @@
 
 	class Furious_Features_Plugin {
 		private $custom_readmore_text;
+		private $_in_body = false;
 
 		public function __construct() {
 			// Enqueue the CSS and JS files for this plugin on the front-end
@@ -34,6 +35,28 @@
 
 			if ( get_option('furious_remove_att_width') ) {
 				add_filter('img_caption_shortcode_width', [$this, 'img_caption_shortcode_width'], 10, 3);
+			}
+
+			if ( get_option('furious_random_tagline_enabled') ) {
+				add_action('wp_head', [ $this, 'action_wp_head_finished'], PHP_INT_MAX);
+				add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
+				add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
+			}
+		}
+
+		function action_wp_head_finished() {
+			$this->_in_body = true;
+		}
+		function action_wp_footer_started() {
+			$this->_in_body = false;
+		}
+
+		function get_random_tagline( $name, $show = null ) {
+			if ( 'description' == $show && $this->_in_body ) {
+				$taglines = explode( PHP_EOL, get_option( 'furious_random_tagline_list', get_bloginfo('description')) );
+				return $taglines[array_rand($taglines)];
+			} else {
+				return $name;
 			}
 		}
 
