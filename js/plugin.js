@@ -8,7 +8,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 			secure: true
 		});
 	
-	jQuery('a[href="' + siteurl + '"]','a[href="' + siteurl + '/"]').click( function() {
+	jQuery('a[href="' + siteurl + '"], a[href="' + siteurl + '/"]').click( function() {
 		Cookies.remove( 'skiphomepage' );
 	})
 });
