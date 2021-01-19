@@ -6,9 +6,9 @@ document.addEventListener( "DOMContentLoaded", function() {
 			expires: 30,
 			sameSite: 'strict',
 			secure: true
-		} );
+		});
+	
+	jQuery('a[href="' + siteurl + '"]','a[href="' + siteurl + '/"]').click( function() {
+		Cookies.remove( 'skiphomepage' );
+	})
 });
-
-jQuery('a[href="' + siteurl + '"]').click( function() {
-	Cookies.remove( 'skiphomepage' );
-})

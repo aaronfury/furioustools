@@ -42,6 +42,10 @@
 				add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
 				add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
 			}
+
+			// Appends the homepage URL as a variable to the script, so that the script can use it for comparison
+			$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
+			wp_add_inline_script( 'skiphomepage', $scriptvars, 'before' );
 		}
 
 		function action_wp_head_finished() {
@@ -74,10 +78,6 @@
 			wp_enqueue_script( 'js-cookie' );
 			wp_register_script( 'skiphomepage', plugins_url('js/plugin.js', __FILE__), array( 'js-cookie' ), null, true );
 			wp_enqueue_script( 'skiphomepage' );
-
-			// Appends the homepage URL as a variable to the script, so that the script can use it for comparison
-			$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
-			wp_add_inline_script( 'skiphomepage', $scriptvars, 'before' );
 		}
 
 		function load_skiphomepage_redirect() {
@@ -136,11 +136,6 @@
 			if ( $wordcount <= 200 ) :
 				echo " shortpost ";
 			endif;
-		}
-
-		// Create a shortcode to list the Ajax URL. Useful to more easily pass in the URL to JS functions.
-		function return_ajax_url() {
-			return admin_url('admin-ajax.php');
 		}
 
 		// Create a shortcode to create a nonce
@@ -266,7 +261,6 @@
 	
 	if ( ! is_admin() ) {
 		$ffplugin = new Furious_Features_Plugin();
-		add_shortcode('ajax_url', [ $ffplugin, 'return_ajax_url' ]);
 		add_shortcode('nonce', [ $ffplugin, 'return_nonce' ]);
 		add_shortcode('childposts', [ $ffplugin, 'get_child_posts' ]);
 
