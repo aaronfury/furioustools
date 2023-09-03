@@ -1,2 +1,26 @@
 # Furious Tools
-A WordPress Plugin for some basic cleanup
+A WordPress Plugin to add some light functionality and customization to WordPress.
+
+## Features
+* __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
+* __Randomized tagline__ - Specify a list of taglines, and a random one will be displayed each time `get_blogindo('description')` is called
+* __Cleanup WordPress Page Header__ - Remove some irrelevant `<head>` content from most pages
+* __Use latest jQuery version__ - Loads the latest jQuery version (currently 3.7.0) instead of the one included with WordPress
+* __Show search results under a slug__ - The search results page will be shown at "site.com/_search_/terms
+* __Custom text for "Read more..." link__ - Specify custom content to display at the end of excerpts for linking to the full post
+* __Remove hard-coded max width on images__ - Allow images in the post body to be displayed at the full width of the page/container
+* __Additional shortcodes__:
+	* `[nonce]` creates a verification nonce for form submissions
+	* `[childposts]` prints or return a list of child posts for the current post or a specific post
+
+## childpost shortcode options
+The `[childpost]` shortcode supports the following options:
+* __showheader__ - _(true/false)_ Whether to print a header above the list. Default is _false_
+* __headername__ - Text to display above the list if **showheader** is _true_. Default is _Pages_
+* __showparent__ - _(true/false)_ Show the parent page (or current page) at the top of the list. Default is _false_
+* __posttype__ - A post type (_post_, _page_, or custom post type) to retrieve. Default is _page_
+* __wrapinul__ - _(true/false)_ Render the child objects as an unordered list (<ul>) rather than a list of <div> objects. Default is _false_
+* __postid__ - A specific Post ID whose children to retrieve. Default is the current post ID where the shortcode is inserted
+* __showauthor__ -
+* __exclude__ - An array of post IDs to exclude from the list
+* __render__ - Whether to print the list to the rendered page. Why wouldn't you do this with a shortcode? Who knows! But this plugin gives you options, baby.
