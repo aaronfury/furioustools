@@ -106,7 +106,7 @@
 		// Update jQuery
 		function update_jquery() {
 			wp_deregister_script('jquery');
-			wp_register_script( 'jquery', "//code.jquery.com/jquery-3.5.1.min.js" );
+			wp_register_script( 'jquery', "//code.jquery.com/jquery-3.7.0.min.js" );
 			wp_enqueue_script( 'jquery' );
 		}
 
