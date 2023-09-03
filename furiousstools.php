@@ -1,9 +1,9 @@
 <?php
 	/*
 	Plugin Name:  Furious Tools
-	Plugin URI:   https://github.com/aaronfury/furiouswptools
+	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20210118
+	Version:      1.0.20230903
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -74,7 +74,7 @@
 		}
 
 		function load_skiphomepage_scripts() {
-			wp_register_script( 'js-cookie', "//cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js", [], null, true  );
+			wp_register_script( 'js-cookie', "//cdn.jsdelivr.net/npm/js-cookie@3.0.5/src/js.cookie.min.js", [], null, true  );
 			wp_enqueue_script( 'js-cookie' );
 			wp_register_script( 'skiphomepage', plugins_url('js/plugin.js', __FILE__), array( 'js-cookie' ), null, true );
 			wp_enqueue_script( 'skiphomepage' );
