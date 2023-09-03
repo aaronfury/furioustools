@@ -37,35 +37,35 @@ class Furious_Features_Settings {
 	public function furious_features_page_init() {
 		$plugin_settings = array(
 			// setting_id, setting_name, section
-			[ 'cleanup_wp_crud', 'Cleanup WordPress crud', 'misc' ],
-			[ 'latest_jquery', 'Force latest jQuery version', 'misc' ],
-			[ 'search_slug', 'Show search results under "/search" slug', 'misc' ],
-			[ 'custom_readmore_enabled', 'Custom "Read more ..." text', 'misc' ],
-			[ 'custom_readmore_text', 'Replace "Read more ..." with', 'misc' ],
-			[ 'remove_att_width', 'Remove hard-coded width on attachment containers in posts', 'misc' ],
-			[ 'skip_homepage_enabled', 'Skip the home page', 'skip_homepage' ],
-			[ 'skip_homepage_showonce', 'Show the home page once', 'skip_homepage' ],
-			[ 'skip_homepage_target', 'Redirect to this page when homepage is skipped', 'skip_homepage' ],
-			[ 'random_tagline_enabled', 'Pick a random tagline each time a page is loaded', 'random_tagline' ],
-			[ 'random_tagline_list', 'List of random taglines', 'random_tagline' ]
+			[ 'cleanup_wp_crud', 'boolean', 'Cleanup WordPress crud', 'misc' ],
+			[ 'latest_jquery', 'boolean', 'Force latest jQuery version', 'misc' ],
+			[ 'search_slug', 'boolean', 'Show search results under "/search" slug', 'misc' ],
+			[ 'custom_readmore_enabled', 'boolean', 'Custom "Read more ..." text', 'misc' ],
+			[ 'custom_readmore_text', 'string', 'Replace "Read more ..." with', 'misc' ],
+			[ 'remove_att_width', 'boolean', 'Remove hard-coded width on attachment containers in posts', 'misc' ],
+			[ 'skip_homepage_enabled', 'boolean', 'Skip the home page', 'skip_homepage' ],
+			[ 'skip_homepage_showonce', 'boolean', 'Show the home page once', 'skip_homepage' ],
+			[ 'skip_homepage_target', 'string', 'Redirect to this page when homepage is skipped', 'skip_homepage' ],
+			[ 'random_tagline_enabled', 'boolean', 'Pick a random tagline each time a page is loaded', 'random_tagline' ],
+			[ 'random_tagline_list', 'array', 'List of random taglines', 'random_tagline' ]
 		);
 		
 		add_settings_section(
 			'furious_features_skip_homepage_section', // id
 			'Skip Home Page', // title
-			array( $this, 'furious_features_section_info' ), // callback
+			$null, // callback
 			'furious-features' // page
 		);
 		add_settings_section(
 			'furious_features_random_tagline_section', // id
 			'Tagline Randomizer', // title
-			array( $this, 'furious_features_section_info' ), // callback
+			$null, // callback
 			'furious-features' // page
 		);
 		add_settings_section(
 			'furious_features_misc_section', // id
 			'Miscellaneous Settings', // title
-			array( $this, 'furious_features_section_info' ), // callback
+			$null, // callback
 			'furious-features' // page
 		);
 		
@@ -73,14 +73,16 @@ class Furious_Features_Settings {
 			register_setting(
 				'furious-features', // option_group
 				'furious_' . $setting[0], // option_name
-				array( 'sanitize_callback', 'furious_features_sanitize' ) // sanitize_callback
+				array(
+					'type' => $setting[1],
+				)
 			);
 			add_settings_field(
 				'furious_' . $setting[0], // id
-				$setting[1], // title
+				$setting[2], // title
 				array( $this, $setting[0] . '_callback' ), // callback
 				'furious-features', // page
-				'furious_features_' . $setting[2] . '_section' // section
+				'furious_features_' . $setting[3] . '_section' // section
 			);
 		}
 	}
@@ -95,7 +97,7 @@ class Furious_Features_Settings {
 
 	public function cleanup_wp_crud_callback() {
 ?>
-		<input type="checkbox" name="furious_cleanup_wp_crud" id="furious_cleanup_wp_crud" value="1" <?php checked( get_option('furious_cleanup_wp_crud') ); ?> > <label for="furious_cleanup_wp_crud">This option removes some unnecessary things from the wp_head() function</label>
+		<input type="checkbox" name="furious_cleanup_wp_crud" id="furious_cleanup_wp_crud" value="1" <?php checked( get_option('furious_cleanup_wp_crud') ); ?> > <label for="furious_cleanup_wp_crud">This option removes some unnecessary things from the wp_head() function.</label>
 <?php
 	}
 
@@ -107,13 +109,13 @@ class Furious_Features_Settings {
 	
 	public function search_slug_callback() {
 ?>
-		<input type="checkbox" name="furious_search_slug" id="furious_search_slug" value="1" <?php checked( get_option('furious_search_slug') ); ?> > <label for="furious_search_slug">This option rewrites the search results page to look like "<?php site_url(); ?><strong>/search/</strong>search+query"</label>
+		<input type="checkbox" name="furious_search_slug" id="furious_search_slug" value="1" <?php checked( get_option('furious_search_slug') ); ?> > <label for="furious_search_slug">This option rewrites the search results page to look like "<em><?php site_url(); ?><strong>/search/</strong>search+query</em>"</label>
 <?php
 	}
 	
 	public function custom_readmore_enabled_callback() {
 ?>
-		<input type="checkbox" name="furious_custom_readmore_enabled" id="furious_custom_readmore_enabled" value="1" <?php checked( get_option('furious_custom_readmore_enabled') ); ?> > <label for="furious_replace_readmore_text">Enable this option to replace the "Read more..." at the end of excerpts with the custom text you provide below</label>
+		<input type="checkbox" name="furious_custom_readmore_enabled" id="furious_custom_readmore_enabled" value="1" <?php checked( get_option('furious_custom_readmore_enabled') ); ?> > <label for="furious_replace_readmore_text">Enable this option to replace the "Read more..." at the end of excerpts with the custom text you provide below.</label>
 <?php
 	}
 	
@@ -125,7 +127,7 @@ class Furious_Features_Settings {
 
 	public function remove_att_width_callback() {
 ?>
-			<input type="checkbox" name="furious_remove_att_width" id="furious_remove_att_width" value="1" <?php checked( get_option('furious_remove_att_width') ); ?> > <label for="furious_remove_att_width">For images and other blocks added in the editor, WordPress automatically sets a fixed-with value on the item in the DOM. This will remove that value</label>
+			<input type="checkbox" name="furious_remove_att_width" id="furious_remove_att_width" value="1" <?php checked( get_option('furious_remove_att_width') ); ?> > <label for="furious_remove_att_width">For images and other blocks added in the editor, WordPress automatically sets a fixed-with value on the item in the DOM. This will remove that value.</label>
 <?php
 	}
 
@@ -137,7 +139,7 @@ class Furious_Features_Settings {
 	
 	public function skip_homepage_showonce_callback() {
 ?>
-		<input type="checkbox" name="furious_skip_homepage_showonce" id="furious_skip_homepage_showonce" value="1" <?php checked( get_option('furious_skip_homepage_showonce') ); ?> > <label for="furious_skip_homepage_showonce">Show the front page once, then skip on subsequent visits. If disabled, the front page will never be shown. This setting uses a client-side cookie; if the user has disabled cookies or clears their browser cache, the front page will be shown again.</label>
+		<input type="checkbox" name="furious_skip_homepage_showonce" id="furious_skip_homepage_showonce" value="1" <?php checked( get_option('furious_skip_homepage_showonce') ); ?> > <label for="furious_skip_homepage_showonce">If "Skip homepage" is enabled, enabling this will show the front page once, then skip on subsequent visits. If this setting is disabled, the front page will never be shown. This setting uses a client-side cookie; if the user has disabled cookies or clears their browser cache, the front page will be shown again.</label>
 <?php
 	}
 
