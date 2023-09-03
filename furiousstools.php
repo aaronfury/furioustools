@@ -207,9 +207,9 @@
 					foreach ( $qrychildren as $child ) :
 						$link = get_page_link( $child->ID );
 						$title = $child->post_title;
-						$subheading = get_post_meta($child->ID, '_content_subheading', true);
 
-						$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></span>' . (get_post_meta( $child->ID, '_web_exclusive', true) ? '<span class="webonly">Online Exclusive</span>' : '') . '</div><div class="byline">' . get_the_byline( $child->ID ) . '</div>' . ( $subheading ? '<div class="subheading">' . $subheading . '</div>' : '' ) . '</div>';
+						$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></span></div><div class="byline">' . get_the_byline( $child->ID ) . '</div><div class="subheading">' . $AUTHOR . '</div></div>';
+						// TODO: actually populate the author
 					endforeach;
 
 					$return .= '</div>';
@@ -249,7 +249,7 @@
 					$title = $child->post_title;
 					$subheading = get_post_meta($child->ID, '_content_subheading', true);
 
-					$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></span>' . (get_post_meta( $child->ID, '_web_exclusive', true) ? '<span class="webonly">Online Exclusive</span>' : '') . '</div><div class="byline">' . get_the_byline( $child->ID ) . '</div>' . ( $subheading ? '<div class="subheading">' . $subheading . '</div>' : '' ) . '</div>';
+					$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></div><div class="byline">' . get_the_byline( $child->ID ) . '</div>' . ( $subheading ? '<div class="subheading">' . $subheading . '</div>' : '' ) . '</div>';
 				endforeach;
 
 				$return .= '</div>';
