@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20230903
+	Version:      1.0.20230904
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -19,6 +19,10 @@
 			if ( ! is_admin() && get_option('furious_cleanup_wp_crud') ) :
 				$this->cleanup_wp_crud();
 			endif;
+
+			if ( get_option('furious_bypass_http_validate_url') ) { // No callback really needed for this setting, we'll just set it directly
+				add_filter( 'http_request_host_is_external', '__return_true' );
+			}
 
 			if ( get_option('furious_latest_jquery') ) {
 				add_action( 'wp_enqueue_scripts', [$this, 'update_jquery'] );
@@ -258,7 +262,7 @@
 			endif;
 		}
 	}
-	
+
 	if ( ! is_admin() ) {
 		$ffplugin = new Furious_Features_Plugin();
 		add_shortcode('nonce', [ $ffplugin, 'return_nonce' ]);

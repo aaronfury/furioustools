@@ -8,6 +8,7 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 * __Use latest jQuery version__ - Loads the latest jQuery version (currently 3.7.0) instead of the one included with WordPress
 * __Show search results under a slug__ - The search results page will be shown at "site.com/_search_/terms
 * __Custom text for "Read more..." link__ - Specify custom content to display at the end of excerpts for linking to the full post
+* __Bypass HTTP URL Validation__ - Disables the built-in check that HTTP requests are not originating from the local server.
 * __Remove hard-coded max width on images__ - Allow images in the post body to be displayed at the full width of the page/container
 * __Additional shortcodes__:
 	* `[nonce]` creates a verification nonce for form submissions

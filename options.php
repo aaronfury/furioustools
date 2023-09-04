@@ -42,6 +42,7 @@ class Furious_Features_Settings {
 			[ 'search_slug', 'boolean', 'Show search results under "/search" slug', 'misc' ],
 			[ 'custom_readmore_enabled', 'boolean', 'Custom "Read more ..." text', 'misc' ],
 			[ 'custom_readmore_text', 'string', 'Replace "Read more ..." with', 'misc' ],
+			[ 'bypass_http_validate_url', 'boolean', 'Bypass URL IP validation', 'misc' ],
 			[ 'remove_att_width', 'boolean', 'Remove hard-coded width on attachment containers in posts', 'misc' ],
 			[ 'skip_homepage_enabled', 'boolean', 'Skip the home page', 'skip_homepage' ],
 			[ 'skip_homepage_showonce', 'boolean', 'Show the home page once', 'skip_homepage' ],
@@ -120,8 +121,14 @@ class Furious_Features_Settings {
 	}
 	
 	public function custom_readmore_text_callback() {
-?>
+		?>
 		<input class="regular-text" type="text" name="furious_custom_readmore_text" id="furious_custom_readmore_text" value="<?= get_option('furious_custom_readmore_text', '&hellip;'); ?>" placeholder="The default is &amp;hellip; (&hellip;)">
+<?php
+	}
+	
+	public function bypass_http_validate_url() {
+?>
+		<input type="checkbox" name="furious_bypass_http_validate_url" id="furious_bypass_http_validate_url" value="1" <?php checked( get_option('furious_bypass_http_validate_url') ); ?> > <label for="furious_bypass_http_validate_url">Disables the built-in check that a request is not coming from the localhost. This is a useful security feature and should only be temporarily bypassed for specific situations, such as same-host site import/export.</label>
 <?php
 	}
 
