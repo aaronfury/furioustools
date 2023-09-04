@@ -126,7 +126,7 @@ class Furious_Features_Settings {
 <?php
 	}
 	
-	public function bypass_http_validate_url() {
+	public function bypass_http_validate_url_callback() {
 ?>
 		<input type="checkbox" name="furious_bypass_http_validate_url" id="furious_bypass_http_validate_url" value="1" <?php checked( get_option('furious_bypass_http_validate_url') ); ?> > <label for="furious_bypass_http_validate_url">Disables the built-in check that a request is not coming from the localhost. This is a useful security feature and should only be temporarily bypassed for specific situations, such as same-host site import/export.</label>
 <?php
