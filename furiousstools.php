@@ -46,10 +46,6 @@
 				add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
 				add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
 			}
-
-			// Appends the homepage URL as a variable to the script, so that the script can use it for comparison
-			$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
-			wp_add_inline_script( 'skiphomepage', $scriptvars, 'before' );
 		}
 
 		function action_wp_head_finished() {
@@ -72,16 +68,21 @@
 			// Script must be loaded on every page because of the "override" to remove the cookie if the home page is accessed from a link
 			add_action( 'wp_enqueue_scripts', [$this, 'load_skiphomepage_scripts'] );
 
+			// Neither is_home() nor is_front_page() seem to provide the behavior we need. So we use this condition instead.
 			if ( ('page' == get_option('show_on_front')) && (get_option('page_on_front') == $query->query_vars['page_id']) ) :
 				add_action( 'wp_head', [$this, 'load_skiphomepage_redirect'] );
 			endif;
 		}
 
 		function load_skiphomepage_scripts() {
-			wp_register_script( 'js-cookie', "//cdn.jsdelivr.net/npm/js-cookie@3.0.5/src/js.cookie.min.js", [], null, true  );
+			$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
+
+			wp_register_script( 'js-cookie', "//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js", [], null, true  );
 			wp_enqueue_script( 'js-cookie' );
 			wp_register_script( 'skiphomepage', plugins_url('js/plugin.js', __FILE__), array( 'js-cookie' ), null, true );
 			wp_enqueue_script( 'skiphomepage' );
+			// Appends the homepage URL as a variable to the script, so that the script can use it for comparison
+			wp_add_inline_script( 'skiphomepage', $scriptvars, 'before' );
 		}
 
 		function load_skiphomepage_redirect() {

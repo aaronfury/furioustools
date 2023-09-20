@@ -54,19 +54,19 @@ class Furious_Features_Settings {
 		add_settings_section(
 			'furious_features_skip_homepage_section', // id
 			'Skip Home Page', // title
-			$null, // callback
+			null, // callback
 			'furious-features' // page
 		);
 		add_settings_section(
 			'furious_features_random_tagline_section', // id
 			'Tagline Randomizer', // title
-			$null, // callback
+			null, // callback
 			'furious-features' // page
 		);
 		add_settings_section(
 			'furious_features_misc_section', // id
 			'Miscellaneous Settings', // title
-			$null, // callback
+			null, // callback
 			'furious-features' // page
 		);
 		
