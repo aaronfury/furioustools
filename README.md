@@ -1,10 +1,11 @@
 # Furious Tools
-A WordPress Plugin to add some light functionality and customization to WordPress.
+A WordPress Plugin to add some light functionality and customization to WordPress. NOTE: This is a personal project and not intended for public consumption. Code may be terrible, nonfunctional, or downright malicious. Use at your own risk.
 
 ## Features
 * __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
 * __Randomized tagline__ - Specify a list of taglines, and a random one will be displayed each time `get_blogindo('description')` is called
 * __Cleanup WordPress Page Header__ - Remove some irrelevant `<head>` content from most pages
+* __Disable WP Emoji__ - Remove scripts and other resources for the WP Emoji feature
 * __Use latest jQuery version__ - Loads the latest jQuery version (currently 3.7.0) instead of the one included with WordPress
 * __Show search results under a slug__ - The search results page will be shown at "site.com/_search_/terms
 * __Custom text for "Read more..." link__ - Specify custom content to display at the end of excerpts for linking to the full post

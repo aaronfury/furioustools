@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20230904
+	Version:      1.0.20230920
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -18,6 +18,10 @@
 			// Enqueue the CSS and JS files for this plugin on the front-end
 			if ( ! is_admin() && get_option('furious_cleanup_wp_crud') ) :
 				$this->cleanup_wp_crud();
+			endif;
+
+			if ( ! is_admin() && get_option('furious_remove_wp_emoji') ) :
+				$this->remove_wp_emoji();
 			endif;
 
 			if ( get_option('furious_bypass_http_validate_url') ) { // No callback really needed for this setting, we'll just set it directly
@@ -105,6 +109,34 @@
 			remove_action('wp_head', 'wp_shortlink_wp_head');
 			remove_action('wp_head', 'feed_links', 2 );
 			remove_action('wp_head', 'feed_links_extra', 3 );
+		}
+
+		function remove_wp_emoji() {
+			remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+			remove_action( 'wp_print_styles', 'print_emoji_styles' );
+			remove_action( 'admin_print_styles', 'print_emoji_styles' ); 
+			remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+			remove_filter( 'comment_text_rss', 'wp_staticize_emoji' ); 
+			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+			add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
+			add_filter( 'wp_resource_hints', 'disable_emojis_remove_dns_prefetch', 10, 2 );
+		}
+
+		function disable_emojis_tinymce( $plugins ) {
+			if ( is_array( $plugins ) ) {
+				return array_diff( $plugins, array( 'wpemoji' ) );
+			} else {
+				return array();
+			}
+		}
+		   
+		function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
+			if ( 'dns-prefetch' == $relation_type ) {
+				$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
+				$urls = array_diff( $urls, array( $emoji_svg_url ) );
+			}
+			return $urls;
 		}
 
 		// Update jQuery

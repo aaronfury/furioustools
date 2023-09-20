@@ -38,6 +38,7 @@ class Furious_Features_Settings {
 		$plugin_settings = array(
 			// setting_id, setting_name, section
 			[ 'cleanup_wp_crud', 'boolean', 'Cleanup WordPress crud', 'misc' ],
+			[ 'remove_wp_emoji', 'boolean', 'Remove wp_emoji completely', 'misc' ],
 			[ 'latest_jquery', 'boolean', 'Force latest jQuery version', 'misc' ],
 			[ 'search_slug', 'boolean', 'Show search results under "/search" slug', 'misc' ],
 			[ 'custom_readmore_enabled', 'boolean', 'Custom "Read more ..." text', 'misc' ],
@@ -99,6 +100,12 @@ class Furious_Features_Settings {
 	public function cleanup_wp_crud_callback() {
 ?>
 		<input type="checkbox" name="furious_cleanup_wp_crud" id="furious_cleanup_wp_crud" value="1" <?php checked( get_option('furious_cleanup_wp_crud') ); ?> > <label for="furious_cleanup_wp_crud">This option removes some unnecessary things from the wp_head() function.</label>
+<?php
+	}
+
+	public function remove_wp_emoji_callback() {
+?>
+		<input type="checkbox" name="furious_remove_wp_emoji" id="furious_remove_wp_emoji" value="1" <?php checked( get_option('furious_remove_wp_emoji') ); ?> > <label for="furious_remove_wp_emoji">This option disabled WP Emoji support.</label>
 <?php
 	}
 
