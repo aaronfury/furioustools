@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20230904
+	Version:      1.0.20230920
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -98,6 +98,9 @@
 			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
 			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
 			remove_action( 'admin_print_styles', 'print_emoji_styles' );
+			remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+			remove_filter( 'comment_text_rss', 'wp_staticize_emoji' ); 
+			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 			// Additional header cleanup
 			remove_action('wp_head', 'rsd_link');
 			remove_action('wp_head', 'wlwmanifest_link');

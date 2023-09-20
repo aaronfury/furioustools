@@ -1,5 +1,5 @@
 # Furious Tools
-A WordPress Plugin to add some light functionality and customization to WordPress.
+A WordPress Plugin to add some light functionality and customization to WordPress. NOTE: This is a personal project and not intended for public consumption. Code may be terrible, nonfunctional, or downright malicious. Use at your own risk.
 
 ## Features
 * __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
