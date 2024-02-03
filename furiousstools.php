@@ -27,6 +27,10 @@
 			if (get_option('furious_latest_jquery')) {
 				add_action('wp_enqueue_scripts', [$this, 'update_jquery']);
 			}
+			
+			if (get_option('furious_remove_jquery_migrate')) {
+				add_action('wp_default_scripts', [$this, 'remove_jquery_migrate']);
+			}
 
 			if (get_option('furious_search_slug')) {
 				add_action('template_redirect', [$this, 'search_url_rewrite_rule']);
@@ -114,9 +118,19 @@
 		// Update jQuery
 		function update_jquery() {
 			wp_deregister_script('jquery');
-			wp_register_script('jquery', "//code.jquery.com/jquery-3.7.0.min.js");
+			wp_register_script('jquery', "//code.jquery.com/jquery-3.7.1.min.js");
 			wp_enqueue_script('jquery');
 		}
+
+		// Remove jQuery Migrate
+		function remove_jquery_migrate(&$scripts) {
+			if (! is_admin() && isset($scripts->registered['jquery'])) {
+				$script = $scripts->registered['jquery'];
+				if ($script->deps) { 
+					$script->deps = array_diff($script->deps, ['jquery-Migrate']);
+				}
+  			}
+  		}
 
 		// Makes the search results show under a "Search" slug
 		function search_url_rewrite_rule() {

@@ -41,6 +41,7 @@ class Furious_Tools_Settings {
 			[ 'add_custom_crud', 'boolean', 'Add custom crud', 'head' ],
 			[ 'custom_crud', 'string', 'Custom crud to add', 'head' ],
 			[ 'latest_jquery', 'boolean', 'Force latest jQuery version', 'misc' ],
+			[ 'remove_jquery_migrate', 'boolean', 'Remove jQuery Migrate', 'misc' ],
 			[ 'search_slug', 'boolean', 'Show search results under "/search" slug', 'misc' ],
 			[ 'custom_readmore_enabled', 'boolean', 'Custom "Read more ..." text', 'misc' ],
 			[ 'custom_readmore_text', 'string', 'Replace "Read more ..." with', 'misc' ],
@@ -125,7 +126,13 @@ class Furious_Tools_Settings {
 
 	public function latest_jquery_callback() {
 ?>
-		<input type="checkbox" name="furious_latest_jquery" id="furious_latest_jquery" value="1" <?php checked(get_option('furious_latest_jquery')); ?> > <label for="furious_latest_jquery">Enable this option to unload the default version of jQuery included in WordPress and replace it with the latest version.</label>
+		<input type="checkbox" name="furious_latest_jquery" id="furious_latest_jquery" value="1" <?php checked(get_option('furious_latest_jquery')); ?> > <label for="furious_latest_jquery">Enable this option to unload the default version of jQuery included in WordPress and replace it with the latest version (currently 3.7.1).</label>
+<?php
+	}
+
+	public function remove_jquery_migrate_callback() {
+?>
+		<input type="checkbox" name="furious_remove_jquery_migrate" id="furious_remove_jquery_migrate" value="1" <?php checked(get_option('furious_remove_jquery_migrate')); ?> > <label for="furious_remove_jquery_migrate">Enable this option to prevent loading jQuery Migrate, which is a shim to support (very) old versions of jQuery.</label>
 <?php
 	}
 	
