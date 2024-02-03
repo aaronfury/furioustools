@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20240124
+	Version:      1.0.20240203
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
