@@ -22,8 +22,8 @@ The `[childpost]` shortcode supports the following options:
 * __headername__ - Text to display above the list if **showheader** is _true_. Default is _Pages_
 * __showparent__ - _(true/false)_ Show the parent page (or current page) at the top of the list. Default is _false_
 * __posttype__ - A post type (_post_, _page_, or custom post type) to retrieve. Default is _page_
-* __wrapinul__ - _(true/false)_ Render the child objects as an unordered list (<ul>) rather than a list of <div> objects. Default is _false_
+* __wrapinul__ - _(true/false)_ Render the child objects as an unordered list (`<ul>`) rather than a list of `<div>` objects. Default is _false_
 * __postid__ - A specific Post ID whose children to retrieve. Default is the current post ID where the shortcode is inserted
-* __showauthor__ -
+* __showauthor__ - Whether to show the author info. Default is _false_
 * __exclude__ - An array of post IDs to exclude from the list
 * __render__ - Whether to print the list to the rendered page. Why wouldn't you do this with a shortcode? Who knows! But this plugin gives you options, baby.
