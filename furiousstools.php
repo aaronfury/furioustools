@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20240203
+	Version:      1.0.20240210
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -30,6 +30,10 @@
 			
 			if (get_option('furious_remove_jquery_migrate')) {
 				add_action('wp_default_scripts', [$this, 'remove_jquery_migrate']);
+			}
+
+			if (get_option('furious_track_user_last_login')) {
+				add_action('wp_login', [$this, 'update_last_login_timestamp'], 10, 2);
 			}
 
 			if (get_option('furious_search_slug')) {
@@ -131,6 +135,11 @@
 				}
   			}
   		}
+
+		// Logs the last login time of a user
+		function update_last_login_timestamp($user_login, $user) {
+			update_user_meta($user->ID, 'last_login', time());
+		}
 
 		// Makes the search results show under a "Search" slug
 		function search_url_rewrite_rule() {
@@ -288,11 +297,12 @@
 		}
 	}
 
+	$ffplugin = new Furious_Tools_Plugin();
+
+	add_shortcode('nonce', [ $ffplugin, 'return_nonce' ]);
+	add_shortcode('childposts', [ $ffplugin, 'get_child_posts' ]);
+	
 	if (! is_admin()) {
-		$ffplugin = new Furious_Tools_Plugin();
-		add_shortcode('nonce', [ $ffplugin, 'return_nonce' ]);
-		add_shortcode('childposts', [ $ffplugin, 'get_child_posts' ]);
-		
 		// Add custom <head> content
 		if (get_option('furious_add_custom_crud')) {
 			add_action('wp_head', [$ffplugin, 'add_head_content']);
