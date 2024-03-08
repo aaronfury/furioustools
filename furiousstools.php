@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20240210
+	Version:      1.0.20240307
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -34,6 +34,7 @@
 
 			if (get_option('furious_track_user_last_login')) {
 				add_action('wp_login', [$this, 'update_last_login_timestamp'], 10, 2);
+				add_action('user_register', [$this, 'set_default_last_login_timestamp']);
 			}
 
 			if (get_option('furious_search_slug')) {
@@ -139,6 +140,11 @@
 		// Logs the last login time of a user
 		function update_last_login_timestamp($user_login, $user) {
 			update_user_meta($user->ID, 'last_login', time());
+		}
+
+		// Set the default last login time for new users. This makes sorting a little cleaner.
+		function set_default_last_login_timestamp($user_id) {
+			update_user_meta($user_id, 'last_login', 0 );
 		}
 
 		// Makes the search results show under a "Search" slug

@@ -9,6 +9,7 @@ class Furious_Tools_Settings {
 			add_filter('manage_users_columns', [$this, 'add_last_login_column']);
 			add_filter('manage_users_sortable_columns', [$this, 'add_last_login_sortable_column']);
 			add_filter('manage_users_custom_column', [$this, 'add_custom_last_login_column'], 10, 3);
+			add_action('pre_get_users', [$this, 'sort_by_last_login']);
 		}
 	}
 
@@ -110,7 +111,7 @@ class Furious_Tools_Settings {
 	}
 
 	function add_last_login_sortable_column($columns) {
-		$columns['last_login'] = 'Last Login';
+		$columns['last_login'] = 'last_login';
 		return $columns;
 	}
 
@@ -124,6 +125,16 @@ class Furious_Tools_Settings {
 			}
 		}
 		return $value;
+	}
+
+	function sort_by_last_login($query) {
+		if (!is_admin()) return;
+
+		if ('last_login' == $query->get('orderby')) {
+			$query->set('meta_key', 'last_login');
+			$query->set('meta_type', 'DATETIME');
+			$query->set('orderby', 'meta_value');
+		}
 	}
 
 	function furious_tools_sanitize($input) {
@@ -238,4 +249,5 @@ class Furious_Tools_Settings {
 }
 
 new Furious_Tools_Settings();
+
 ?>
