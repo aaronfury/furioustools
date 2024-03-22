@@ -55,6 +55,10 @@
 				add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
 				add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
 			}
+
+			if (get_option('furious_redirect_on_login')) {
+				add_filter('login_redirect', [$this, 'custom_login_redirect']);
+			}
 		}
 
 		function action_wp_head_finished() {
@@ -70,6 +74,15 @@
 				return $taglines[array_rand($taglines)];
 			} else {
 				return $name;
+			}
+		}
+
+		function custom_login_redirect() {
+			$target = get_option('furious_redirect_on_login_target', null);
+			if ($target) {
+				return $target;
+			} else {
+				return home_url();
 			}
 		}
 

@@ -58,6 +58,8 @@ class Furious_Tools_Settings {
 			[ 'skip_homepage_enabled', 'boolean', 'Skip the home page', 'skip_homepage' ],
 			[ 'skip_homepage_showonce', 'boolean', 'Show the home page once', 'skip_homepage' ],
 			[ 'skip_homepage_target', 'string', 'Redirect to this page when homepage is skipped', 'skip_homepage' ],
+			[ 'redirect_on_login', 'boolean', 'Redirect users to a page other than the WP Admin console when they log in', 'redirect_on_login' ],
+			[ 'redirect_on_login_target', 'string', 'Redirect to this page', 'redirect_on_login' ],
 			[ 'random_tagline_enabled', 'boolean', 'Pick a random tagline each time a page is loaded', 'random_tagline' ],
 			[ 'random_tagline_list', 'array', 'List of random taglines', 'random_tagline' ]
 		);
@@ -65,6 +67,12 @@ class Furious_Tools_Settings {
 		add_settings_section(
 			'furious_tools_skip_homepage_section', // id
 			'Skip Home Page', // title
+			null, // callback
+			'furious-tools' // page
+		);
+		add_settings_section(
+			'furious_tools_redirect_on_login_section', // id
+			'Redirect on Login', // title
 			null, // callback
 			'furious-tools' // page
 		);
@@ -232,6 +240,19 @@ class Furious_Tools_Settings {
 				'name' => 'furious_skip_homepage_target'
 			)
 		);
+	}
+
+	function redirect_on_login_callback() {
+?>
+		<input type="checkbox" name="furious_redirect_on_login" id="furious_redirect_on_login" value="1" <?php checked(get_option('furious_redirect_on_login')); ?> > <label for="furious_redirect_on_login">When users log in, redirect them to a page other than the WordPress Admin Dashboard</label>
+<?php
+	}
+
+	function redirect_on_login_target_callback() {
+?>
+		<input class="regular-text" type="text" name="furious_redirect_on_login_target" id="furious_redirect_on_login_target" value="<?= get_option('furious_redirect_on_login_target', ''); ?>" placeholder="Leave blank to redirect to the homepage">
+		<p class="small-note">Relative URLs are accepted (e.g. "/blog"). Leave blank to redirect to the homepage.</p>
+<?php
 	}
 
 	function random_tagline_enabled_callback() {
