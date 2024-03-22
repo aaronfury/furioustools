@@ -1,6 +1,9 @@
 # Furious Tools
 A WordPress Plugin to add some light functionality and customization to WordPress. NOTE: This is a personal project and not intended for public consumption. Code may be terrible, nonfunctional, or downright malicious. Use at your own risk.
 
+
+> **__IMPORTANT__**: I believe that newer is always better. Therefore, this plugin utilizes some functions and syntax that may only be compatible with PHP 7.2 or newer. Or even newer, I don't know because I am always __running the latest version__.
+
 ## Features
 * __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
 * __Redirect on login__ - Option to redirect users to a page other than the WordPress Dashboard upon login
