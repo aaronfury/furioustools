@@ -333,6 +333,6 @@
 		}
 	} else {
 		// Call the code for the settings page
-		include(plugin_dir_path(__FILE__) . 'options.php');
+		include_once(plugin_dir_path(__FILE__) . 'options.php');
 	}
 ?>
