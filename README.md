@@ -7,7 +7,7 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 ## Features
 * __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
 * __Redirect on login__ - Option to redirect users to a page other than the WordPress Dashboard upon login
-* __Randomized tagline__ - Specify a list of taglines, and a random one will be displayed each time `get_blogindo('description')` is called
+* __Randomized tagline__ - Specify a list of taglines, and a random one will be displayed each time `get_bloginfo('description')` is called
 * __Cleanup WordPress Page Header__ - Remove some irrelevant `<head>` content from most pages
 * __Add Custom Page Header__ - Ability to add `<head>` content to all pages
 * __Track Last User Login__ - Record the last login timestamp for each user and display it in the Users list
