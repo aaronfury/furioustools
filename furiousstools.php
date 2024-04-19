@@ -318,8 +318,8 @@
 
 	$ffplugin = new Furious_Tools_Plugin();
 
-	add_shortcode('nonce', [ $ffplugin, 'return_nonce' ]);
-	add_shortcode('childposts', [ $ffplugin, 'get_child_posts' ]);
+	add_shortcode('nonce', [$ffplugin, 'return_nonce']);
+	add_shortcode('childposts', [$ffplugin, 'get_child_posts']);
 	
 	if (! is_admin()) {
 		// Add custom <head> content
