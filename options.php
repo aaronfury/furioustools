@@ -60,6 +60,7 @@ class Furious_Tools_Settings {
 			[ 'skip_homepage_target', 'string', 'Redirect to this page when homepage is skipped', 'skip_homepage' ],
 			[ 'redirect_on_login', 'boolean', 'Redirect users to a page other than the WP Admin console when they log in', 'redirect_on_login' ],
 			[ 'redirect_on_login_target', 'string', 'Redirect to this page', 'redirect_on_login' ],
+			[ 'hide_login_form', 'boolean', 'Hide the WordPress username/password login', 'hide_login_form' ],
 			[ 'random_tagline_enabled', 'boolean', 'Pick a random tagline each time a page is loaded', 'random_tagline' ],
 			[ 'random_tagline_list', 'array', 'List of random taglines', 'random_tagline' ]
 		);
@@ -73,6 +74,12 @@ class Furious_Tools_Settings {
 		add_settings_section(
 			'furious_tools_redirect_on_login_section', // id
 			'Redirect on Login', // title
+			null, // callback
+			'furious-tools' // page
+		);
+		add_settings_section(
+			'furious_tools_hide_login_form_section', // id
+			'Hide Login Form', // title
 			null, // callback
 			'furious-tools' // page
 		);
@@ -252,6 +259,13 @@ class Furious_Tools_Settings {
 ?>
 		<input class="regular-text" type="text" name="furious_redirect_on_login_target" id="furious_redirect_on_login_target" value="<?= get_option('furious_redirect_on_login_target', ''); ?>" placeholder="Leave blank to redirect to the homepage">
 		<p class="small-note">Relative URLs are accepted (e.g. "/blog"). Leave blank to redirect to the homepage.</p>
+<?php
+	}
+
+	function hide_login_form_callback() {
+?>
+		<input type="checkbox" name="furious_hide_login_form" id="furious_hide_login_form" value="1" <?php checked(get_option('furious_hide_login_form')); ?> > <label for="furious_hide_login_form">Hide the standard username/password form on the WordPress login page. Useful if you want to enforce SSO via a different plugin.</label>
+		<p class="small-note">To override this setting and show the form, load your wp-login URL with the "showloginform" paramater (e.g. "<?= wp_login_url();?>?showloginform")</p>
 <?php
 	}
 

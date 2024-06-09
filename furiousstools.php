@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20240322
+	Version:      1.0.20240609
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
 	License URI:  https://creativecommons.org/publicdomain/zero/1.0/
@@ -59,6 +59,10 @@
 			if (get_option('furious_redirect_on_login')) {
 				add_filter('login_redirect', [$this, 'custom_login_redirect']);
 			}
+
+			if (get_option('furious_hide_login_form')) {
+				add_action('login_enqueue_scripts', [$this, 'hide_login_form']);
+			}
 		}
 
 		function action_wp_head_finished() {
@@ -83,6 +87,18 @@
 				return $target;
 			} else {
 				return home_url();
+			}
+		}
+
+		function hide_login_form() {
+			if (!isset($_GET["showloginform"])) {
+?>
+			<style type="text/css">
+				#loginform h3.galogin-or, #loginform p:not(.galogin), #loginform div.user-pass-wrap, #login p#nav {
+            		display: none;
+        		}
+			</style>
+<?php
 			}
 		}
 
