@@ -20,47 +20,61 @@
 				$this->cleanup_wp_crud();
 			endif;
 
-			if (get_option('furious_bypass_http_validate_url')) { // No callback really needed for this setting, we'll just set it directly
+			$options = get_options([
+				'furious_bypass_http_validate_url',
+				'furious_latest_jquery',
+				'furious_remove_jquery_migrate',
+				'furious_track_user_last_login',
+				'furious_search_slug',
+				'furious_custom_readmore_enabled',
+				'furious_custom_radmore_text',
+				'furious_remove_att_width',
+				'furious_random_tagline_enabled',
+				'furious_redirect_on_login',
+				'furious_hide_login_form',
+			]);
+
+			if ($options['furious_bypass_http_validate_url']) { // No callback really needed for this setting, we'll just set it directly
 				add_filter('http_request_host_is_external', '__return_true');
 			}
 
-			if (get_option('furious_latest_jquery')) {
+			if ($options['furious_latest_jquery']) {
 				add_action('wp_enqueue_scripts', [$this, 'update_jquery']);
 			}
 			
-			if (get_option('furious_remove_jquery_migrate')) {
+			if ($options['furious_remove_jquery_migrate']) {
 				add_action('wp_default_scripts', [$this, 'remove_jquery_migrate']);
 			}
 
-			if (get_option('furious_track_user_last_login')) {
+			if ($options['furious_track_user_last_login']) {
 				add_action('wp_login', [$this, 'update_last_login_timestamp'], 10, 2);
 				add_action('user_register', [$this, 'set_default_last_login_timestamp']);
 			}
 
-			if (get_option('furious_search_slug')) {
+			if ($options['furious_search_slug']) {
 				add_action('template_redirect', [$this, 'search_url_rewrite_rule']);
 			}
 
-			if (get_option('furious_custom_readmore_enabled')) {
-				$this->custom_readmore_text = get_option('furious_custom_readmore_text', '&ellip;');
+			if ($options['furious_custom_readmore_enabled']) {
+				$this->custom_readmore_text = $options['furious_custom_readmore_text'] ?? '&ellip;';
 				add_filter('excerpt_more', [$this, 'new_excerpt_more']);
 			}
 
-			if (get_option('furious_remove_att_width')) {
+			if ($options['furious_remove_att_width']) {
 				add_filter('img_caption_shortcode_width', [$this, 'img_caption_shortcode_width'], 10, 3);
 			}
 
-			if (get_option('furious_random_tagline_enabled')) {
+			if ($options['furious_random_tagline_enabled']) {
 				add_action('wp_head', [ $this, 'action_wp_head_finished'], PHP_INT_MAX);
 				add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
 				add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
 			}
 
-			if (get_option('furious_redirect_on_login')) {
+			if ($options['furious_redirect_on_login']) {
 				add_filter('login_redirect', [$this, 'custom_login_redirect']);
 			}
 
-			if (is_login() && get_option('furious_hide_login_form')) {
+			if (is_login() && $options['furious_hide_login_form']) {
 				add_action('login_enqueue_scripts', [$this, 'hide_login_form']);
 			}
 		}
