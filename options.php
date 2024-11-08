@@ -43,7 +43,7 @@ class Furious_Tools_Settings {
 
 	public function furious_tools_page_init() {
 		$plugin_settings = array(
-			// setting_id, setting_name, section
+			// setting_id, setting_type, setting_name, section
 			[ 'cleanup_wp_crud', 'boolean', 'Cleanup WordPress crud', 'head' ],
 			[ 'add_custom_crud', 'boolean', 'Add custom crud', 'head' ],
 			[ 'custom_crud', 'string', 'Custom crud to add', 'head' ],
@@ -61,6 +61,7 @@ class Furious_Tools_Settings {
 			[ 'redirect_on_login', 'boolean', 'Redirect users to a page other than the WP Admin console when they log in', 'redirect_on_login' ],
 			[ 'redirect_on_login_target', 'string', 'Redirect to this page', 'redirect_on_login' ],
 			[ 'hide_login_form', 'boolean', 'Hide the WordPress username/password login', 'hide_login_form' ],
+			[ 'hide_admin_bar', 'array', 'Hide the WP Admin Bar for the following roles', 'hide_admin_bar' ],
 			[ 'random_tagline_enabled', 'boolean', 'Pick a random tagline each time a page is loaded', 'random_tagline' ],
 			[ 'random_tagline_list', 'array', 'List of random taglines', 'random_tagline' ]
 		);
@@ -80,6 +81,12 @@ class Furious_Tools_Settings {
 		add_settings_section(
 			'furious_tools_hide_login_form_section', // id
 			'Hide Login Form', // title
+			null, // callback
+			'furious-tools' // page
+		);
+		add_settings_section(
+			'furious_tools_hide_admin_bar_section', // id
+			'Hide Admin Bar', // title
 			null, // callback
 			'furious-tools' // page
 		);
@@ -106,10 +113,11 @@ class Furious_Tools_Settings {
 			register_setting(
 				'furious-tools', // option_group
 				'furious_' . $setting[0], // option_name
-				array(
+				[
 					'type' => $setting[1],
-				)
+				]
 			);
+
 			add_settings_field(
 				'furious_' . $setting[0], // id
 				$setting[2], // title
@@ -260,6 +268,23 @@ class Furious_Tools_Settings {
 		<input class="regular-text" type="text" name="furious_redirect_on_login_target" id="furious_redirect_on_login_target" value="<?= get_option('furious_redirect_on_login_target', ''); ?>" placeholder="Leave blank to redirect to the homepage">
 		<p class="small-note">Relative URLs are accepted (e.g. "/blog"). Leave blank to redirect to the homepage.</p>
 <?php
+	}
+
+	function hide_admin_bar_callback() {
+		global $wp_roles;
+		$roles = $wp_roles->get_names();
+
+		$hide_bar_for_roles = wp_parse_args(get_option('furious_hide_admin_bar', []));
+		foreach ($roles as $role=>$name) {
+?>
+		<div>
+			<label>
+				<input type="checkbox" name="furious_hide_admin_bar[]" id="<?= $role; ?>" value="<?= $role; ?>" <?php checked(in_array($role, $hide_bar_for_roles)); ?>>
+				<?= $name; ?>
+			</label>
+		</div>
+<?php
+		}
 	}
 
 	function hide_login_form_callback() {

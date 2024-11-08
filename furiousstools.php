@@ -2,10 +2,10 @@
 	/*
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
-	Description:  This plugin does some stuff to make WordPress behave the way Furious Studios prefers.
-	Version:      1.0.20240610
+	Description:  This plugin offers an assortment of lightweight customization options used by Furious Studios.
+	Version:      1.0.20241107
 	Requires at least: 6.2
-	Tested up to: 6.5.4
+	Tested up to: 6.6.2
 	Requires PHP: 7.2
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
@@ -16,14 +16,16 @@
 	class Furious_Tools_Plugin {
 		private $custom_readmore_text;
 		private $_in_body = false;
+		private $options;
 
 		public function __construct() {
 			// Enqueue the CSS and JS files for this plugin on the front-end
-			if (! is_admin() && get_option('furious_cleanup_wp_crud')) :
+			if (!is_admin() && get_option('furious_cleanup_wp_crud')) :
 				$this->cleanup_wp_crud();
 			endif;
 
-			$options = get_options([
+			
+			$this->options = get_options([
 				'furious_bypass_http_validate_url',
 				'furious_latest_jquery',
 				'furious_remove_jquery_migrate',
@@ -35,49 +37,54 @@
 				'furious_random_tagline_enabled',
 				'furious_redirect_on_login',
 				'furious_hide_login_form',
+				'furious_hide_admin_bar'
 			]);
 
-			if ($options['furious_bypass_http_validate_url']) { // No callback really needed for this setting, we'll just set it directly
+			if ($this->options['furious_hide_admin_bar']) {
+				add_action('after_setup_theme', [$this, 'hide_admin_bar']);
+			}
+			
+			if ($this->options['furious_bypass_http_validate_url']) { // No callback really needed for this setting, we'll just set it directly
 				add_filter('http_request_host_is_external', '__return_true');
 			}
 
-			if ($options['furious_latest_jquery']) {
+			if ($this->options['furious_latest_jquery']) {
 				add_action('wp_enqueue_scripts', [$this, 'update_jquery']);
 			}
 			
-			if ($options['furious_remove_jquery_migrate']) {
+			if ($this->options['furious_remove_jquery_migrate']) {
 				add_action('wp_default_scripts', [$this, 'remove_jquery_migrate']);
 			}
 
-			if ($options['furious_track_user_last_login']) {
+			if ($this->options['furious_track_user_last_login']) {
 				add_action('wp_login', [$this, 'update_last_login_timestamp'], 10, 2);
 				add_action('user_register', [$this, 'set_default_last_login_timestamp']);
 			}
 
-			if ($options['furious_search_slug']) {
+			if ($this->options['furious_search_slug']) {
 				add_action('template_redirect', [$this, 'search_url_rewrite_rule']);
 			}
 
-			if ($options['furious_custom_readmore_enabled']) {
-				$this->custom_readmore_text = $options['furious_custom_readmore_text'] ?? '&ellip;';
+			if ($this->options['furious_custom_readmore_enabled']) {
+				$this->custom_readmore_text = $this->options['furious_custom_readmore_text'] ?? '&ellip;';
 				add_filter('excerpt_more', [$this, 'new_excerpt_more']);
 			}
 
-			if ($options['furious_remove_att_width']) {
+			if ($this->options['furious_remove_att_width']) {
 				add_filter('img_caption_shortcode_width', [$this, 'img_caption_shortcode_width'], 10, 3);
 			}
 
-			if ($options['furious_random_tagline_enabled']) {
+			if ($this->options['furious_random_tagline_enabled']) {
 				add_action('wp_head', [ $this, 'action_wp_head_finished'], PHP_INT_MAX);
 				add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
 				add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
 			}
 
-			if ($options['furious_redirect_on_login']) {
+			if ($this->options['furious_redirect_on_login']) {
 				add_filter('login_redirect', [$this, 'custom_login_redirect']);
 			}
 
-			if (is_login() && $options['furious_hide_login_form']) {
+			if (is_login() && $this->options['furious_hide_login_form']) {
 				add_action('login_enqueue_scripts', [$this, 'hide_login_form']);
 			}
 		}
@@ -116,6 +123,13 @@
         		}
 			</style>
 <?php
+			}
+		}
+
+		function hide_admin_bar() {
+			$user = wp_get_current_user();
+			if (array_intersect($user->roles,$this->options['furious_hide_admin_bar']) && !is_admin()) {
+				add_filter( 'show_admin_bar', '__return_false' );
 			}
 		}
 

@@ -7,6 +7,7 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 * __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
 * __Redirect on login__ - Option to redirect users to a page other than the WordPress Dashboard upon login
 * __Hide login form__ - Hide the username/password fields on the WordPress login page to reduce confusion when using a third-party SSO plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL.
+* __Hide admin bar__ - Hide the WordPress Admin Bar for specific roles.
 * __Randomized tagline__ - Specify a list of taglines, and a random one will be displayed each time `get_bloginfo('description')` is called
 * __Cleanup WordPress Page Header__ - Remove some irrelevant `<head>` content from most pages
 * __Add Custom Page Header__ - Ability to add `<head>` content to all pages
