@@ -254,11 +254,6 @@
 			// normalize attribute keys, lowercase
 			$atts = array_change_key_case((array)$atts, CASE_LOWER);
 
-			if (array_key_exists('pagename', $atts)) :
-				$parentpage = get_page_by_title($atts['pagename']);
-				$atts['postid'] = $parentpage->ID;
-			endif;
-
 			// Use default values if parameters not passed
 			$atts = shortcode_atts(
 				[
@@ -304,8 +299,10 @@
 					foreach ($qrychildren as $child) :
 						$link = get_page_link($child->ID);
 						$title = $child->post_title;
+						$pub_date = $child->post_date;
+						$author = get_user_by('id', $child->author);
 
-						$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></span></div><div class="byline">' . get_the_byline($child->ID) . '</div><div class="subheading">' . $AUTHOR . '</div></div>';
+						$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></span></div><div class="byline">' . $pub_date . '</div><div class="subheading">' . $author->display_name . '</div></div>';
 						// TODO: actually populate the author
 					endforeach;
 
@@ -346,7 +343,7 @@
 					$title = $child->post_title;
 					$subheading = get_post_meta($child->ID, '_content_subheading', true);
 
-					$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></div><div class="byline">' . get_the_byline($child->ID) . '</div>' . ($subheading ? '<div class="subheading">' . $subheading . '</div>' : '') . '</div>';
+					$return .= '<div class="childpage"><div><span class="title"><a href="' . $link . '">' . $title . '</a></div><div class="byline">' . $child->post_date . '</div>' . ($subheading ? '<div class="subheading">' . $subheading . '</div>' : '') . '</div>';
 				endforeach;
 
 				$return .= '</div>';
