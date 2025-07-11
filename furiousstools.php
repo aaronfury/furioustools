@@ -30,7 +30,6 @@
 				'furious_custom_radmore_text',
 				'furious_remove_att_width',
 				'furious_style_outbound_links',
-				'furious_style_outbound_links_css',
 				'furious_random_tagline_enabled',
 				'furious_redirect_on_login',
 				'furious_hide_login_form',
