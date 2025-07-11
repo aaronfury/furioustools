@@ -4,6 +4,7 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 > **__IMPORTANT__**: I believe that newer is always better. Therefore, this plugin utilizes some functions and syntax that may only be compatible with PHP 7.2 or newer. Or even newer, I don't know because I am always __running the latest version__.
 
 ## Features
+* __Style external links__ - Option to append a small icon after text that is linked to another site/domain, so users know they are leaving your site.
 * __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
 * __Redirect on login__ - Option to redirect users to a page other than the WordPress Dashboard upon login
 * __Hide login form__ - Hide the username/password fields on the WordPress login page to reduce confusion when using a third-party SSO plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL.

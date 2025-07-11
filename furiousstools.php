@@ -3,9 +3,9 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin offers an assortment of lightweight customization options used by Furious Studios.
-	Version:      1.0.20241107
+	Version:      1.0.20250711
 	Requires at least: 6.2
-	Tested up to: 6.6.2
+	Tested up to: 6.8.1
 	Requires PHP: 7.2
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
@@ -18,14 +18,9 @@
 		private $_in_body = false;
 		private $options;
 
-		public function __construct() {
-			// Enqueue the CSS and JS files for this plugin on the front-end
-			if (!is_admin() && get_option('furious_cleanup_wp_crud')) :
-				$this->cleanup_wp_crud();
-			endif;
-
-			
+		public function __construct() {			
 			$this->options = get_options([
+				'furious_cleanup_wp_crud',
 				'furious_bypass_http_validate_url',
 				'furious_latest_jquery',
 				'furious_remove_jquery_migrate',
@@ -34,11 +29,27 @@
 				'furious_custom_readmore_enabled',
 				'furious_custom_radmore_text',
 				'furious_remove_att_width',
+				'furious_style_outbound_links',
+				'furious_style_outbound_links_css',
 				'furious_random_tagline_enabled',
 				'furious_redirect_on_login',
 				'furious_hide_login_form',
 				'furious_hide_admin_bar'
 			]);
+
+			// Things to only do on the front-end
+			if (!is_admin()) {
+				if ($this->options['furious_cleanup_wp_crud']) $this->cleanup_wp_crud();
+
+				if ($this->options['furious_search_slug']) add_action('template_redirect', [$this, 'search_url_rewrite_rule']);
+
+				if ($this->options['furious_custom_readmore_enabled']) {
+					$this->custom_readmore_text = $this->options['furious_custom_readmore_text'] ?? '&ellip;';
+					add_filter('excerpt_more', [$this, 'new_excerpt_more']);
+				}
+
+				if ($this->options['furious_style_outbound_links']) add_action('wp_head', [$this, 'style_outbound_links']);
+			}
 
 			if ($this->options['furious_hide_admin_bar']) {
 				add_action('after_setup_theme', [$this, 'hide_admin_bar']);
@@ -59,15 +70,6 @@
 			if ($this->options['furious_track_user_last_login']) {
 				add_action('wp_login', [$this, 'update_last_login_timestamp'], 10, 2);
 				add_action('user_register', [$this, 'set_default_last_login_timestamp']);
-			}
-
-			if ($this->options['furious_search_slug']) {
-				add_action('template_redirect', [$this, 'search_url_rewrite_rule']);
-			}
-
-			if ($this->options['furious_custom_readmore_enabled']) {
-				$this->custom_readmore_text = $this->options['furious_custom_readmore_text'] ?? '&ellip;';
-				add_filter('excerpt_more', [$this, 'new_excerpt_more']);
 			}
 
 			if ($this->options['furious_remove_att_width']) {
@@ -115,7 +117,7 @@
 		}
 
 		function hide_login_form() {
-			if (!isset($_GET["showloginform"])) {
+			if (!isset($_GET["showloginform"])) {  // Override hiding  the login form by including the 'showloginform' parameter in the request
 ?>
 			<style type="text/css">
 				#loginform h3.galogin-or, #loginform p:not(.galogin), #loginform div.user-pass-wrap, #login p#nav {
@@ -196,6 +198,25 @@
 				}
   			}
   		}
+
+		// Style outbound links by echoing the custom style in the <head> of each page
+		function style_outbound_links() {
+?>
+			<style type="text/css">
+				.entry-content a[href]:not(:where(
+					[href^="#"],
+					[href^="javascript:"],  
+					[href^="/"]:not([href^="//"]),
+					[href*="<?= site_url();?>"],
+  				))::after {
+					content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJhIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48ZyBpZD0iYiI+PHBhdGggZD0iTTUyNi44LDY2Ni43aC0yNTMuNWMtNDEuMiwwLTYzLjksMC04NS4zLTEwLjktMTguOS05LjYtMzQtMjQuOC00My43LTQzLjctMTAuOS0yMS40LTEwLjktNDQuMS0xMC45LTg1LjR2LTI1My4zYzAtNDEuMywwLTY0LDEwLjktODUuNCw5LjYtMTguOSwyNC44LTM0LDQzLjctNDMuNywyMS40LTEwLjksNDQuMS0xMC45LDg1LjQtMTAuOWg2MGMxOC40LDAsMzMuMywxNC45LDMzLjMsMzMuM3MtMTQuOSwzMy4zLTMzLjMsMzMuM2gtNjBjLTI4LjksMC00OCwwLTU1LjEsMy42LTYuMywzLjItMTEuMyw4LjItMTQuNiwxNC42LTMuNiw3LjEtMy42LDI2LjItMy42LDU1LjF2MjUzLjNjMCwyOC45LDAsNDgsMy42LDU1LjEsMy4yLDYuMyw4LjMsMTEuNCwxNC42LDE0LjYsNy4xLDMuNiwyNi4yLDMuNiw1NSwzLjZoMjUzLjVjMjguOCwwLDQ3LjksMCw1NS0zLjYsNi4yLTMuMiwxMS40LTguNCwxNC42LTE0LjYsMy42LTcuMSwzLjYtMjYuMiwzLjYtNTV2LTYwLjFjMC0xOC40LDE0LjktMzMuMywzMy4zLTMzLjNzMzMuMywxNC45LDMzLjMsMzMuM3Y2MC4xYzAsNDEuMiwwLDYzLjktMTAuOSw4NS4zLTkuNywxOC45LTI0LjgsMzQuMS00My43LDQzLjctMjEuNCwxMC45LTQ0LjEsMTAuOS04NS4zLDEwLjlsLjEuMVpNMzk5LjksNDMzLjNjLTguNSwwLTE3LjEtMy4zLTIzLjYtOS44LTEzLTEzLTEzLTM0LjEsMC00Ny4xbDE3Ni40LTE3Ni40aC04NS41Yy0xOCwwLTMzLjYtMTQuNy0zNC0zMi42LS40LTE4LjcsMTQuNy0zNCwzMy4zLTM0aDE4My4xYzkuNCwwLDE3LDcuNywxNywxNy4xdjE4Mi4zYzAsMTgtMTQuNywzMy42LTMyLjYsMzRzLTM0LTE0LjctMzQtMzMuM3YtODYuMmwtMTc2LjQsMTc2LjRjLTYuNSw2LjUtMTUsOS44LTIzLjYsOS44bC0uMS0uMloiLz48L2c+PC9zdmc+');
+					display: inline-block;
+					width: 0.75em;
+					padding-left: 0.1em;
+				}
+			</style>
+<?php
+		}
 
 		// Logs the last login time of a user
 		function update_last_login_timestamp($user_login, $user) {

@@ -55,6 +55,7 @@ class Furious_Tools_Settings {
 			[ 'custom_readmore_text', 'string', 'Replace "Read more ..." with', 'misc' ],
 			[ 'bypass_http_validate_url', 'boolean', 'Bypass URL IP validation', 'misc' ],
 			[ 'remove_att_width', 'boolean', 'Remove hard-coded width on attachment containers in posts', 'misc' ],
+			[ 'style_outbound_links', 'boolean', 'Style outbound links with an icon', 'misc' ],
 			[ 'skip_homepage_enabled', 'boolean', 'Skip the home page', 'skip_homepage' ],
 			[ 'skip_homepage_showonce', 'boolean', 'Show the home page once', 'skip_homepage' ],
 			[ 'skip_homepage_target', 'string', 'Redirect to this page when homepage is skipped', 'skip_homepage' ],
@@ -183,7 +184,14 @@ class Furious_Tools_Settings {
 	function custom_crud_callback() {
 ?>
 		<label for="furious_custom_crud">The text below will be inserted directly into the <code>&lt;head&gt;</code> section of every page. Don't break nuffin'.</label><br />
-		<textarea name="furious_custom_crud" id="furious_custom_crud"><?php echo get_option('furious_custom_crud',''); ?></textarea>
+		<?php wp_editor(get_option('furious_custom_crud'),"furious_custom_crud", [
+			"wpautop" => false,
+			"media_buttons" => false,
+			"tinymce" => false,
+			"quicktags" => false,
+			"teeny" => true,
+			"textarea_rows" => 10
+		]); ?>
 <?php
 	}
 
@@ -235,6 +243,13 @@ class Furious_Tools_Settings {
 <?php
 	}
 
+	function style_outbound_links_callback() {
+?>
+		<input type="checkbox" name="furious_style_outbound_links" id="furious_style_outbound_links" value="1" <?php checked(get_option('furious_style_outbound_links')); ?> > <label for="furious_style_outbound_links">If a link (&lt;a&gt;) has an <em>href</em> value that links to an external website, apply specific styling to it.</label>
+		<p><cite>This option adds a trailing icon to external links. To customize your styling, use the "Additional CSS" feature of your theme instead.</cite></p>
+<?php
+	}
+
 	function skip_homepage_enabled_callback() {
 ?>
 		<input type="checkbox" name="furious_skip_homepage_enabled" id="furious_skip_homepage_enabled" value="1" <?php checked(get_option('furious_skip_homepage_enabled')); ?> > <label for="furious_skip_homepage_enabled">Uses a small cookie and Javascript to skip the home page and automatically redirect the visitor to a different page</label>
@@ -266,7 +281,7 @@ class Furious_Tools_Settings {
 	function redirect_on_login_target_callback() {
 ?>
 		<input class="regular-text" type="text" name="furious_redirect_on_login_target" id="furious_redirect_on_login_target" value="<?= get_option('furious_redirect_on_login_target', ''); ?>" placeholder="Leave blank to redirect to the homepage">
-		<p class="small-note">Relative URLs are accepted (e.g. "/blog"). Leave blank to redirect to the homepage.</p>
+		<p><cite>Relative URLs are accepted (e.g. "/blog"). Leave blank to redirect to the homepage.</cite></p>
 <?php
 	}
 
@@ -290,7 +305,7 @@ class Furious_Tools_Settings {
 	function hide_login_form_callback() {
 ?>
 		<input type="checkbox" name="furious_hide_login_form" id="furious_hide_login_form" value="1" <?php checked(get_option('furious_hide_login_form')); ?> > <label for="furious_hide_login_form">Hide the standard username/password form on the WordPress login page. Useful if you want to enforce SSO via a different plugin.</label>
-		<p class="small-note">To override this setting and show the form, load your wp-login URL with the "showloginform" paramater (e.g. "<?= wp_login_url();?>?showloginform")</p>
+		<p><cite>To override this setting and show the form, load your wp-login URL with the "showloginform" paramater (e.g. "<?= wp_login_url();?>?showloginform")</cite></p>
 <?php
 	}
 
@@ -303,7 +318,14 @@ class Furious_Tools_Settings {
 	function random_tagline_list_callback() {
 ?>
 		<label for="furious_random_tagline_list">Separate taglines with a line break (ENTER or RETURN key)</label><br />
-		<textarea name="furious_random_tagline_list" id="furious_random_tagline_list"><?= get_option('furious_random_tagline_list',''); ?></textarea>
+		<?php wp_editor(get_option('furious_random_tagline_list'),"furious_random_tagline_list", [
+			"wpautop" => false,
+			"media_buttons" => false,
+			"tinymce" => false,
+			"quicktags" => false,
+			"teeny" => true,
+			"textarea_rows" => 5
+		]); ?>
 <?php
 	}
 }
