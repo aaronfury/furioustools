@@ -21,6 +21,7 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 * __Additional shortcodes__:
 	* `[nonce]` creates a verification nonce for form submissions
 	* `[childposts]` prints or return a list of child posts for the current post or a specific post
+* __Smooth Scrolling__ - Enables CSS smooth scrolling so that clicking on a link to a an achor on the page (like #Heading1) will scroll the page instead of jumping directly to it
 
 ## childpost shortcode options
 The `[childpost]` shortcode supports the following options:

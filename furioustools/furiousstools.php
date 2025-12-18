@@ -35,5 +35,8 @@ add_action('plugins_loaded', 'furioustools_init');
 function furioustools_init() {
 	new FuriousTools\Settings(); // The Settings class registers the options, so it should be loaded first
 	new FuriousTools\Plugin();
+	if (preg_grep('/^furious_(?!tools)/',(wp_load_alloptions())) > 0) {
+		new FuriousTools\Migrator();
+	}
 }
 ?>
