@@ -1,0 +1,16 @@
+{
+  "name": "furioustools-settings",
+  "version": "1.0.0",
+  "description": "React-based settings page for the Furious Tools plugin",
+  "license": "CC0-1.0",
+  "author": "Aaron Firouz",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^31.1.0"
+  }
+}

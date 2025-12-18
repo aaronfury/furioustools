@@ -1,0 +1,14 @@
+#furious-tools-settings-root {
+	max-width: 900px;
+
+	input[type="text"], textarea {
+		max-width: 50%;
+	}
+	.components-base-control + .components-base-control {
+		margin-top: 16px;
+	}
+
+	.left-indent {
+		margin-left: 24px;
+	}
+}
