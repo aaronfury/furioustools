@@ -226,6 +226,7 @@ const useSettings = () => {
             setIsDirty(false);
 
 			createSuccessNotice( 'Settings saved successfully.', { type: 'snackbar' } );
+
 		} ).catch( () => {
 			createErrorNotice( 'Error saving settings.', { type: 'snackbar' } );
 		} );

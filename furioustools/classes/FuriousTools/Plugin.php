@@ -208,7 +208,7 @@ class Plugin {
 	function style_outbound_links() {
 ?>
 		<style type="text/css">
-			.entry-content a[href]:not(:where(
+			<?= $this->options['style_outbound_links_only_in_content'] ? '.entry-content ' : null ?> a[href]:not(:where(
 				[href^="#"],
 				[href^="javascript:"],  
 				[href^="/"]:not([href^="//"]),

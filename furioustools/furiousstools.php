@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin offers an assortment of lightweight customization options used by Furious Studios.
-	Version:      1.0.20251218
+	Version:      1.0.20251226
 	Requires at least: 6.2
 	Tested up to: 6.9
 	Requires PHP: 7.2
@@ -35,8 +35,13 @@ add_action('plugins_loaded', 'furioustools_init');
 function furioustools_init() {
 	new FuriousTools\Settings(); // The Settings class registers the options, so it should be loaded first
 	new FuriousTools\Plugin();
-	if (preg_grep('/^furious_(?!tools)/',(wp_load_alloptions())) > 0) {
+	if ( !empty( preg_grep_keys( '/^furious_(?!tools)/',wp_load_alloptions() ) ) ) {
 		new FuriousTools\Migrator();
 	}
 }
+
+function preg_grep_keys($pattern, $input, $flags = 0) {
+    return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input), $flags)));
+}
+
 ?>

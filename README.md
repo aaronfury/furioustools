@@ -10,10 +10,10 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 * __Hide login form__ - Hide the username/password fields on the WordPress login page to reduce confusion when using a third-party SSO plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL.
 * __Hide admin bar__ - Hide the WordPress Admin Bar for specific roles.
 * __Randomized tagline__ - Specify a list of taglines, and a random one will be displayed each time `get_bloginfo('description')` is called
-* __Cleanup WordPress Page Header__ - Remove some irrelevant `<head>` content from most pages
+* __Cleanup WordPress Page Header__ - Remove some irrelevant `<head>` content from most pages, like wp-emoji styling. But also removes RSS feed info, sooooo...
 * __Add Custom Page Header__ - Ability to add `<head>` content to all pages
 * __Track Last User Login__ - Record the last login timestamp for each user and display it in the Users list
-* __Use latest jQuery version__ - Loads the latest jQuery version (currently 3.7.0) instead of the one included with WordPress
+* __Use latest jQuery version__ - Loads the latest jQuery version (currently 3.7.1) instead of the one included with WordPress
 * __Show search results under a slug__ - The search results page will be shown at "site.com/_search_/terms
 * __Custom text for "Read more..." link__ - Specify custom content to display at the end of excerpts for linking to the full post
 * __Bypass HTTP URL Validation__ - Disables the built-in check that HTTP requests are not originating from the local server.
