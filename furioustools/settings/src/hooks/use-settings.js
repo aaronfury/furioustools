@@ -20,12 +20,12 @@ const useSettings = () => {
 	const [snapScrolling, setSnapScrolling] = useState(false);
 	const [snapScrollingForceFullPages, setSnapScrollingForceFullPages] = useState(false);
 	const [smoothScrolling, setSmoothScrolling] = useState(false);
-	const [skipHomepageEnabled, setSkipHomepageEnabled] = useState(false);
+	const [skipHomepage, setSkipHomepage] = useState(false);
 	const [skipHomepageShowonce, setSkipHomepageShowonce] = useState(false);
 	const [skipHomepageTarget, setSkipHomepageTarget] = useState('');
 	const [hideLoginForm, setHideLoginForm] = useState(false);
 	const [hideAdminBar, setHideAdminBar] = useState(false);
-	const [randomTaglineEnabled, setRandomTaglineEnabled] = useState(false);
+	const [randomTagline, setRandomTagline] = useState(false);
 	const [randomTaglineList, setRandomTaglineList] = useState('');
 	const [redirectOnLogin, setRedirectOnLogin] = useState(false);
 	const [redirectOnLoginTarget, setRedirectOnLoginTarget] = useState('');
@@ -53,12 +53,12 @@ const useSettings = () => {
 			setSnapScrolling( settings.furious_tools.snap_scrolling || false );
 			setSnapScrollingForceFullPages( settings.furious_tools.snap_scrolling_force_full_pages || false );
 			setSmoothScrolling( settings.furious_tools.smooth_scrolling || false );
-			setSkipHomepageEnabled( settings.furious_tools.skip_homepage_enabled || false );
+			setSkipHomepage( settings.furious_tools.skip_homepage || false );
 			setSkipHomepageShowonce( settings.furious_tools.skip_homepage_showonce || false );
 			setSkipHomepageTarget( settings.furious_tools.skip_homepage_target || '' );
 			setHideLoginForm( settings.furious_tools.hide_login_form || false );
 			setHideAdminBar( settings.furious_tools.hide_admin_bar || false );
-			setRandomTaglineEnabled( settings.furious_tools.random_tagline_enabled || false );
+			setRandomTagline( settings.furious_tools.random_tagline || false );
 			setRandomTaglineList( settings.furious_tools.random_tagline_list || '' );
 			setRedirectOnLogin( settings.furious_tools.redirect_on_login || false );
 			setRedirectOnLoginTarget( settings.furious_tools.redirect_on_login_target || '' );
@@ -116,12 +116,12 @@ const useSettings = () => {
             snap_scrolling: snapScrolling,
 			snap_scrolling_force_full_pages: snapScrollingForceFullPages,
             smooth_scrolling: smoothScrolling,
-            skip_homepage: skipHomepageEnabled,
+            skip_homepage: skipHomepage,
             skip_homepage_showonce: skipHomepageShowonce,
             skip_homepage_target: skipHomepageTarget,
             hide_login_form: hideLoginForm,
             hide_admin_bar: hideAdminBar,
-            random_tagline: randomTaglineEnabled,
+            random_tagline: randomTagline,
             random_tagline_list: randomTaglineList,
             redirect_on_login: redirectOnLogin,
             redirect_on_login_target: redirectOnLoginTarget,
@@ -147,12 +147,12 @@ const useSettings = () => {
         snapScrolling,
 		snapScrollingForceFullPages,
         smoothScrolling,
-        skipHomepageEnabled,
+        skipHomepage,
         skipHomepageShowonce,
         skipHomepageTarget,
         hideLoginForm,
         hideAdminBar,
-        randomTaglineEnabled,
+        randomTagline,
         randomTaglineList,
         redirectOnLogin,
         redirectOnLoginTarget
@@ -182,12 +182,12 @@ const useSettings = () => {
 					snap_scrolling: snapScrolling,
 					snap_scrolling_force_full_pages: snapScrollingForceFullPages,
 					smooth_scrolling: smoothScrolling,
-					skip_homepage: skipHomepageEnabled,
+					skip_homepage: skipHomepage,
 					skip_homepage_showonce: skipHomepageShowonce,
 					skip_homepage_target: skipHomepageTarget,
 					hide_login_form: hideLoginForm,
 					hide_admin_bar: hideAdminBar,
-					random_tagline: randomTaglineEnabled,
+					random_tagline: randomTagline,
 					random_tagline_list: randomTaglineList,
 					redirect_on_login: redirectOnLogin,
 					redirect_on_login_target: redirectOnLoginTarget
@@ -212,12 +212,12 @@ const useSettings = () => {
                     snap_scrolling: snapScrolling,
 					snap_scrolling_force_full_pages: snapScrollingForceFullPages,
                     smooth_scrolling: smoothScrolling,
-                    skip_homepage: skipHomepageEnabled,
+                    skip_homepage: skipHomepage,
                     skip_homepage_showonce: skipHomepageShowonce,
                     skip_homepage_target: skipHomepageTarget,
                     hide_login_form: hideLoginForm,
                     hide_admin_bar: hideAdminBar,
-                    random_tagline: randomTaglineEnabled,
+                    random_tagline: randomTagline,
                     random_tagline_list: randomTaglineList,
                     redirect_on_login: redirectOnLogin,
                     redirect_on_login_target: redirectOnLoginTarget,
@@ -265,8 +265,8 @@ const useSettings = () => {
 		setSnapScrollingForceFullPages,
 		smoothScrolling,
 		setSmoothScrolling,
-		skipHomepageEnabled,
-		setSkipHomepageEnabled,
+		skipHomepage,
+		setSkipHomepage,
 		skipHomepageShowonce,
 		setSkipHomepageShowonce,
 		skipHomepageTarget,
@@ -279,8 +279,8 @@ const useSettings = () => {
 		setHideLoginForm,
 		hideAdminBar,
 		setHideAdminBar,
-		randomTaglineEnabled,
-		setRandomTaglineEnabled,
+		randomTagline,
+		setRandomTagline,
 		randomTaglineList,
 		setRandomTaglineList,
 		saveSettings,

@@ -43,8 +43,12 @@ const SettingsPage = () => {
 		setSnapScrollingForceFullPages,
 		smoothScrolling,
 		setSmoothScrolling,
-		skipHomepageEnabled,
-		setSkipHomepageEnabled,
+		randomTagline,
+		setRandomTagline,
+		randomTaglineList,
+		setRandomTaglineList,
+		skipHomepage,
+		setSkipHomepage,
 		skipHomepageShowonce,
 		setSkipHomepageShowonce,
 		skipHomepageTarget,
@@ -240,19 +244,39 @@ const SettingsPage = () => {
 							help="Enables smooth scrolling behavior for anchor links and general page scrolling."
 							__nextHasNoMarginBottom
 						/>
-						</CardBody>
+						<CheckboxControl
+							label="Enable Random Tagline"
+							//checked={ randomTagline }
+							checked= {false}
+							disabled
+							onChange={ ( value ) => setRandomTagline( value ) }
+							help="(Not working, needs fixing.) Replaces the default site tagline with a random tagline from your custom list on each page load."
+							__nextHasNoMarginBottom
+						/>
+						{ randomTagline && (
+							<TextareaControl
+								label="Random Tagline List"
+								value={ randomTaglineList }
+								onChange={ ( value ) => setRandomTaglineList( value ) }
+								help="Enter one tagline per line. These will be randomly selected and displayed as the site tagline."
+								__nextHasNoMarginBottom
+								__next40pxDefaultSize
+								className='left-indent'
+							/>
+						) }
+					</CardBody>
 				</Card>
 				<Card>
 					<CardHeader>Skip Homepage Settings</CardHeader>
 					<CardBody>
 						<CheckboxControl
 							label="Enable Skip Homepage"
-							checked={ skipHomepageEnabled }
-							onChange={ ( value ) => setSkipHomepageEnabled( value ) }
+							checked={ skipHomepage }
+							onChange={ ( value ) => setSkipHomepage( value ) }
 							help="Uses a small cookie and Javascript to skip the home page and automatically redirect the visitor to a different page"
 							__nextHasNoMarginBottom
 						/>
-						{ skipHomepageEnabled && (
+						{ skipHomepage && (
 							<>
 								<CheckboxControl
 									label="Show Homepage Only Once"

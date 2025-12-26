@@ -97,12 +97,13 @@ class Plugin {
 	}
 
 	function get_random_tagline($name, $show = null) {
-		if ('description' == $show && $this->_in_body) {
-			$taglines = explode(PHP_EOL, $this->options['random_tagline_list'], get_bloginfo('description'));
+		//TODO: Make this work and set a conditional for block themes, where wp_head and wp_footer don't really exist
+		//if ('description' == $show && $this->_in_body) {
+			$taglines = explode(PHP_EOL, $this->options['random_tagline_list']);
 			return $taglines[array_rand($taglines)];
-		} else {
+		//} else {
 			return $name;
-		}
+		//}
 	}
 
 	function custom_login_redirect() {
