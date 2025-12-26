@@ -1,1 +1,10 @@
-// COMING EVENTUALLY!
+<?php
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+    die;
+}
+
+$option_name = 'furious_tools';
+
+delete_option( $option_name );
+
+?>
