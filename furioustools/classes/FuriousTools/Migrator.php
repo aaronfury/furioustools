@@ -61,13 +61,19 @@ class Migrator {
 	}
 
 	public function migrate_options() {
+		$log = [];
+
 		foreach ($this->options_map as $old_key => $new_key) {
 			if (isset($this->old_options[$old_key]) && (!empty($this->old_options[$old_key]))) {
 				$this->new_options[$new_key] = $this->old_options[$old_key];
+				$log[] = "Migrated option \'$old_key\' to \'$new_key\' with value \'{$this->old_options[$old_key]}\'.";
 			}
 		}
 
 		update_option('furious_tools', $this->new_options);
+		if (!empty($log)) {
+			echo "<script>console.log('Furious Tools Migration Log:\\n" . implode("\\n", $log) . "');</script>";
+		}
 
 		$this->cleanup_old_options();
 	}
