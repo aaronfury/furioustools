@@ -1,8 +1,6 @@
 <?php
 namespace FuriousTools;
 
-use WP_REST_Request;
-
 class Plugin {
 	private $custom_readmore_text;
 	private $_in_body = false;
@@ -28,7 +26,7 @@ class Plugin {
 
 		// Enqueue the actions on the home page only
 		if ($this->options['skip_homepage']) {
-			add_action('parse_query', [$this, 'load_skiphomepage']);
+			add_action('template_redirect', [$this, 'load_skiphomepage']);
 		}
 
 		if ($this->options['style_outbound_links']) add_action('wp_head', [$this, 'style_outbound_links']);
@@ -138,9 +136,9 @@ class Plugin {
 		// Script must be loaded on every page because of the "override" to remove the cookie if the home page is accessed from a link
 		add_action('wp_enqueue_scripts', [$this, 'load_skiphomepage_scripts']);
 
-		// Neither is_home() nor is_front_page() seem to provide the behavior we need. So we use this condition instead.
-		if (('page' == get_option('show_on_front')) && (get_option('page_on_front') == $query->query_vars['page_id'])) :
-			add_action('wp_head', [$this, 'load_skiphomepage_redirect']);
+		if ( is_home() ):
+			//add_action('wp_head', [$this, 'load_skiphomepage_redirect']);
+			$this->load_skiphomepage_redirect();
 		endif;
 	}
 
@@ -149,16 +147,38 @@ class Plugin {
 
 		wp_register_script('js-cookie', "//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js", [], null, true );
 		wp_enqueue_script('js-cookie');
-		wp_register_script('skiphomepage', plugins_url('js/plugin.js', __FILE__), array('js-cookie'), null, true);
+		wp_register_script('skiphomepage', plugins_url('furioustools/js/plugin.js', ), array('js-cookie'), null, true);
 		wp_enqueue_script('skiphomepage');
 		// Appends the homepage URL as a variable to the script, so that the script can use it for comparison
 		wp_add_inline_script('skiphomepage', $scriptvars, 'before');
 	}
 
 	function load_skiphomepage_redirect() {
-		if (!($this->options['skip_homepage_showonce']) || isset($_COOKIE['skiphomepage']) && $_COOKIE['skiphomepage']) :
-			$redirectpage = get_page_link($this->options['skip_homepage_target']);
-			echo '<meta http-equiv="refresh" content="0;url=' . $redirectpage . '" />';
+		// If the option is enabled, always set the cookie on the homepage
+		setcookie(
+			'skiphomepage',
+			true,
+			time() + 25920000, // 30 days
+			COOKIEPATH,
+			COOKIE_DOMAIN,
+			is_ssl(),
+			false
+		);
+
+		// Redirect if show once is not enabled, or if it is enabled and the cookie is already set
+		if (!$this->options['skip_homepage_showonce'] || $this->options['skip_homepage_showonce'] && isset($_COOKIE['skiphomepage'])) :
+
+			// TODO: Move this logic into the save function of the setting so that it doesn't have to do this every time
+			$redirect_target = parse_url($this->options['skip_homepage_target']);
+			if (isset($redirect_target['host'])) :
+				$redirectpage = ($redirect_target['scheme'] ?? 'http') . '://' . $this->options['skip_homepage_target'];
+			else :
+				$redirectpage = site_url($this->options['skip_homepage_target']);
+			endif;
+
+			//echo '<meta http-equiv="refresh" content="0;url=' . $redirectpage . '" />';
+			
+			wp_redirect( $redirectpage, 302, 'Furious Tools');
 			exit;
 		endif;
 	}
