@@ -12,6 +12,10 @@ class Plugin {
 
 		$this->options = get_option( 'furious_tools', Settings::$defaults );
 
+		if ($this->options['cleanup_wp_crud']) {
+			add_action('init', [$this, 'cleanup_wp_crud']);
+		}
+
 		// Add custom <head> content
 		if ($this->options['add_custom_crud']) {
 			add_action('wp_head', [$this, 'add_head_content']);
@@ -57,9 +61,16 @@ class Plugin {
 		}
 
 		if ($this->options['random_tagline']) {
-			add_action('wp_head', [ $this, 'action_wp_head_finished'], PHP_INT_MAX);
-			add_action('wp_footer', [ $this, 'action_wp_footer_started'], 0);
+			add_action('wp_head', function() {
+				$this->_in_body = true;
+			});
+			add_action('wp_footer', function() {
+				$this->_in_body = false;
+			});
 			add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
+			add_filter('render_block_core/site-tagline', function($block_content) {
+				return $this->get_random_tagline('block', 'description') ?: "Ass nuggets!";
+			});
 		}
 
 		if ($this->options['redirect_on_login']) {
@@ -87,21 +98,13 @@ class Plugin {
 		}
 	}
 
-	function action_wp_head_finished() {
-		$this->_in_body = true;
-	}
-	function action_wp_footer_started() {
-		$this->_in_body = false;
-	}
-
 	function get_random_tagline($name, $show = null) {
-		//TODO: Make this work and set a conditional for block themes, where wp_head and wp_footer don't really exist
-		//if ('description' == $show && $this->_in_body) {
-			$taglines = explode(PHP_EOL, $this->options['random_tagline_list']);
-			return $taglines[array_rand($taglines)];
-		//} else {
-			return $name;
-		//}
+		if ('description' == $show) {
+			if ('block' == $name || ($this->options['random_tagline_body_only'] && $this->_in_body)) {
+				$taglines = explode(PHP_EOL, $this->options['random_tagline_list']);
+				return $taglines[array_rand($taglines)];
+			}
+		}
 	}
 
 	function custom_login_redirect() {
@@ -136,10 +139,10 @@ class Plugin {
 		// Script must be loaded on every page because of the "override" to remove the cookie if the home page is accessed from a link
 		add_action('wp_enqueue_scripts', [$this, 'load_skiphomepage_scripts']);
 
-		if ( is_home() ):
+		if ( is_home() ) {
 			//add_action('wp_head', [$this, 'load_skiphomepage_redirect']);
 			$this->load_skiphomepage_redirect();
-		endif;
+		};
 	}
 
 	function load_skiphomepage_scripts() {
@@ -166,39 +169,58 @@ class Plugin {
 		);
 
 		// Redirect if show once is not enabled, or if it is enabled and the cookie is already set
-		if (!$this->options['skip_homepage_showonce'] || $this->options['skip_homepage_showonce'] && isset($_COOKIE['skiphomepage'])) :
-
+		if (!$this->options['skip_homepage_showonce'] || $this->options['skip_homepage_showonce'] && isset($_COOKIE['skiphomepage'])) {
 			// TODO: Move this logic into the save function of the setting so that it doesn't have to do this every time
 			$redirect_target = parse_url($this->options['skip_homepage_target']);
-			if (isset($redirect_target['host'])) :
+			if (isset($redirect_target['host'])) {
 				$redirectpage = ($redirect_target['scheme'] ?? 'http') . '://' . $this->options['skip_homepage_target'];
-			else :
+			} else {
 				$redirectpage = site_url($this->options['skip_homepage_target']);
-			endif;
-
-			//echo '<meta http-equiv="refresh" content="0;url=' . $redirectpage . '" />';
+			}
 			
 			wp_redirect( $redirectpage, 302, 'Furious Tools');
 			exit;
-		endif;
+		}
 	}
 	
 	function cleanup_wp_crud() {
 		// Remove the WP Emoji stuff
-		remove_action('wp_head', 'print_emoji_detection_script', 7); 
-		remove_action('admin_print_scripts', 'print_emoji_detection_script'); 
-		remove_action('wp_print_styles', 'print_emoji_styles'); 
-		remove_action('admin_print_styles', 'print_emoji_styles');
-		remove_filter('the_content_feed', 'wp_staticize_emoji');
-		remove_filter('comment_text_rss', 'wp_staticize_emoji'); 
-		remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-		// Additional header cleanup
-		remove_action('wp_head', 'rsd_link');
-		remove_action('wp_head', 'wlwmanifest_link');
-		remove_action('wp_head', 'wp_generator');
-		remove_action('wp_head', 'wp_shortlink_wp_head');
-		remove_action('wp_head', 'feed_links', 2);
-		remove_action('wp_head', 'feed_links_extra', 3);
+		$crud_items = [
+			'wp_head' => [
+				'print_emoji_detection_script',
+				'rsd_link',
+				'wlwmanifest_link',
+				'wp_generator',
+				'wp_shortlink_wp_head',
+				'feed_links',
+				'feed_links_extra'
+			],
+			'admin_print_scripts' => [
+				'print_emoji_detection_script'
+			],
+			'wp_print_styles' => [
+				'print_emoji_styles'
+			],
+			'admin_print_styles' => [
+				'print_emoji_styles'
+			],
+			'the_content_feed' => [
+				'wp_staticize_emoji'
+			],
+			'comment_text_rss' => [
+				'wp_staticize_emoji'
+			],
+			'wp_mail' => [
+				'wp_staticize_emoji_for_email'
+			]
+		];
+
+		foreach ($crud_items as $hook => $functions) {
+			foreach ($functions as $function) {
+				$priority = has_action($hook, $function) ?? null;
+				remove_action($hook, $function, $priority);
+			}
+		}
 	}
 
 	function add_head_content() {

@@ -26,6 +26,7 @@ const useSettings = () => {
 	const [hideLoginForm, setHideLoginForm] = useState(false);
 	const [hideAdminBar, setHideAdminBar] = useState(false);
 	const [randomTagline, setRandomTagline] = useState(false);
+	const [randomTaglineBodyOnly, setRandomTaglineBodyOnly] = useState(true);
 	const [randomTaglineList, setRandomTaglineList] = useState('');
 	const [redirectOnLogin, setRedirectOnLogin] = useState(false);
 	const [redirectOnLoginTarget, setRedirectOnLoginTarget] = useState('');
@@ -59,6 +60,7 @@ const useSettings = () => {
 			setHideLoginForm( settings.furious_tools.hide_login_form || false );
 			setHideAdminBar( settings.furious_tools.hide_admin_bar || false );
 			setRandomTagline( settings.furious_tools.random_tagline || false );
+			setRandomTaglineBodyOnly( settings.furious_tools.random_tagline_body_only || true );
 			setRandomTaglineList( settings.furious_tools.random_tagline_list || '' );
 			setRedirectOnLogin( settings.furious_tools.redirect_on_login || false );
 			setRedirectOnLoginTarget( settings.furious_tools.redirect_on_login_target || '' );
@@ -87,6 +89,7 @@ const useSettings = () => {
 				hide_login_form: settings.furious_tools.hide_login_form || false,
 				hide_admin_bar: settings.furious_tools.hide_admin_bar || false,
 				random_tagline: settings.furious_tools.random_tagline || false,
+				random_tagline_body_only: settings.furious_tools.random_tagline_body_only || true,
 				random_tagline_list: settings.furious_tools.random_tagline_list || '',
 				redirect_on_login: settings.furious_tools.redirect_on_login || false,
 				redirect_on_login_target: settings.furious_tools.redirect_on_login_target || '',
@@ -122,6 +125,7 @@ const useSettings = () => {
             hide_login_form: hideLoginForm,
             hide_admin_bar: hideAdminBar,
             random_tagline: randomTagline,
+			random_tagline_body_only: randomTaglineBodyOnly,
             random_tagline_list: randomTaglineList,
             redirect_on_login: redirectOnLogin,
             redirect_on_login_target: redirectOnLoginTarget,
@@ -153,6 +157,7 @@ const useSettings = () => {
         hideLoginForm,
         hideAdminBar,
         randomTagline,
+		randomTaglineBodyOnly,
         randomTaglineList,
         redirectOnLogin,
         redirectOnLoginTarget
@@ -188,6 +193,7 @@ const useSettings = () => {
 					hide_login_form: hideLoginForm,
 					hide_admin_bar: hideAdminBar,
 					random_tagline: randomTagline,
+					random_tagline_body_only: randomTaglineBodyOnly,
 					random_tagline_list: randomTaglineList,
 					redirect_on_login: redirectOnLogin,
 					redirect_on_login_target: redirectOnLoginTarget
@@ -218,6 +224,7 @@ const useSettings = () => {
                     hide_login_form: hideLoginForm,
                     hide_admin_bar: hideAdminBar,
                     random_tagline: randomTagline,
+                    random_tagline_body_only: randomTaglineBodyOnly,
                     random_tagline_list: randomTaglineList,
                     redirect_on_login: redirectOnLogin,
                     redirect_on_login_target: redirectOnLoginTarget,
@@ -281,6 +288,8 @@ const useSettings = () => {
 		setHideAdminBar,
 		randomTagline,
 		setRandomTagline,
+		randomTaglineBodyOnly,
+		setRandomTaglineBodyOnly,
 		randomTaglineList,
 		setRandomTaglineList,
 		saveSettings,

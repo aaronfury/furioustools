@@ -45,6 +45,8 @@ const SettingsPage = () => {
 		setSmoothScrolling,
 		randomTagline,
 		setRandomTagline,
+		randomTaglineBodyOnly,
+		setRandomTaglineBodyOnly,
 		randomTaglineList,
 		setRandomTaglineList,
 		skipHomepage,
@@ -246,13 +248,21 @@ const SettingsPage = () => {
 						/>
 						<CheckboxControl
 							label="Enable Random Tagline"
-							//checked={ randomTagline }
-							checked= {false}
-							disabled
+							checked={ randomTagline }
 							onChange={ ( value ) => setRandomTagline( value ) }
-							help="(Not working, needs fixing.) Replaces the default site tagline with a random tagline from your custom list on each page load."
+							help="Replaces the default site tagline with a random tagline from your custom list on each page load."
 							__nextHasNoMarginBottom
 						/>
+						{ randomTagline && (
+							<CheckboxControl
+								label="Random Tagline in HTML Body Only"
+								checked={ randomTaglineBodyOnly }
+								onChange={ ( value ) => setRandomTaglineBodyOnly( value ) }
+								help="Only replace the tagline in the body of the site, not in the <head> section. It is recommended to enable this to avoid SEO issues."
+								__nextHasNoMarginBottom
+								className='left-indent'
+							/>
+						) }
 						{ randomTagline && (
 							<TextareaControl
 								label="Random Tagline List"

@@ -5,7 +5,7 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 
 ## Features
 * __Style external links__ - Option to append a small icon after text that is linked to another site/domain, so users know they are leaving your site.
-* __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits
+* __Skip the home page__ - Options to show the home page only once (or never), and redirect to a different page on subsequent visits. Requires Javascript to work best (i.e. if the user clicks a link to the homepage somewhere on the site, JS removes the cookie so that they won't automatically be redirected on that click.)
 * __Redirect on login__ - Option to redirect users to a page other than the WordPress Dashboard upon login
 * __Hide login form__ - Hide the username/password fields on the WordPress login page to reduce confusion when using a third-party SSO plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL.
 * __Hide admin bar__ - Hide the WordPress Admin Bar for specific roles.
