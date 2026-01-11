@@ -139,8 +139,7 @@ class Plugin {
 		// Script must be loaded on every page because of the "override" to remove the cookie if the home page is accessed from a link
 		add_action('wp_enqueue_scripts', [$this, 'load_skiphomepage_scripts']);
 
-		if ( is_home() ) {
-			//add_action('wp_head', [$this, 'load_skiphomepage_redirect']);
+		if ( is_front_page() ) {
 			$this->load_skiphomepage_redirect();
 		};
 	}
