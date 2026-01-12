@@ -11,4 +11,13 @@
 	.left-indent {
 		margin-left: 24px;
 	}
+
+	.components-snackbar-list {
+		position: relative;
+		width: auto;
+	}
+
+	.components-snackbar-list__notice-container {
+		padding-top: 0;
+	}
 }

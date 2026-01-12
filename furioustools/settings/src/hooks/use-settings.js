@@ -34,7 +34,7 @@ const useSettings = () => {
 	const [isDirty, setIsDirty] = useState(false);
     const initialSettingsRef = useRef(null);
 
-	const { createSuccessNotice, createErrorNotice } = useDispatch( noticesStore );
+	const { createErrorNotice, createSuccessNotice } = useDispatch( noticesStore );
 	
 	useEffect( () => {
 		apiFetch( { path: '/wp/v2/settings' } ).then( ( settings ) => {
@@ -233,9 +233,8 @@ const useSettings = () => {
             setIsDirty(false);
 
 			createSuccessNotice( 'Settings saved successfully.', { type: 'snackbar' } );
-
-		} ).catch( () => {
-			createErrorNotice( 'Error saving settings.', { type: 'snackbar' } );
+		} ).catch( (e) => {
+			createErrorNotice( `Failed to save settings. ${e}.` );
 		} );
 	};
 

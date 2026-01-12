@@ -1,7 +1,7 @@
-import { Button, Card, CardBody, CardHeader, CheckboxControl, Snackbar, __experimentalSpacer as Spacer, __experimentalText as Text, TextControl, TextareaControl, __experimentalVStack as VStack, __experimentalHStack as HStack } from '@wordpress/components';
+import { Button, Card, CardBody, CardHeader, CheckboxControl, __experimentalDivider as Divider, SnackbarList, __experimentalSpacer as Spacer, __experimentalText as Text, TextControl, TextareaControl, __experimentalVStack as VStack, __experimentalHStack as HStack } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
-import { Notices } from './notices';
 import { useSettings } from '../hooks';
+import { Notices, ErrorList } from './notices';
 
 const SaveButton = ( { onClick } ) => (
 	<Button variant="primary" type="submit" onClick={ onClick } __next40pxDefaultSize>
@@ -311,9 +311,19 @@ const SettingsPage = () => {
 				</Card>
 			</VStack>
 			<Spacer />
-			<SaveButton onClick={ saveSettings } />
-			<Spacer />
-			<Notices />
+			<HStack justify="flex-start" gap={ 1 }>
+				<SaveButton onClick={ saveSettings } />
+				<Notices />
+			</HStack>
+			<Spacer marginY={2}>
+				<ErrorList />
+			</Spacer>
+			<Spacer marginY={20}/>
+			<VStack gap={ 1 } align="stretch">
+				<Divider />
+				<small>Version 2026.01.12</small>
+				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
+			</VStack>
 		</div>
 	);
 };

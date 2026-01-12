@@ -13,3 +13,10 @@
 #furious-tools-settings-root .left-indent {
   margin-right: 24px;
 }
+#furious-tools-settings-root .components-snackbar-list {
+  position: relative;
+  width: auto;
+}
+#furious-tools-settings-root .components-snackbar-list__notice-container {
+  padding-top: 0;
+}
