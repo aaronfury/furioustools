@@ -62,6 +62,7 @@ class Settings {
 				'style_outbound_links' => ['type' => 'boolean'],
 				'style_outbound_links_only_in_content' => ['type' => 'boolean'],
 				'snap_scrolling' => ['type' => 'boolean'],
+				'snap_scrolling_css_method' => ['type' => 'boolean'],
 				'snap_scrolling_force_full_pages' => ['type' => 'boolean'],
 				'smooth_scrolling' => ['type' => 'boolean'],
 				'skip_homepage' => ['type' => 'boolean'],

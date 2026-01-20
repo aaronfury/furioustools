@@ -18,6 +18,7 @@ const useSettings = () => {
 	const [styleOutboundLinks, setStyleOutboundLinks] = useState(false);
 	const [styleOutboundLinksOnlyInContent, setStyleOutboundLinksOnlyInContent] = useState(false);
 	const [snapScrolling, setSnapScrolling] = useState(false);
+	const [snapScrollingCssMethod, setSnapScrollingCssMethod] = useState(false);
 	const [snapScrollingForceFullPages, setSnapScrollingForceFullPages] = useState(false);
 	const [smoothScrolling, setSmoothScrolling] = useState(false);
 	const [skipHomepage, setSkipHomepage] = useState(false);
@@ -52,6 +53,7 @@ const useSettings = () => {
 			setStyleOutboundLinks( settings.furious_tools.style_outbound_links || false );
 			setStyleOutboundLinksOnlyInContent( settings.furious_tools.style_outbound_links_only_in_content || false );
 			setSnapScrolling( settings.furious_tools.snap_scrolling || false );
+			setSnapScrollingCssMethod( settings.furious_tools.snap_scrolling_css_method || false );
 			setSnapScrollingForceFullPages( settings.furious_tools.snap_scrolling_force_full_pages || false );
 			setSmoothScrolling( settings.furious_tools.smooth_scrolling || false );
 			setSkipHomepage( settings.furious_tools.skip_homepage || false );
@@ -81,6 +83,7 @@ const useSettings = () => {
 				style_outbound_links: settings.furious_tools.style_outbound_links || false,
 				style_outbound_links_only_in_content: settings.furious_tools.style_outbound_links_only_in_content || false,
 				snap_scrolling: settings.furious_tools.snap_scrolling || false,
+				snap_scrolling_css_method: settings.furious_tools.snap_scrolling_css_method || false,
 				snap_scrolling_force_full_pages: settings.furious_tools.snap_scrolling_force_full_pages || false,
 				smooth_scrolling: settings.furious_tools.smooth_scrolling || false,
 				skip_homepage: settings.furious_tools.skip_homepage || false,
@@ -117,6 +120,7 @@ const useSettings = () => {
             style_outbound_links: styleOutboundLinks,
             style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
             snap_scrolling: snapScrolling,
+			snap_scrolling_css_method: snapScrollingCssMethod,
 			snap_scrolling_force_full_pages: snapScrollingForceFullPages,
             smooth_scrolling: smoothScrolling,
             skip_homepage: skipHomepage,
@@ -149,6 +153,7 @@ const useSettings = () => {
         styleOutboundLinks,
         styleOutboundLinksOnlyInContent,
         snapScrolling,
+		snapScrollingCssMethod,
 		snapScrollingForceFullPages,
         smoothScrolling,
         skipHomepage,
@@ -185,6 +190,7 @@ const useSettings = () => {
 					style_outbound_links: styleOutboundLinks,
 					style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
 					snap_scrolling: snapScrolling,
+					snap_scrolling_css_method: snapScrollingCssMethod,
 					snap_scrolling_force_full_pages: snapScrollingForceFullPages,
 					smooth_scrolling: smoothScrolling,
 					skip_homepage: skipHomepage,
@@ -216,6 +222,7 @@ const useSettings = () => {
                     style_outbound_links: styleOutboundLinks,
                     style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
                     snap_scrolling: snapScrolling,
+					snap_scrolling_css_method: snapScrollingCssMethod,
 					snap_scrolling_force_full_pages: snapScrollingForceFullPages,
                     smooth_scrolling: smoothScrolling,
                     skip_homepage: skipHomepage,
@@ -267,6 +274,8 @@ const useSettings = () => {
 		setStyleOutboundLinksOnlyInContent,
 		snapScrolling,
 		setSnapScrolling,
+		snapScrollingCssMethod,
+		setSnapScrollingCssMethod,
 		snapScrollingForceFullPages,
 		setSnapScrollingForceFullPages,
 		smoothScrolling,

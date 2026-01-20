@@ -34,3 +34,29 @@ The `[childpost]` shortcode supports the following options:
 * __showauthor__ - Whether to show the author info. Default is _false_
 * __exclude__ - An array of post IDs to exclude from the list
 * __render__ - Whether to print the list to the rendered page. Why wouldn't you do this with a shortcode? Who knows! But this plugin gives you options, baby.
+
+## Snap Scrolling
+Snap scrolling uses native CSS tools with a small Javascript to create a simple snapping effect; as the user scrolls the page, the scrolling will automatically advance to the next "snap" point. In some cases, this feature works well; other times, it's very finicky. Some advanced themes like Elementor offer more robust implementations of this. This plugin also only supports vertical snap scrolling, not horizontal.
+
+The feature offers two modes:
+- Snap to `<section>` tags
+- Snap to `.snap-section` classed objects inside a `.snap-container` object
+
+If you choose `<section>` tags, you can create top-level Group blocks in the Gutenberg editor and set them to use `<section>` tags in their advanced settings. These blocks should be contiguous, with nothing else in between them, so:
+- Group (as `<section>`)
+	- Heading
+	- Paragraph
+- Group (as `<section>`)
+	- Heading
+	- Other blocks
+- Etc.
+
+If you choose the CSS class-based approach, you can (theoretically) assign the classes to any parent/child objects, like a `<ul>` and `<li>`, or a parent Group block and child Group blocks. So:
+- Group (with extra class `.snap-container`)
+	- Group (with extra class `.snap-section`)
+		- Additional content
+	- Group (with extra class `.snap-section`)
+	- Etc.
+
+### Snap offset
+The plugin will automatically attempt to compensate for sticky headers that block the top of the browser viewport. If that doesn't work or you have some other object, you can assign the `.snap-offset` class to it, and the Javascript will attempt to calculate its height and set the snap offset accordingly.

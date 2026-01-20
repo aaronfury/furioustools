@@ -167,6 +167,8 @@ const SettingsPage = () => {
     setStyleOutboundLinksOnlyInContent,
     snapScrolling,
     setSnapScrolling,
+    snapScrollingCssMethod,
+    setSnapScrollingCssMethod,
     snapScrollingForceFullPages,
     setSnapScrollingForceFullPages,
     smoothScrolling,
@@ -318,7 +320,7 @@ const SettingsPage = () => {
             label: "Style Outbound Links",
             checked: styleOutboundLinks,
             onChange: value => setStyleOutboundLinks(value),
-            help: "If a link (<a>) has an <em>href</em> value that links to an external website, apply specific styling to it.",
+            help: "If a link (<a>) has an 'href' value that links to an external website, apply specific styling to it.",
             __nextHasNoMarginBottom: true
           }), styleOutboundLinks && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
             label: "Only Style Outbound Links in Content",
@@ -331,9 +333,15 @@ const SettingsPage = () => {
             label: "Enable Snap Scrolling",
             checked: snapScrolling,
             onChange: value => setSnapScrolling(value),
-            help: "(Coming soon) Enables snap scrolling behavior, where the viewport snaps to the nearest section when scrolling.",
-            disabled: true,
+            help: "Enables snap scrolling behavior, where the viewport snaps to the nearest section when scrolling.",
             __nextHasNoMarginBottom: true
+          }), snapScrolling && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Use CSS for Snap Scrolling",
+            checked: snapScrollingCssMethod,
+            onChange: value => setSnapScrollingCssMethod(value),
+            help: snapScrollingCssMethod ? 'Use ".snap-container" and ".snap-section" CSS classes for snap scrolling behavior.' : 'Use Group blocks configured as <section> tags for snap scrolling behavior.',
+            __nextHasNoMarginBottom: true,
+            className: "left-indent"
           }), snapScrolling && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
             label: "Force Full Page Snaps",
             checked: snapScrollingForceFullPages,
@@ -483,6 +491,7 @@ const useSettings = () => {
   const [styleOutboundLinks, setStyleOutboundLinks] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [styleOutboundLinksOnlyInContent, setStyleOutboundLinksOnlyInContent] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [snapScrolling, setSnapScrolling] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [snapScrollingCssMethod, setSnapScrollingCssMethod] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [snapScrollingForceFullPages, setSnapScrollingForceFullPages] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [smoothScrolling, setSmoothScrolling] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [skipHomepage, setSkipHomepage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -519,6 +528,7 @@ const useSettings = () => {
       setStyleOutboundLinks(settings.furious_tools.style_outbound_links || false);
       setStyleOutboundLinksOnlyInContent(settings.furious_tools.style_outbound_links_only_in_content || false);
       setSnapScrolling(settings.furious_tools.snap_scrolling || false);
+      setSnapScrollingCssMethod(settings.furious_tools.snap_scrolling_css_method || false);
       setSnapScrollingForceFullPages(settings.furious_tools.snap_scrolling_force_full_pages || false);
       setSmoothScrolling(settings.furious_tools.smooth_scrolling || false);
       setSkipHomepage(settings.furious_tools.skip_homepage || false);
@@ -548,6 +558,7 @@ const useSettings = () => {
         style_outbound_links: settings.furious_tools.style_outbound_links || false,
         style_outbound_links_only_in_content: settings.furious_tools.style_outbound_links_only_in_content || false,
         snap_scrolling: settings.furious_tools.snap_scrolling || false,
+        snap_scrolling_css_method: settings.furious_tools.snap_scrolling_css_method || false,
         snap_scrolling_force_full_pages: settings.furious_tools.snap_scrolling_force_full_pages || false,
         smooth_scrolling: settings.furious_tools.smooth_scrolling || false,
         skip_homepage: settings.furious_tools.skip_homepage || false,
@@ -584,6 +595,7 @@ const useSettings = () => {
       style_outbound_links: styleOutboundLinks,
       style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
       snap_scrolling: snapScrolling,
+      snap_scrolling_css_method: snapScrollingCssMethod,
       snap_scrolling_force_full_pages: snapScrollingForceFullPages,
       smooth_scrolling: smoothScrolling,
       skip_homepage: skipHomepage,
@@ -601,7 +613,7 @@ const useSettings = () => {
     // simple shallow comparison via JSON; adequate for primitive values here
     const dirty = JSON.stringify(current) !== JSON.stringify(initialSettingsRef.current);
     setIsDirty(dirty);
-  }, [cleanupWpCrud, addCustomCrud, customCrud, latestJquery, removeJqueryMigrate, trackUserLastLogin, searchSlug, customReadmore, customReadmoreText, bypassHttpValidateUrl, removeAttWidth, styleOutboundLinks, styleOutboundLinksOnlyInContent, snapScrolling, snapScrollingForceFullPages, smoothScrolling, skipHomepage, skipHomepageShowonce, skipHomepageTarget, hideLoginForm, hideAdminBar, randomTagline, randomTaglineBodyOnly, randomTaglineList, redirectOnLogin, redirectOnLoginTarget]);
+  }, [cleanupWpCrud, addCustomCrud, customCrud, latestJquery, removeJqueryMigrate, trackUserLastLogin, searchSlug, customReadmore, customReadmoreText, bypassHttpValidateUrl, removeAttWidth, styleOutboundLinks, styleOutboundLinksOnlyInContent, snapScrolling, snapScrollingCssMethod, snapScrollingForceFullPages, smoothScrolling, skipHomepage, skipHomepageShowonce, skipHomepageTarget, hideLoginForm, hideAdminBar, randomTagline, randomTaglineBodyOnly, randomTaglineList, redirectOnLogin, redirectOnLoginTarget]);
   const saveSettings = () => {
     // TODO: Add validation as needed for empty text fields when their parent setting is enabled
 
@@ -624,6 +636,7 @@ const useSettings = () => {
           style_outbound_links: styleOutboundLinks,
           style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
           snap_scrolling: snapScrolling,
+          snap_scrolling_css_method: snapScrollingCssMethod,
           snap_scrolling_force_full_pages: snapScrollingForceFullPages,
           smooth_scrolling: smoothScrolling,
           skip_homepage: skipHomepage,
@@ -655,6 +668,7 @@ const useSettings = () => {
           style_outbound_links: styleOutboundLinks,
           style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
           snap_scrolling: snapScrolling,
+          snap_scrolling_css_method: snapScrollingCssMethod,
           snap_scrolling_force_full_pages: snapScrollingForceFullPages,
           smooth_scrolling: smoothScrolling,
           skip_homepage: skipHomepage,
@@ -706,6 +720,8 @@ const useSettings = () => {
     setStyleOutboundLinksOnlyInContent,
     snapScrolling,
     setSnapScrolling,
+    snapScrollingCssMethod,
+    setSnapScrollingCssMethod,
     snapScrollingForceFullPages,
     setSnapScrollingForceFullPages,
     smoothScrolling,

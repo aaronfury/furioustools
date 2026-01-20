@@ -39,6 +39,8 @@ const SettingsPage = () => {
 		setStyleOutboundLinksOnlyInContent,
 		snapScrolling,
 		setSnapScrolling,
+		snapScrollingCssMethod,
+		setSnapScrollingCssMethod,
 		snapScrollingForceFullPages,
 		setSnapScrollingForceFullPages,
 		smoothScrolling,
@@ -208,7 +210,7 @@ const SettingsPage = () => {
 							label="Style Outbound Links"
 							checked={ styleOutboundLinks }
 							onChange={ ( value ) => setStyleOutboundLinks( value ) }
-							help="If a link (&lt;a&gt;) has an <em>href</em> value that links to an external website, apply specific styling to it."
+							help="If a link (&lt;a&gt;) has an 'href' value that links to an external website, apply specific styling to it."
 							__nextHasNoMarginBottom
 						/>
 						{ styleOutboundLinks && (
@@ -225,10 +227,23 @@ const SettingsPage = () => {
 							label="Enable Snap Scrolling"
 							checked={ snapScrolling }
 							onChange={ ( value ) => setSnapScrolling( value ) }
-							help="(Coming soon) Enables snap scrolling behavior, where the viewport snaps to the nearest section when scrolling."
-							disabled
+							help="Enables snap scrolling behavior, where the viewport snaps to the nearest section when scrolling."
 							__nextHasNoMarginBottom
 						/>
+						{ snapScrolling && (
+							<CheckboxControl
+								label="Use CSS for Snap Scrolling"
+								checked={ snapScrollingCssMethod }
+								onChange={ ( value ) => setSnapScrollingCssMethod( value ) }
+								help={
+									snapScrollingCssMethod
+										? 'Use ".snap-container" and ".snap-section" CSS classes for snap scrolling behavior.'
+										: 'Use Group blocks configured as <section> tags for snap scrolling behavior.'
+								}
+								__nextHasNoMarginBottom
+								className='left-indent'
+							/>
+						) }
 						{ snapScrolling && (
 							<CheckboxControl
 								label="Force Full Page Snaps"
