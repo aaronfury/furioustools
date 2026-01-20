@@ -58,5 +58,11 @@ If you choose the CSS class-based approach, you can (theoretically) assign the c
 	- Group (with extra class `.snap-section`)
 	- Etc.
 
+**The `<section>` method generally works better**, and it works best when there is no parent block. You can still have a sticky header, but everything should be at the root of the page template:
+- Group (optional, sticky header)
+- Group (as `<section>`)
+- Group (as `<section>`)
+- Group (optional, footer)
+
 ### Snap offset
 The plugin will automatically attempt to compensate for sticky headers that block the top of the browser viewport. If that doesn't work or you have some other object, you can assign the `.snap-offset` class to it, and the Javascript will attempt to calculate its height and set the snap offset accordingly.

@@ -336,7 +336,7 @@ const SettingsPage = () => {
 			<Spacer marginY={20}/>
 			<VStack gap={ 1 } align="stretch">
 				<Divider />
-				<small>Version 2026.01.12</small>
+				<small>Version 2026.01.20</small>
 				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
 			</VStack>
 		</div>

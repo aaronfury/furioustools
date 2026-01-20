@@ -90,8 +90,11 @@ class Plugin {
 		if ( $this->options['snap_scrolling'] ) {
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_script( 'furioustools-snap-scrolling', plugins_url( '../../js/snap-scrolling.js', __FILE__ ), [], null, true );
-				wp_localize_script( 'furioustools-snap-scrolling', 'furiousToolsSettings', [
-					"snapScrollingForceFullPages" => ( $this->options['snap_scrolling_force_full_pages'] ? true : false )
+				wp_localize_script( 'furioustools-snap-scrolling', 'furiousTools', [
+					"settings" => [
+						"snapScrollingForceFullPages" => ( $this->options['snap_scrolling_force_full_pages']),
+						"snapScrollingCssMethod" => ( $this->options['snap_scrolling_css_method']),
+					]
 				]);
 				wp_enqueue_style( 'furioustools-snap-scrolling', plugins_url( '../../css/snap-scrolling.css', __FILE__ ) );
 			} );
@@ -248,18 +251,22 @@ class Plugin {
 
 	// Style outbound links by echoing the custom style in the <head> of each page
 	function style_outbound_links() {
+		$content_only_selector = "header *, footer *, .no-outbound-style *";
 ?>
 		<style type="text/css">
-			<?= $this->options['style_outbound_links_only_in_content'] ? '.entry-content ' : null ?> a[href]:not(:where(
-				[href^="#"],
-				[href^="javascript:"],  
-				[href^="/"]:not([href^="//"]),
-				[href*="<?= site_url();?>"],
-			))::after {
-				content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJhIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48ZyBpZD0iYiI+PHBhdGggZD0iTTUyNi44LDY2Ni43aC0yNTMuNWMtNDEuMiwwLTYzLjksMC04NS4zLTEwLjktMTguOS05LjYtMzQtMjQuOC00My43LTQzLjctMTAuOS0yMS40LTEwLjktNDQuMS0xMC45LTg1LjR2LTI1My4zYzAtNDEuMywwLTY0LDEwLjktODUuNCw5LjYtMTguOSwyNC44LTM0LDQzLjctNDMuNywyMS40LTEwLjksNDQuMS0xMC45LDg1LjQtMTAuOWg2MGMxOC40LDAsMzMuMywxNC45LDMzLjMsMzMuM3MtMTQuOSwzMy4zLTMzLjMsMzMuM2gtNjBjLTI4LjksMC00OCwwLTU1LjEsMy42LTYuMywzLjItMTEuMyw4LjItMTQuNiwxNC42LTMuNiw3LjEtMy42LDI2LjItMy42LDU1LjF2MjUzLjNjMCwyOC45LDAsNDgsMy42LDU1LjEsMy4yLDYuMyw4LjMsMTEuNCwxNC42LDE0LjYsNy4xLDMuNiwyNi4yLDMuNiw1NSwzLjZoMjUzLjVjMjguOCwwLDQ3LjksMCw1NS0zLjYsNi4yLTMuMiwxMS40LTguNCwxNC42LTE0LjYsMy42LTcuMSwzLjYtMjYuMiwzLjYtNTV2LTYwLjFjMC0xOC40LDE0LjktMzMuMywzMy4zLTMzLjNzMzMuMywxNC45LDMzLjMsMzMuM3Y2MC4xYzAsNDEuMiwwLDYzLjktMTAuOSw4NS4zLTkuNywxOC45LTI0LjgsMzQuMS00My43LDQzLjctMjEuNCwxMC45LTQ0LjEsMTAuOS04NS4zLDEwLjlsLjEuMVpNMzk5LjksNDMzLjNjLTguNSwwLTE3LjEtMy4zLTIzLjYtOS44LTEzLTEzLTEzLTM0LjEsMC00Ny4xbDE3Ni40LTE3Ni40aC04NS41Yy0xOCwwLTMzLjYtMTQuNy0zNC0zMi42LS40LTE4LjcsMTQuNy0zNCwzMy4zLTM0aDE4My4xYzkuNCwwLDE3LDcuNywxNywxNy4xdjE4Mi4zYzAsMTgtMTQuNywzMy42LTMyLjYsMzRzLTM0LTE0LjctMzQtMzMuM3YtODYuMmwtMTc2LjQsMTc2LjRjLTYuNSw2LjUtMTUsOS44LTIzLjYsOS44bC0uMS0uMloiLz48L2c+PC9zdmc+');
+			a[href]:not(
+				:where(
+					[href^="#"],
+					[href^="javascript:"],  
+					[href^="/"]:not([href^="//"]),
+					[href*="<?= site_url();?>"]
+				),
+				<?= $this->options['style_outbound_links_only_in_content'] ? $content_only_selector : null ?>
+			)::after {
 				display: inline-block;
 				width: 0.75em;
 				padding-left: 0.1em;
+				content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJhIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgODAwIj48ZyBpZD0iYiI+PHBhdGggZD0iTTUyNi44LDY2Ni43aC0yNTMuNWMtNDEuMiwwLTYzLjksMC04NS4zLTEwLjktMTguOS05LjYtMzQtMjQuOC00My43LTQzLjctMTAuOS0yMS40LTEwLjktNDQuMS0xMC45LTg1LjR2LTI1My4zYzAtNDEuMywwLTY0LDEwLjktODUuNCw5LjYtMTguOSwyNC44LTM0LDQzLjctNDMuNywyMS40LTEwLjksNDQuMS0xMC45LDg1LjQtMTAuOWg2MGMxOC40LDAsMzMuMywxNC45LDMzLjMsMzMuM3MtMTQuOSwzMy4zLTMzLjMsMzMuM2gtNjBjLTI4LjksMC00OCwwLTU1LjEsMy42LTYuMywzLjItMTEuMyw4LjItMTQuNiwxNC42LTMuNiw3LjEtMy42LDI2LjItMy42LDU1LjF2MjUzLjNjMCwyOC45LDAsNDgsMy42LDU1LjEsMy4yLDYuMyw4LjMsMTEuNCwxNC42LDE0LjYsNy4xLDMuNiwyNi4yLDMuNiw1NSwzLjZoMjUzLjVjMjguOCwwLDQ3LjksMCw1NS0zLjYsNi4yLTMuMiwxMS40LTguNCwxNC42LTE0LjYsMy42LTcuMSwzLjYtMjYuMiwzLjYtNTV2LTYwLjFjMC0xOC40LDE0LjktMzMuMywzMy4zLTMzLjNzMzMuMywxNC45LDMzLjMsMzMuM3Y2MC4xYzAsNDEuMiwwLDYzLjktMTAuOSw4NS4zLTkuNywxOC45LTI0LjgsMzQuMS00My43LDQzLjctMjEuNCwxMC45LTQ0LjEsMTAuOS04NS4zLDEwLjlsLjEuMVpNMzk5LjksNDMzLjNjLTguNSwwLTE3LjEtMy4zLTIzLjYtOS44LTEzLTEzLTEzLTM0LjEsMC00Ny4xbDE3Ni40LTE3Ni40aC04NS41Yy0xOCwwLTMzLjYtMTQuNy0zNC0zMi42LS40LTE4LjcsMTQuNy0zNCwzMy4zLTM0aDE4My4xYzkuNCwwLDE3LDcuNywxNywxNy4xdjE4Mi4zYzAsMTgtMTQuNywzMy42LTMyLjYsMzRzLTM0LTE0LjctMzQtMzMuM3YtODYuMmwtMTc2LjQsMTc2LjRjLTYuNSw2LjUtMTUsOS44LTIzLjYsOS44bC0uMS0uMloiLz48L2c+PC9zdmc+');
 			}
 		</style>
 <?php

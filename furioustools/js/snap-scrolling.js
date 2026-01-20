@@ -1,49 +1,53 @@
-/*
-	* Handle offsetting based on calculated height of an objects like admin bar
-	* and any fixed headers.
-	*
-	* Option to toggle between full-screen snapping (100vh)
-
-	.snap-container
-	.is-position-sticky or .snap-offset - calculate height and set it as scroll-padding-top on .snap-container
-*/
-
 document.addEventListener( 'DOMContentLoaded', function () {
 
-	const snapScrollingForceFullPages = furiousToolsSettings.snapScrollingForceFullPages;
-	const snapScrollingCssMethod = furiousToolsSettings.snapScrollingCssMethod;
+	const snapScrollingForceFullPages = furiousTools.settings.snapScrollingForceFullPages;
+	const snapScrollingCssMethod = furiousTools.settings.snapScrollingCssMethod;
+	console.log("Snap Scrolling CSS Method:", snapScrollingCssMethod);
+	let snapContainer;
+	let snapSections;
 	
 	if ( snapScrollingCssMethod ) {
-		const snapContainer = document.querySelector( '.snap-container' );
+		snapSections = document.querySelectorAll( '.snap-section' );
+		snapContainer = document.querySelector( '.snap-container' ) ?? snapSections[0]?.parentElement;
+		console.log("Ass burger", snapContainer);
 		if ( ! snapContainer ) {
 			return;
 		}
-	}
-
-	if ( snapScrollingForceFullPages ) {
-		snapContainer.style.height = '100vh';
-	}
-	
-	// Calculate offset height from sticky elements or explicitly tagged offset elements
-	const snapOffsetElement = document.querySelector( '.is-position-sticky, .snap-offset' );
-	let offsetHeight = 0;
-	if ( snapOffsetElement ) {
-		offsetHeight = snapOffsetElement.offsetHeight;
-	}
-	snapContainer.style.scrollPaddingTop = offsetHeight + 'px';
-
-	if ( snapScrollingCssMethod ) {
-		const snapSections = document.querySelectorAll( '.snap-section' );
+		
+		snapContainer.classList.add( 'snap-container' ); // Ensure snap-container class is present
 	} else {
-		const snapSections = document.querySelectorAll( '<section>' );
+		snapSections = document.querySelectorAll( 'section' );
+		if ( snapSections.length === 0 ) {
+			return;
+		}
 		// Append snap-container class to the parent object
-		const parentElement = snapSections[0].parentElement;
-		parentElement.classList.add( 'snap-container' );
+		snapContainer = snapSections[0].parentElement;
+		snapContainer.classList.add( 'snap-container' );
 
 		// Append snap-section class to each section
 		snapSections.forEach( ( section ) => {
 			section.classList.add( 'snap-section' );
 		});
+	}
+
+	const snapOffsetElement = snapContainer.querySelector( '.is-position-sticky, .snap-offset' );
+
+	if ( snapScrollingForceFullPages ) {
+		snapContainer.style.height = '100vh';
+	}
+
+	// Make the last section a minimum height of the container so that it can snap fully into view, only if there is an explicit parent container
+	if (!snapContainer.classList.contains( 'wp-site-blocks' ) ) {
+		snapSections[ snapSections.length - 1 ].style.minHeight = snapContainer.offsetHeight + 'px';
+	}
+	
+	// Calculate offset height from sticky elements or explicitly tagged offset elements, only if they are inside the snap container
+	if ( snapOffsetElement ) {
+		snapContainer.style.scrollPaddingTop = snapOffsetElement.offsetHeight + 'px';
+	} else {
+		Array.from(snapContainer.children).forEach( ( child ) => {
+			child.classList.add( 'snap-section' ); // Make sure all children are snap sections if there's no sticky header (otherwise it doesn't get displayed)
+		} );
 	}
 
 	// Set height of snap sections based on force full pages setting

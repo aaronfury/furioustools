@@ -3,7 +3,7 @@
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
 	Description:  This plugin offers an assortment of lightweight customization options used by Furious Studios.
-	Version:      1.0.20260112
+	Version:      1.0.20260120
 	Requires at least: 6.2
 	Tested up to: 6.9
 	Requires PHP: 7.2
