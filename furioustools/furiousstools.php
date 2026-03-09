@@ -2,10 +2,10 @@
 	/*
 	Plugin Name:  Furious Tools
 	Plugin URI:   https://github.com/aaronfury/furioustools
-	Description:  This plugin offers an assortment of lightweight customization options used by Furious Studios.
-	Version:      1.0.20260120
+	Description:  This plugin offers an assortment of lightweight customization options for user experience and site functionality.
+	Version:      1.0.20260309
 	Requires at least: 6.2
-	Tested up to: 6.9
+	Tested up to: 6.9.1
 	Requires PHP: 7.2
 	Author:       Aaron Firouz
 	License:      Creative Commons Zero
@@ -13,7 +13,8 @@
 	Text Domain:  furioustools
 	*/
 
-// TODO: Debugging shortcut... make sure these are commented out in the production site
+// Debugging shortcut... make sure these are commented out in the production site. 
+// TODO: Make this a setting in the tool
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // ini_set('log_errors','Off');
@@ -38,10 +39,18 @@ function furioustools_init() {
 	if ( !empty( preg_grep_keys( '/^furious_(?!tools)/',wp_load_alloptions() ) ) ) {
 		new FuriousTools\Migrator();
 	}
+
+	add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'add_settings_link');
 }
 
 function preg_grep_keys($pattern, $input, $flags = 0) {
     return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input), $flags)));
+}
+
+function add_settings_link($links) {
+	$settings_link = '<a href="' . admin_url('options-general.php?page=furious-tools') . '">Settings</a>';
+	array_unshift($links, $settings_link);
+	return $links;
 }
 
 ?>

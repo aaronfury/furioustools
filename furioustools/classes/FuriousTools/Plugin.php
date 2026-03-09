@@ -4,6 +4,7 @@ namespace FuriousTools;
 class Plugin {
 	private $custom_readmore_text;
 	private $_in_body = false;
+	private $jquery_url = "//code.jquery.com/jquery-4.0.0.min.js";
 	private $options;
 
 	public function __construct() {
@@ -235,7 +236,7 @@ class Plugin {
 	// Update jQuery
 	function update_jquery() {
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', "//code.jquery.com/jquery-3.7.1.min.js");
+		wp_register_script('jquery', $this->jquery_url);
 		wp_enqueue_script('jquery');
 	}
 

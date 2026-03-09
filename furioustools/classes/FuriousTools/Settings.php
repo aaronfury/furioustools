@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) {
 }
 
 class Settings {
+	public static $path = WP_PLUGIN_DIR . '/furioustools';
+	public static $url = WP_PLUGIN_URL . '/furioustools';
+
 	public static $defaults = [
 		'cleanup_wp_crud' => false,
 		'add_custom_crud' => false,
@@ -38,13 +41,11 @@ class Settings {
 
 	public function __construct() {
 		add_action('init', [$this, 'register_settings']);
-		//add_action('rest_api_init', [$this, 'register_settings']);
 		add_action('admin_menu', [$this, 'add_plugin_page']);
 		add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
 	}
 
 	public function register_settings() {
-
 		$schema = [
 			'type' => 'object',
 			'properties' => [

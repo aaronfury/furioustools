@@ -1,10 +1,10 @@
-import { Button, Card, CardBody, CardHeader, CheckboxControl, __experimentalDivider as Divider, SnackbarList, __experimentalSpacer as Spacer, __experimentalText as Text, TextControl, TextareaControl, __experimentalVStack as VStack, __experimentalHStack as HStack } from '@wordpress/components';
+import { Button, Card, CardBody, CardHeader, CheckboxControl, __experimentalDivider as Divider, __experimentalSpacer as Spacer, __experimentalText as Text, TextControl, TextareaControl, __experimentalVStack as VStack, __experimentalHStack as HStack } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { useSettings } from '../hooks';
 import { Notices, ErrorList } from './notices';
 
-const SaveButton = ( { onClick } ) => (
-	<Button variant="primary" type="submit" onClick={ onClick } __next40pxDefaultSize>
+const SaveButton = ( { onClick, disabled } ) => (
+	<Button variant="primary" type="submit" onClick={ onClick } disabled={ disabled } __next40pxDefaultSize>
 		Save Settings
 	</Button>
 );
@@ -87,14 +87,14 @@ const SettingsPage = () => {
 					<CardHeader>Headers and Libraries</CardHeader>
 					<CardBody>
 						<CheckboxControl
-							label="Cleanup WP crud"
+							label="Cleanup legacy wp_head() content"
 							checked={ cleanupWpCrud }
 							onChange={ ( value ) => setCleanupWpCrud( value ) }
-							help="This option removes some unnecessary things from the wp_head() function."
+							help="This option removes some unnecessary things from the wp_head() function, mostly around WP Emoji and some metadata."
 							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
-							label="Add custom crud"
+							label="Add custom wp_head() content"
 							checked={ addCustomCrud }
 							onChange={ ( value ) => setAddCustomCrud( value ) }
 							help="Add your own data to the <code>&lt;head&gt;</code> section. Useful for like Graph metadata or other things your theme doesn't provide. Use with caution!"
@@ -102,7 +102,7 @@ const SettingsPage = () => {
 						/>
 						{ addCustomCrud && (
 							<TextareaControl
-								label="Custom crud to add"
+								label="Custom content to add"
 								value={ customCrud }
 								onChange={ ( value ) => setCustomCrud( value ) }
 								help="This text will be inserted directly into the <code>&lt;head&gt;</code> section of every page. Don't break nuffin'"
@@ -112,17 +112,17 @@ const SettingsPage = () => {
 							/>
 						) }
 						<CheckboxControl
-							label="Use Latest jQuery"
+							label="Use Latest jQuery (danger)"
 							checked={ latestJquery }
 							onChange={ ( value ) => setLatestJquery( value ) }
-							help="Unloads the default version of jQuery included in WordPress and replace it with the latest version (currently 3.7.1)"
+							help="Unloads the default version of jQuery included in WordPress and replace it with the latest version (currently 4.0.0) from the jQuery CDN. This is a major (breaking) version change and can potentially cause compatibility issues with themes and plugins that rely on the default version, so use with caution and test thoroughly."
 							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Remove jQuery Migrate"
 							checked={ removeJqueryMigrate }
 							onChange={ ( value ) => setRemoveJqueryMigrate( value ) }
-							help="Removes the jQuery Migrate script that is included with WordPress by default."
+							help="Some glorious day, WordPress will eventually remove this legacy script. Until then, this option removes the jQuery Migrate script that is loaded by default."
 							__nextHasNoMarginBottom
 						/>
 					</CardBody>
@@ -152,15 +152,15 @@ const SettingsPage = () => {
 							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
-							label="Custom 'Read more' Text"
+							label="Custom 'Read more' Text (classic themes only)"
 							checked={ customReadmore }
 							onChange={ ( value ) => setCustomReadmore( value ) }
-							help="Enable this option to replace the default 'Read more..' text at the end of excerpts with your own custom text."
+							help="Enable this option to replace the default 'Read more..' text at the end of excerpts with your own custom text. This only works for classic themes; modern block-based themes typically handle this differently and may not be affected by this setting, but you also can generally change the text in the FSE editor."
 							__nextHasNoMarginBottom
 						/>
 						{ customReadmore && (
 							<TextControl
-								label="Custom Readmore Text"
+								label="Custom 'Read more' Text"
 								value={ customReadmoreText }
 								onChange={ ( value ) => setCustomReadmoreText( value ) }
 								help="Replace the 'Read more..' at the end of excerpts with the custom text you provide. Leave blank to use the default text."
@@ -327,7 +327,7 @@ const SettingsPage = () => {
 			</VStack>
 			<Spacer />
 			<HStack justify="flex-start" gap={ 1 }>
-				<SaveButton onClick={ saveSettings } />
+				<SaveButton onClick={ saveSettings } disabled={ !isDirty } />
 				<Notices />
 			</HStack>
 			<Spacer marginY={2}>
@@ -336,7 +336,7 @@ const SettingsPage = () => {
 			<Spacer marginY={20}/>
 			<VStack gap={ 1 } align="stretch">
 				<Divider />
-				<small>Version 2026.01.20</small>
+				<small>Version 1.0.2026.03.09</small>
 				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
 			</VStack>
 		</div>
