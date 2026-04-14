@@ -72,7 +72,7 @@ class Plugin {
 			});
 			add_filter('bloginfo', [$this, 'get_random_tagline'], 10, 2);
 			add_filter('render_block_core/site-tagline', function($block_content) {
-				return $this->get_random_tagline('block', 'description') ?: "Ass nuggets!";
+				return $this->get_random_tagline('block', 'description');
 			});
 		}
 
@@ -106,6 +106,9 @@ class Plugin {
 
 	function get_random_tagline($name, $show = null) {
 		if ('description' == $show) {
+			if (empty($this->options['random_tagline_list'])){
+				return get_bloginfo($show);
+			}
 			if ('block' == $name || ($this->options['random_tagline_body_only'] && $this->_in_body)) {
 				$taglines = explode(PHP_EOL, $this->options['random_tagline_list']);
 				return $taglines[array_rand($taglines)];
@@ -231,7 +234,27 @@ class Plugin {
 	function add_head_content() {
 		$head_content = $this->options['custom_crud'];
 		if ($head_content) {
-			echo "\r" . $head_content;
+			echo "\r" . wp_kses($head_content, [
+				'script' => [
+					'type' => true,
+					'src' => true,
+					'async' => true,
+					'defer' => true,
+				],
+				'style' => [
+					'type' => true,
+				],
+				'link' => [
+					'rel' => true,
+					'href' => true,
+				],
+				'meta' => [
+					'name' => true,
+					'content' => true,
+				],
+				'noscript' => [],
+				'span' => [],
+			]) . "\r";
 		}
 	}
 
@@ -258,13 +281,13 @@ class Plugin {
 ?>
 		<style type="text/css">
 			a[href]:not(
-				:where(
-					[href^="#"],
-					[href^="javascript:"],  
-					[href^="/"]:not([href^="//"]),
-					[href*="<?php echo site_url();?>"]
-				),
-				<?php echo $this->options['style_outbound_links_only_in_content'] ? $content_only_selector : null ?>
+				[href^="#"],
+				[href^="javascript:"],
+				[href^="mailto:"],
+				[href^="tel:"],
+				[href^="/"]:not([href^="//"]),
+				[href*="<?php echo esc_url(get_site_url()); ?>"]
+				<?php echo $this->options['style_outbound_links_only_in_content'] ? ',' . esc_html($content_only_selector) : '' ?>
 			)::after {
 				display: inline-block;
 				width: 0.75em;

@@ -34,6 +34,8 @@ class Settings {
 		'hide_admin_bar' => false,
 		'redirect_on_login' => false,
 		'redirect_on_login_target' => '',
+		'enable_error_logging' => false,
+		'show_errors_on_frontend' => false,
 	];
 
 	public function __construct() {
@@ -73,6 +75,8 @@ class Settings {
 				'hide_admin_bar' => ['type' => 'boolean'],
 				'redirect_on_login' => ['type' => 'boolean'],
 				'redirect_on_login_target' => ['type' => 'string'],
+				'enable_error_logging' => ['type' => 'boolean'],
+				'show_errors_on_frontend' => ['type' => 'boolean']
 			],
 		];
 		
