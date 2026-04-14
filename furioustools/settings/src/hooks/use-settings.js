@@ -31,6 +31,8 @@ const useSettings = () => {
 	const [randomTaglineList, setRandomTaglineList] = useState('');
 	const [redirectOnLogin, setRedirectOnLogin] = useState(false);
 	const [redirectOnLoginTarget, setRedirectOnLoginTarget] = useState('');
+	const [enableErrorLogging, setEnableErrorLogging] = useState(false);
+	const [showErrorsOnFrontend, setShowErrorsOnFrontend] = useState(false);
 
 	const [isDirty, setIsDirty] = useState(false);
     const initialSettingsRef = useRef(null);
@@ -66,6 +68,8 @@ const useSettings = () => {
 			setRandomTaglineList( settings.furious_tools.random_tagline_list || '' );
 			setRedirectOnLogin( settings.furious_tools.redirect_on_login || false );
 			setRedirectOnLoginTarget( settings.furious_tools.redirect_on_login_target || '' );
+			setEnableErrorLogging( settings.furious_tools.enable_error_logging || false );
+			setShowErrorsOnFrontend( settings.furious_tools.show_errors_on_frontend || false );
 
 			// Capture initial loaded settings for dirty checking
 			initialSettingsRef.current = {
@@ -96,6 +100,8 @@ const useSettings = () => {
 				random_tagline_list: settings.furious_tools.random_tagline_list || '',
 				redirect_on_login: settings.furious_tools.redirect_on_login || false,
 				redirect_on_login_target: settings.furious_tools.redirect_on_login_target || '',
+				enable_error_logging: settings.furious_tools.enable_error_logging || false,
+				show_errors_on_frontend: settings.furious_tools.show_errors_on_frontend || false,
 			};
 		});
 	}, [] );
@@ -133,6 +139,8 @@ const useSettings = () => {
             random_tagline_list: randomTaglineList,
             redirect_on_login: redirectOnLogin,
             redirect_on_login_target: redirectOnLoginTarget,
+            enable_error_logging: enableErrorLogging,
+            show_errors_on_frontend: showErrorsOnFrontend
         };
 
         // simple shallow comparison via JSON; adequate for primitive values here
@@ -165,7 +173,9 @@ const useSettings = () => {
 		randomTaglineBodyOnly,
         randomTaglineList,
         redirectOnLogin,
-        redirectOnLoginTarget
+        redirectOnLoginTarget,
+        enableErrorLogging,
+        showErrorsOnFrontend
     ] );
 
 	const saveSettings = () => {
@@ -202,7 +212,9 @@ const useSettings = () => {
 					random_tagline_body_only: randomTaglineBodyOnly,
 					random_tagline_list: randomTaglineList,
 					redirect_on_login: redirectOnLogin,
-					redirect_on_login_target: redirectOnLoginTarget
+					redirect_on_login_target: redirectOnLoginTarget,
+					enable_error_logging: enableErrorLogging,
+					show_errors_on_frontend: showErrorsOnFrontend
 				}
 			}
 		} ).then( () => {
@@ -235,6 +247,8 @@ const useSettings = () => {
                     random_tagline_list: randomTaglineList,
                     redirect_on_login: redirectOnLogin,
                     redirect_on_login_target: redirectOnLoginTarget,
+                    enable_error_logging: enableErrorLogging,
+                    show_errors_on_frontend: showErrorsOnFrontend
                 } ) );
             }
             setIsDirty(false);
@@ -300,6 +314,10 @@ const useSettings = () => {
 		setRandomTaglineBodyOnly,
 		randomTaglineList,
 		setRandomTaglineList,
+		enableErrorLogging,
+		setEnableErrorLogging,
+		showErrorsOnFrontend,
+		setShowErrorsOnFrontend,
 		saveSettings,
 		isDirty
 	};

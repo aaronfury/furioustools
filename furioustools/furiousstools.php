@@ -13,14 +13,6 @@
 	Text Domain:  furioustools
 	*/
 
-// Debugging shortcut... make sure these are commented out in the production site. 
-// TODO: Make this a setting in the tool
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// ini_set('log_errors','Off');
-// ini_set('error_log','php-errors.log');
-// error_reporting(E_ALL);
-
 if (!defined('ABSPATH')) {exit;}
 
 spl_autoload_register('furioustools_autoloader');

@@ -2,14 +2,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	const snapScrollingForceFullPages = furiousTools.settings.snapScrollingForceFullPages;
 	const snapScrollingCssMethod = furiousTools.settings.snapScrollingCssMethod;
-	console.log("Snap Scrolling CSS Method:", snapScrollingCssMethod);
 	let snapContainer;
 	let snapSections;
 	
 	if ( snapScrollingCssMethod ) {
 		snapSections = document.querySelectorAll( '.snap-section' );
 		snapContainer = document.querySelector( '.snap-container' ) ?? snapSections[0]?.parentElement;
-		console.log("Ass burger", snapContainer);
 		if ( ! snapContainer ) {
 			return;
 		}

@@ -15,6 +15,16 @@ class Plugin {
 
 		$this->options = get_option( 'furious_tools', Settings::$defaults );
 
+		if ($this->options['enable_error_logging']) {
+			ini_set('log_errors', 'On');
+		}
+
+		if ($this->options['show_errors_on_frontend']) {
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
+		}
+
 		if ($this->options['cleanup_wp_crud']) {
 			add_action('init', [$this, 'cleanup_wp_crud']);
 		}

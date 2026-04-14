@@ -64,7 +64,11 @@ const SettingsPage = () => {
 		hideLoginForm,
 		setHideLoginForm,
 		saveSettings,
-		isDirty
+		isDirty,
+		enableErrorLogging,
+		setEnableErrorLogging,
+		showErrorsOnFrontend,
+		setShowErrorsOnFrontend,
 	} = useSettings();
 	
 	useEffect(() => {
@@ -181,6 +185,20 @@ const SettingsPage = () => {
 							checked={ removeAttWidth }
 							onChange={ ( value ) => setRemoveAttWidth( value ) }
 							help="For images and other blocks added in the editor, WordPress automatically sets a fixed-with value on the item in the DOM. This will remove that value."
+							__nextHasNoMarginBottom
+						/>
+						<CheckboxControl
+							label="Enable Error Logging"
+							checked={ enableErrorLogging }
+							onChange={ ( value ) => setEnableErrorLogging( value ) }
+							help="Enables logging of PHP errors to a log file. This can be useful for debugging issues on the site. The log file is typically located in the wp-content directory and is named 'error_log'."
+							__nextHasNoMarginBottom
+						/>
+						<CheckboxControl
+							label="Show Errors on Frontend"
+							checked={ showErrorsOnFrontend }
+							onChange={ ( value ) => setShowErrorsOnFrontend( value ) }
+							help="Displays PHP errors directly on the frontend of the site. This is useful for debugging but should not be enabled on a production site."
 							__nextHasNoMarginBottom
 						/>
 						</CardBody>
@@ -336,7 +354,7 @@ const SettingsPage = () => {
 			<Spacer marginY={20}/>
 			<VStack gap={ 1 } align="stretch">
 				<Divider />
-				<small>Version 1.0.20260413</small>
+				<small>Version 1.0.20260414</small>
 				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
 			</VStack>
 		</div>
