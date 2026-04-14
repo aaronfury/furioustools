@@ -1,7 +1,7 @@
 <?php
 namespace FuriousTools;
 
-use WP_REST_Request;
+if (!defined('ABSPATH')) {exit;}
 
 class Migrator {
 	private $old_options;
@@ -18,7 +18,7 @@ class Migrator {
 		'furious_latest_jquery' => 'latest_jquery',
 		'furious_random_tagline_enabled' => 'random_tagline',
 		'furious_random_tagline_list' => 'random_tagline_list',
-		'furious_redirect_login_target' => 'redirect_login_target',
+		'furious_redirect_on_login_target' => 'redirect_on_login_target',
 		'furious_redirect_on_login' => 'redirect_on_login',
 		'furious_remove_att_width' => 'remove_att_width',
 		'furious_remove_jquery_migrate' => 'remove_jquery_migrate',
@@ -43,7 +43,7 @@ class Migrator {
 			'furious_latest_jquery',
 			'furious_random_tagline_enabled',
 			'furious_random_tagline_list',
-			'furious_redirect_login_target',
+			'furious_redirect_on_login_target',
 			'furious_redirect_on_login',
 			'furious_remove_att_width',
 			'furious_remove_jquery_migrate',
@@ -72,7 +72,7 @@ class Migrator {
 
 		update_option('furious_tools', $this->new_options);
 		if (!empty($log)) {
-			echo "<script>console.log('Furious Tools Migration Log:\\n" . implode("\\n", $log) . "');</script>";
+			echo "<script>console.log('Furious Tools Migration Log:\\n" . esc_html(implode("\\n", $log)) . "');</script>";
 		}
 
 		$this->cleanup_old_options();

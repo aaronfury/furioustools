@@ -1,6 +1,8 @@
 <?php
 namespace FuriousTools;
 
+if (!defined('ABSPATH')) {exit;}
+
 class Plugin {
 	private $custom_readmore_text;
 	private $_in_body = false;
@@ -151,7 +153,7 @@ class Plugin {
 	function load_skiphomepage_scripts() {
 		$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
 
-		wp_register_script('js-cookie', "//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js", [], null, true );
+		wp_register_script('js-cookie', plugins_url('furioustools/js/js-cookie/dist/js.cookie.min.js', ), [], null, true );
 		wp_enqueue_script('js-cookie');
 		wp_register_script('skiphomepage', plugins_url('furioustools/js/plugin.js', ), array('js-cookie'), null, true);
 		wp_enqueue_script('skiphomepage');
@@ -174,14 +176,14 @@ class Plugin {
 		// Redirect if show once is not enabled, or if it is enabled and the cookie is already set
 		if (!$this->options['skip_homepage_showonce'] || $this->options['skip_homepage_showonce'] && isset($_COOKIE['skiphomepage'])) {
 			// TODO: Move this logic into the save function of the setting so that it doesn't have to do this every time
-			$redirect_target = parse_url($this->options['skip_homepage_target']);
+			$redirect_target = wp_parse_url($this->options['skip_homepage_target']);
 			if (isset($redirect_target['host'])) {
 				$redirectpage = ($redirect_target['scheme'] ?? 'http') . '://' . $this->options['skip_homepage_target'];
 			} else {
 				$redirectpage = site_url($this->options['skip_homepage_target']);
 			}
 			
-			wp_redirect( $redirectpage, 302, 'Furious Tools');
+			wp_redirect( esc_url($redirectpage), 302, 'Furious Tools');
 			exit;
 		}
 	}
@@ -260,9 +262,9 @@ class Plugin {
 					[href^="#"],
 					[href^="javascript:"],  
 					[href^="/"]:not([href^="//"]),
-					[href*="<?= site_url();?>"]
+					[href*="<?php echo site_url();?>"]
 				),
-				<?= $this->options['style_outbound_links_only_in_content'] ? $content_only_selector : null ?>
+				<?php echo $this->options['style_outbound_links_only_in_content'] ? $content_only_selector : null ?>
 			)::after {
 				display: inline-block;
 				width: 0.75em;
@@ -295,7 +297,7 @@ class Plugin {
 	function style_short_posts() {
 		global $post;
 		$content = get_post_field('post_content', $post->ID);
-		$wordcount = str_word_count(strip_tags($content));
+		$wordcount = str_word_count(wp_strip_all_tags($content));
 		if ($wordcount <= 200) :
 			echo " shortpost ";
 		endif;

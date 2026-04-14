@@ -1,10 +1,7 @@
 <?php
-
 namespace FuriousTools;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
-}
+if (!defined('ABSPATH')) {exit;}
 
 class Settings {
 	public static $path = WP_PLUGIN_DIR . '/furioustools';

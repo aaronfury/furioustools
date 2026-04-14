@@ -1,6 +1,8 @@
 <?php
 namespace FuriousTools;
 
+if (!defined('ABSPATH')) {exit;}
+
 class TrackLogins {
 	public function __construct() {
 		add_action('wp_login', [$this, 'update_last_login_timestamp'], 10, 2);
@@ -35,7 +37,7 @@ class TrackLogins {
 		if ('last_login' == $column_name) {
 			$last_login = get_user_meta($user_id, 'last_login', true);
 			if ($last_login) {
-				$value = date('Y-m-d H:i:s', $last_login) . '<br /><em>' . human_time_diff($last_login) . ' ago</em>';
+				$value = gmdate('Y-m-d H:i:s', $last_login) . '<br /><em>' . human_time_diff($last_login) . ' ago</em>';
 			} else {
 				$value = 'Never';
 			}
