@@ -95,14 +95,12 @@ const SettingsPage = () => {
 							checked={ cleanupWpCrud }
 							onChange={ ( value ) => setCleanupWpCrud( value ) }
 							help="This option removes some unnecessary things from the wp_head() function, mostly around WP Emoji and some metadata."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Add custom wp_head() content"
 							checked={ addCustomCrud }
 							onChange={ ( value ) => setAddCustomCrud( value ) }
 							help="Add your own data to the <code>&lt;head&gt;</code> section. Useful for like Graph metadata or other things your theme doesn't provide. Use with caution!"
-							__nextHasNoMarginBottom
 						/>
 						{ addCustomCrud && (
 							<TextareaControl
@@ -110,7 +108,6 @@ const SettingsPage = () => {
 								value={ customCrud }
 								onChange={ ( value ) => setCustomCrud( value ) }
 								help="This text will be inserted directly into the <code>&lt;head&gt;</code> section of every page. Don't break nuffin'"
-								__nextHasNoMarginBottom
 								__next40pxDefaultSize
 								className='left-indent'
 							/>
@@ -120,14 +117,12 @@ const SettingsPage = () => {
 							checked={ latestJquery }
 							onChange={ ( value ) => setLatestJquery( value ) }
 							help="Unloads the default version of jQuery included in WordPress and replace it with the latest version (currently 4.0.0) from the jQuery CDN. This is a major (breaking) version change and can potentially cause compatibility issues with themes and plugins that rely on the default version, so use with caution and test thoroughly."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Remove jQuery Migrate"
 							checked={ removeJqueryMigrate }
 							onChange={ ( value ) => setRemoveJqueryMigrate( value ) }
 							help="Some glorious day, WordPress will eventually remove this legacy script. Until then, this option removes the jQuery Migrate script that is loaded by default."
-							__nextHasNoMarginBottom
 						/>
 					</CardBody>
 				</Card>
@@ -139,28 +134,24 @@ const SettingsPage = () => {
 							checked={ trackUserLastLogin }
 							onChange={ ( value ) => setTrackUserLastLogin( value ) }
 							help="Enable this option to track the last time a user logged in. This information is displayed in the Users list, and can also be accessed using `get_user_meta($user_id, 'last_login', true)`"
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Hide Login Form"
 							checked={ hideLoginForm }
 							onChange={ ( value ) => setHideLoginForm( value ) }
 							help="Hides the default WordPress login form located at /wp-login.php. Useful if you are using a custom login page or plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Include /search slug in search URLs"
 							checked={ searchSlug }
 							onChange={ ( value ) => setSearchSlug( value ) }
 							help="If enabled, search URLs will include '/search' slug (e.g., example.com/search/query). If disabled, it will be example.com/?s=query."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Custom 'Read more' Text (classic themes only)"
 							checked={ customReadmore }
 							onChange={ ( value ) => setCustomReadmore( value ) }
 							help="Enable this option to replace the default 'Read more..' text at the end of excerpts with your own custom text. This only works for classic themes; modern block-based themes typically handle this differently and may not be affected by this setting, but you also can generally change the text in the FSE editor."
-							__nextHasNoMarginBottom
 						/>
 						{ customReadmore && (
 							<TextControl
@@ -168,7 +159,6 @@ const SettingsPage = () => {
 								value={ customReadmoreText }
 								onChange={ ( value ) => setCustomReadmoreText( value ) }
 								help="Replace the 'Read more..' at the end of excerpts with the custom text you provide. Leave blank to use the default text."
-								__nextHasNoMarginBottom
 								__next40pxDefaultSize
 								className='left-indent'
 							/>
@@ -178,28 +168,24 @@ const SettingsPage = () => {
 							checked={ bypassHttpValidateUrl }
 							onChange={ ( value ) => setBypassHttpValidateUrl( value ) }
 							help="Disables the built-in check that a request is not coming from the localhost. This is a useful security feature and should only be temporarily bypassed for specific situations, such as same-host site import/export."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Remove Image Width/Height Attributes"
 							checked={ removeAttWidth }
 							onChange={ ( value ) => setRemoveAttWidth( value ) }
 							help="For images and other blocks added in the editor, WordPress automatically sets a fixed-with value on the item in the DOM. This will remove that value."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Enable Error Logging"
 							checked={ enableErrorLogging }
 							onChange={ ( value ) => setEnableErrorLogging( value ) }
 							help="Enables logging of PHP errors to a log file. This can be useful for debugging issues on the site. The log file is typically located in the wp-content directory and is named 'error_log'."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Show Errors on Frontend"
 							checked={ showErrorsOnFrontend }
 							onChange={ ( value ) => setShowErrorsOnFrontend( value ) }
 							help="Displays PHP errors directly on the frontend of the site. This is useful for debugging but should not be enabled on a production site."
-							__nextHasNoMarginBottom
 						/>
 						</CardBody>
 				</Card>
@@ -211,7 +197,6 @@ const SettingsPage = () => {
 							checked={ redirectOnLogin }
 							onChange={ ( value ) => setRedirectOnLogin( value ) }
 							help="Redirect users to a specific URL after they log in."
-							__nextHasNoMarginBottom
 						/>
 						{ redirectOnLogin && (
 							<TextControl
@@ -219,7 +204,6 @@ const SettingsPage = () => {
 								value={ redirectOnLoginTarget }
 								onChange={ ( value ) => setRedirectOnLoginTarget( value ) }
 								help="The URL to which users will be redirected after logging in."
-								__nextHasNoMarginBottom
 								__next40pxDefaultSize
 								className='left-indent'
 							/>
@@ -229,17 +213,22 @@ const SettingsPage = () => {
 							checked={ styleOutboundLinks }
 							onChange={ ( value ) => setStyleOutboundLinks( value ) }
 							help="If a link (&lt;a&gt;) has an 'href' value that links to an external website, apply specific styling to it."
-							__nextHasNoMarginBottom
 						/>
 						{ styleOutboundLinks && (
-							<CheckboxControl
-								label="Only Style Outbound Links in Content"
-								checked={ styleOutboundLinksOnlyInContent }
-								onChange={ ( value ) => setStyleOutboundLinksOnlyInContent( value ) }
-								help="If enabled, only links within the post/page content will be styled as outbound links. Links in widgets, menus, and other areas will not be affected."
-								__nextHasNoMarginBottom
-								className='left-indent'
-							/>
+							<div class="components-base-control left-indent">
+								<CheckboxControl
+									label="Only Style Outbound Links in Content"
+									checked={ styleOutboundLinksOnlyInContent }
+									onChange={ ( value ) => setStyleOutboundLinksOnlyInContent( value ) }
+									help="If enabled, only links within the post/page content will be styled as outbound links. Links in widgets, menus, and other areas will not be affected."
+									__nextHasNoMarginBottom
+								/>
+								<div class="components-base-control">
+									<Text variant="muted" size="small" as="p">
+										<strong>NOTE:</strong> You can add the <code>.no-outbound-style</code> CSS class to DOM elements (or their parent) to prevent them from being styled as outbound links.
+									</Text>
+								</div>
+							</div>
 						) }
 						<CheckboxControl
 							label="Enable Snap Scrolling"
@@ -268,7 +257,6 @@ const SettingsPage = () => {
 								checked={ snapScrollingForceFullPages }
 								onChange={ ( value ) => setSnapScrollingForceFullPages( value ) }
 								help="When enabled, the snap scrolling will always snap to full page sections, even if the content is shorter than the viewport height."
-								__nextHasNoMarginBottom
 								className='left-indent'
 							/>
 						) }
@@ -277,14 +265,12 @@ const SettingsPage = () => {
 							checked={ smoothScrolling }
 							onChange={ ( value ) => setSmoothScrolling( value ) }
 							help="Enables smooth scrolling behavior for anchor links and general page scrolling."
-							__nextHasNoMarginBottom
 						/>
 						<CheckboxControl
 							label="Enable Random Tagline"
 							checked={ randomTagline }
 							onChange={ ( value ) => setRandomTagline( value ) }
 							help="Replaces the default site tagline with a random tagline from your custom list on each page load."
-							__nextHasNoMarginBottom
 						/>
 						{ randomTagline && (
 							<CheckboxControl
@@ -292,7 +278,6 @@ const SettingsPage = () => {
 								checked={ randomTaglineBodyOnly }
 								onChange={ ( value ) => setRandomTaglineBodyOnly( value ) }
 								help="Only replace the tagline in the body of the site, not in the <head> section. It is recommended to enable this to avoid SEO issues."
-								__nextHasNoMarginBottom
 								className='left-indent'
 							/>
 						) }
@@ -302,7 +287,6 @@ const SettingsPage = () => {
 								value={ randomTaglineList }
 								onChange={ ( value ) => setRandomTaglineList( value ) }
 								help="Enter one tagline per line. These will be randomly selected and displayed as the site tagline."
-								__nextHasNoMarginBottom
 								__next40pxDefaultSize
 								className='left-indent'
 							/>
@@ -317,7 +301,6 @@ const SettingsPage = () => {
 							checked={ skipHomepage }
 							onChange={ ( value ) => setSkipHomepage( value ) }
 							help="Uses a small cookie and Javascript to skip the home page and automatically redirect the visitor to a different page"
-							__nextHasNoMarginBottom
 						/>
 						{ skipHomepage && (
 							<>
@@ -326,7 +309,6 @@ const SettingsPage = () => {
 									checked={ skipHomepageShowonce }
 									onChange={ ( value ) => setSkipHomepageShowonce( value ) }
 									help="Enabling this will show the front page once, then skip on subsequent visits. If this setting is disabled, the front page will never be shown. This setting uses a client-side cookie; if the user has disabled cookies or clears their browser cache, the front page will be shown again."
-									__nextHasNoMarginBottom
 									className='left-indent'
 									/>
 								<TextControl
@@ -334,7 +316,6 @@ const SettingsPage = () => {
 									value={ skipHomepageTarget }
 									onChange={ ( value ) => setSkipHomepageTarget( value ) }
 									help="The URL to which visitors will be redirected when skipping the homepage."
-									__nextHasNoMarginBottom
 									__next40pxDefaultSize
 									className='left-indent'
 								/>
@@ -354,7 +335,7 @@ const SettingsPage = () => {
 			<Spacer marginY={20}/>
 			<VStack gap={ 1 } align="stretch">
 				<Divider />
-				<small>Version 1.0.20260414</small>
+				<small>Version 1.0.20260526</small>
 				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
 			</VStack>
 		</div>

@@ -1,1 +1,942 @@
-(()=>{"use strict";var e={338(e,o,t){var s=t(795);o.H=s.createRoot,s.hydrateRoot},795(e){e.exports=window.ReactDOM}},o={};function t(s){var n=o[s];if(void 0!==n)return n.exports;var r=o[s]={exports:{}};return e[s](r,r.exports,t),r.exports}t.n=e=>{var o=e&&e.__esModule?()=>e.default:()=>e;return t.d(o,{a:o}),o},t.d=(e,o)=>{for(var s in o)t.o(o,s)&&!t.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:o[s]})},t.o=(e,o)=>Object.prototype.hasOwnProperty.call(e,o);var s=t(338);const n=window.wp.domReady;var r=t.n(n);const a=window.wp.components,l=window.wp.element,i=window.wp.apiFetch;var _=t.n(i);const u=window.wp.notices,d=window.wp.data,c=window.ReactJSXRuntime,g=()=>{const{removeNotice:e}=(0,d.useDispatch)(u.store),o=(0,d.useSelect)(e=>e(u.store).getNotices());if(0===o.length)return null;const t=o.filter(e=>"snackbar"===e.type);return(0,c.jsx)(a.SnackbarList,{notices:t,onRemove:e})},h=()=>{const{removeNotice:e}=(0,d.useDispatch)(u.store),o=(0,d.useSelect)(e=>e(u.store).getNotices()).filter(e=>"error"===e.status);return 0===o.length?null:(0,c.jsx)(a.NoticeList,{notices:o,onRemove:e})},m=({onClick:e,disabled:o})=>(0,c.jsx)(a.Button,{variant:"primary",type:"submit",onClick:e,disabled:o,__next40pxDefaultSize:!0,children:"Save Settings"}),p=()=>{const{cleanupWpCrud:e,setCleanupWpCrud:o,addCustomCrud:t,setAddCustomCrud:s,customCrud:n,setCustomCrud:r,latestJquery:i,setLatestJquery:p,removeJqueryMigrate:f,setRemoveJqueryMigrate:b,trackUserLastLogin:y,setTrackUserLastLogin:x,searchSlug:k,setSearchSlug:C,customReadmore:S,setCustomReadmore:w,customReadmoreText:v,setCustomReadmoreText:j,bypassHttpValidateUrl:H,setBypassHttpValidateUrl:L,removeAttWidth:T,setRemoveAttWidth:R,styleOutboundLinks:N,setStyleOutboundLinks:O,styleOutboundLinksOnlyInContent:B,setStyleOutboundLinksOnlyInContent:M,snapScrolling:E,setSnapScrolling:U,snapScrollingCssMethod:F,setSnapScrollingCssMethod:q,snapScrollingForceFullPages:D,setSnapScrollingForceFullPages:P,smoothScrolling:W,setSmoothScrolling:J,randomTagline:I,setRandomTagline:A,randomTaglineBodyOnly:V,setRandomTaglineBodyOnly:z,randomTaglineList:Q,setRandomTaglineList:G,skipHomepage:Y,setSkipHomepage:$,skipHomepageShowonce:X,setSkipHomepageShowonce:K,skipHomepageTarget:Z,setSkipHomepageTarget:ee,redirectOnLogin:oe,setRedirectOnLogin:te,redirectOnLoginTarget:se,setRedirectOnLoginTarget:ne,hideLoginForm:re,setHideLoginForm:ae,saveSettings:le,isDirty:ie,enableErrorLogging:_e,setEnableErrorLogging:ue,showErrorsOnFrontend:de,setShowErrorsOnFrontend:ce}=(()=>{const[e,o]=(0,l.useState)(!1),[t,s]=(0,l.useState)(!1),[n,r]=(0,l.useState)(""),[a,i]=(0,l.useState)(!1),[c,g]=(0,l.useState)(!1),[h,m]=(0,l.useState)(!1),[p,f]=(0,l.useState)(!1),[b,y]=(0,l.useState)(""),[x,k]=(0,l.useState)(""),[C,S]=(0,l.useState)(!1),[w,v]=(0,l.useState)(!1),[j,H]=(0,l.useState)(!1),[L,T]=(0,l.useState)(!1),[R,N]=(0,l.useState)(!1),[O,B]=(0,l.useState)(!1),[M,E]=(0,l.useState)(!1),[U,F]=(0,l.useState)(!1),[q,D]=(0,l.useState)(!1),[P,W]=(0,l.useState)(!1),[J,I]=(0,l.useState)(""),[A,V]=(0,l.useState)(!1),[z,Q]=(0,l.useState)(!1),[G,Y]=(0,l.useState)(!1),[$,X]=(0,l.useState)(!0),[K,Z]=(0,l.useState)(""),[ee,oe]=(0,l.useState)(!1),[te,se]=(0,l.useState)(""),[ne,re]=(0,l.useState)(!1),[ae,le]=(0,l.useState)(!1),[ie,_e]=(0,l.useState)(!1),ue=(0,l.useRef)(null),{createErrorNotice:de,createSuccessNotice:ce}=(0,d.useDispatch)(u.store);return(0,l.useEffect)(()=>{_()({path:"/wp/v2/settings"}).then(e=>{o(e.furious_tools.cleanup_wp_crud||!1),s(e.furious_tools.add_custom_crud||!1),r(e.furious_tools.custom_crud||""),i(e.furious_tools.latest_jquery||!1),g(e.furious_tools.remove_jquery_migrate||!1),m(e.furious_tools.track_user_last_login||!1),f(e.furious_tools.search_slug||!1),y(e.furious_tools.custom_readmore||!1),k(e.furious_tools.custom_readmore_text||""),S(e.furious_tools.bypass_http_validate_url||!1),v(e.furious_tools.remove_att_width||!1),H(e.furious_tools.style_outbound_links||!1),T(e.furious_tools.style_outbound_links_only_in_content||!1),N(e.furious_tools.snap_scrolling||!1),B(e.furious_tools.snap_scrolling_css_method||!1),E(e.furious_tools.snap_scrolling_force_full_pages||!1),F(e.furious_tools.smooth_scrolling||!1),D(e.furious_tools.skip_homepage||!1),W(e.furious_tools.skip_homepage_showonce||!1),I(e.furious_tools.skip_homepage_target||""),V(e.furious_tools.hide_login_form||!1),Q(e.furious_tools.hide_admin_bar||!1),Y(e.furious_tools.random_tagline||!1),X(e.furious_tools.random_tagline_body_only||!0),Z(e.furious_tools.random_tagline_list||""),oe(e.furious_tools.redirect_on_login||!1),se(e.furious_tools.redirect_on_login_target||""),re(e.furious_tools.enable_error_logging||!1),le(e.furious_tools.show_errors_on_frontend||!1),ue.current={cleanup_wp_crud:e.furious_tools.cleanup_wp_crud||!1,add_custom_crud:e.furious_tools.add_custom_crud||!1,custom_crud:e.furious_tools.custom_crud||"",latest_jquery:e.furious_tools.latest_jquery||!1,remove_jquery_migrate:e.furious_tools.remove_jquery_migrate||!1,track_user_last_login:e.furious_tools.track_user_last_login||!1,search_slug:e.furious_tools.search_slug||!1,custom_readmore:e.furious_tools.custom_readmore||!1,custom_readmore_text:e.furious_tools.custom_readmore_text||"",bypass_http_validate_url:e.furious_tools.bypass_http_validate_url||!1,remove_att_width:e.furious_tools.remove_att_width||!1,style_outbound_links:e.furious_tools.style_outbound_links||!1,style_outbound_links_only_in_content:e.furious_tools.style_outbound_links_only_in_content||!1,snap_scrolling:e.furious_tools.snap_scrolling||!1,snap_scrolling_css_method:e.furious_tools.snap_scrolling_css_method||!1,snap_scrolling_force_full_pages:e.furious_tools.snap_scrolling_force_full_pages||!1,smooth_scrolling:e.furious_tools.smooth_scrolling||!1,skip_homepage:e.furious_tools.skip_homepage||!1,skip_homepage_showonce:e.furious_tools.skip_homepage_showonce||!1,skip_homepage_target:e.furious_tools.skip_homepage_target||"",hide_login_form:e.furious_tools.hide_login_form||!1,hide_admin_bar:e.furious_tools.hide_admin_bar||!1,random_tagline:e.furious_tools.random_tagline||!1,random_tagline_body_only:e.furious_tools.random_tagline_body_only||!0,random_tagline_list:e.furious_tools.random_tagline_list||"",redirect_on_login:e.furious_tools.redirect_on_login||!1,redirect_on_login_target:e.furious_tools.redirect_on_login_target||"",enable_error_logging:e.furious_tools.enable_error_logging||!1,show_errors_on_frontend:e.furious_tools.show_errors_on_frontend||!1}})},[]),(0,l.useEffect)(()=>{if(!ue.current)return;const o={cleanup_wp_crud:e,add_custom_crud:t,custom_crud:n,latest_jquery:a,remove_jquery_migrate:c,track_user_last_login:h,search_slug:p,custom_readmore:b,custom_readmore_text:x,bypass_http_validate_url:C,remove_att_width:w,style_outbound_links:j,style_outbound_links_only_in_content:L,snap_scrolling:R,snap_scrolling_css_method:O,snap_scrolling_force_full_pages:M,smooth_scrolling:U,skip_homepage:q,skip_homepage_showonce:P,skip_homepage_target:J,hide_login_form:A,hide_admin_bar:z,random_tagline:G,random_tagline_body_only:$,random_tagline_list:K,redirect_on_login:ee,redirect_on_login_target:te,enable_error_logging:ne,show_errors_on_frontend:ae},s=JSON.stringify(o)!==JSON.stringify(ue.current);_e(s)},[e,t,n,a,c,h,p,b,x,C,w,j,L,R,O,M,U,q,P,J,A,z,G,$,K,ee,te,ne,ae]),{cleanupWpCrud:e,setCleanupWpCrud:o,addCustomCrud:t,setAddCustomCrud:s,customCrud:n,setCustomCrud:r,latestJquery:a,setLatestJquery:i,removeJqueryMigrate:c,setRemoveJqueryMigrate:g,trackUserLastLogin:h,setTrackUserLastLogin:m,searchSlug:p,setSearchSlug:f,customReadmore:b,setCustomReadmore:y,customReadmoreText:x,setCustomReadmoreText:k,bypassHttpValidateUrl:C,setBypassHttpValidateUrl:S,removeAttWidth:w,setRemoveAttWidth:v,styleOutboundLinks:j,setStyleOutboundLinks:H,styleOutboundLinksOnlyInContent:L,setStyleOutboundLinksOnlyInContent:T,snapScrolling:R,setSnapScrolling:N,snapScrollingCssMethod:O,setSnapScrollingCssMethod:B,snapScrollingForceFullPages:M,setSnapScrollingForceFullPages:E,smoothScrolling:U,setSmoothScrolling:F,skipHomepage:q,setSkipHomepage:D,skipHomepageShowonce:P,setSkipHomepageShowonce:W,skipHomepageTarget:J,setSkipHomepageTarget:I,redirectOnLogin:ee,setRedirectOnLogin:oe,redirectOnLoginTarget:te,setRedirectOnLoginTarget:se,hideLoginForm:A,setHideLoginForm:V,hideAdminBar:z,setHideAdminBar:Q,randomTagline:G,setRandomTagline:Y,randomTaglineBodyOnly:$,setRandomTaglineBodyOnly:X,randomTaglineList:K,setRandomTaglineList:Z,enableErrorLogging:ne,setEnableErrorLogging:re,showErrorsOnFrontend:ae,setShowErrorsOnFrontend:le,saveSettings:()=>{_()({path:"/wp/v2/settings",method:"POST",data:{furious_tools:{cleanup_wp_crud:e,add_custom_crud:t,custom_crud:n,latest_jquery:a,remove_jquery_migrate:c,track_user_last_login:h,search_slug:p,custom_readmore:b,custom_readmore_text:x,bypass_http_validate_url:C,remove_att_width:w,style_outbound_links:j,style_outbound_links_only_in_content:L,snap_scrolling:R,snap_scrolling_css_method:O,snap_scrolling_force_full_pages:M,smooth_scrolling:U,skip_homepage:q,skip_homepage_showonce:P,skip_homepage_target:J,hide_login_form:A,hide_admin_bar:z,random_tagline:G,random_tagline_body_only:$,random_tagline_list:K,redirect_on_login:ee,redirect_on_login_target:te,enable_error_logging:ne,show_errors_on_frontend:ae}}}).then(()=>{ue.current&&(ue.current=JSON.parse(JSON.stringify({cleanup_wp_crud:e,add_custom_crud:t,custom_crud:n,latest_jquery:a,remove_jquery_migrate:c,track_user_last_login:h,search_slug:p,custom_readmore:b,custom_readmore_text:x,bypass_http_validate_url:C,remove_att_width:w,style_outbound_links:j,style_outbound_links_only_in_content:L,snap_scrolling:R,snap_scrolling_css_method:O,snap_scrolling_force_full_pages:M,smooth_scrolling:U,skip_homepage:q,skip_homepage_showonce:P,skip_homepage_target:J,hide_login_form:A,hide_admin_bar:z,random_tagline:G,random_tagline_body_only:$,random_tagline_list:K,redirect_on_login:ee,redirect_on_login_target:te,enable_error_logging:ne,show_errors_on_frontend:ae}))),_e(!1),ce("Settings saved successfully.",{type:"snackbar"})}).catch(e=>{de(`Failed to save settings. ${e}.`)})},isDirty:ie}})();return(0,l.useEffect)(()=>{const e=e=>{if(!ie)return;const o="You have unsaved changes. Are you sure you want to leave?";return e.preventDefault(),e.returnValue=o,o};return window.addEventListener("beforeunload",e),()=>window.removeEventListener("beforeunload",e)},[ie]),(0,c.jsxs)("div",{children:[(0,c.jsx)("h1",{children:"Furious Tools Settings"}),(0,c.jsxs)(a.__experimentalVStack,{gap:4,children:[(0,c.jsxs)(a.Card,{children:[(0,c.jsx)(a.CardHeader,{children:"Headers and Libraries"}),(0,c.jsxs)(a.CardBody,{children:[(0,c.jsx)(a.CheckboxControl,{label:"Cleanup legacy wp_head() content",checked:e,onChange:e=>o(e),help:"This option removes some unnecessary things from the wp_head() function, mostly around WP Emoji and some metadata.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Add custom wp_head() content",checked:t,onChange:e=>s(e),help:"Add your own data to the <code><head></code> section. Useful for like Graph metadata or other things your theme doesn't provide. Use with caution!",__nextHasNoMarginBottom:!0}),t&&(0,c.jsx)(a.TextareaControl,{label:"Custom content to add",value:n,onChange:e=>r(e),help:"This text will be inserted directly into the <code><head></code> section of every page. Don't break nuffin'",__nextHasNoMarginBottom:!0,__next40pxDefaultSize:!0,className:"left-indent"}),(0,c.jsx)(a.CheckboxControl,{label:"Use Latest jQuery (danger)",checked:i,onChange:e=>p(e),help:"Unloads the default version of jQuery included in WordPress and replace it with the latest version (currently 4.0.0) from the jQuery CDN. This is a major (breaking) version change and can potentially cause compatibility issues with themes and plugins that rely on the default version, so use with caution and test thoroughly.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Remove jQuery Migrate",checked:f,onChange:e=>b(e),help:"Some glorious day, WordPress will eventually remove this legacy script. Until then, this option removes the jQuery Migrate script that is loaded by default.",__nextHasNoMarginBottom:!0})]})]}),(0,c.jsxs)(a.Card,{children:[(0,c.jsx)(a.CardHeader,{children:"Miscellaneous Settings"}),(0,c.jsxs)(a.CardBody,{children:[(0,c.jsx)(a.CheckboxControl,{label:"Track User Last Login",checked:y,onChange:e=>x(e),help:"Enable this option to track the last time a user logged in. This information is displayed in the Users list, and can also be accessed using `get_user_meta($user_id, 'last_login', true)`",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Hide Login Form",checked:re,onChange:e=>ae(e),help:"Hides the default WordPress login form located at /wp-login.php. Useful if you are using a custom login page or plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Include /search slug in search URLs",checked:k,onChange:e=>C(e),help:"If enabled, search URLs will include '/search' slug (e.g., example.com/search/query). If disabled, it will be example.com/?s=query.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Custom 'Read more' Text (classic themes only)",checked:S,onChange:e=>w(e),help:"Enable this option to replace the default 'Read more..' text at the end of excerpts with your own custom text. This only works for classic themes; modern block-based themes typically handle this differently and may not be affected by this setting, but you also can generally change the text in the FSE editor.",__nextHasNoMarginBottom:!0}),S&&(0,c.jsx)(a.TextControl,{label:"Custom 'Read more' Text",value:v,onChange:e=>j(e),help:"Replace the 'Read more..' at the end of excerpts with the custom text you provide. Leave blank to use the default text.",__nextHasNoMarginBottom:!0,__next40pxDefaultSize:!0,className:"left-indent"}),(0,c.jsx)(a.CheckboxControl,{label:"Bypass HTTP URL Validation",checked:H,onChange:e=>L(e),help:"Disables the built-in check that a request is not coming from the localhost. This is a useful security feature and should only be temporarily bypassed for specific situations, such as same-host site import/export.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Remove Image Width/Height Attributes",checked:T,onChange:e=>R(e),help:"For images and other blocks added in the editor, WordPress automatically sets a fixed-with value on the item in the DOM. This will remove that value.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Enable Error Logging",checked:_e,onChange:e=>ue(e),help:"Enables logging of PHP errors to a log file. This can be useful for debugging issues on the site. The log file is typically located in the wp-content directory and is named 'error_log'.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Show Errors on Frontend",checked:de,onChange:e=>ce(e),help:"Displays PHP errors directly on the frontend of the site. This is useful for debugging but should not be enabled on a production site.",__nextHasNoMarginBottom:!0})]})]}),(0,c.jsxs)(a.Card,{children:[(0,c.jsx)(a.CardHeader,{children:"Frontend Enhancements"}),(0,c.jsxs)(a.CardBody,{children:[(0,c.jsx)(a.CheckboxControl,{label:"Redirect on Login",checked:oe,onChange:e=>te(e),help:"Redirect users to a specific URL after they log in.",__nextHasNoMarginBottom:!0}),oe&&(0,c.jsx)(a.TextControl,{label:"Redirect on Login Target URL",value:se,onChange:e=>ne(e),help:"The URL to which users will be redirected after logging in.",__nextHasNoMarginBottom:!0,__next40pxDefaultSize:!0,className:"left-indent"}),(0,c.jsx)(a.CheckboxControl,{label:"Style Outbound Links",checked:N,onChange:e=>O(e),help:"If a link (<a>) has an 'href' value that links to an external website, apply specific styling to it.",__nextHasNoMarginBottom:!0}),N&&(0,c.jsx)(a.CheckboxControl,{label:"Only Style Outbound Links in Content",checked:B,onChange:e=>M(e),help:"If enabled, only links within the post/page content will be styled as outbound links. Links in widgets, menus, and other areas will not be affected.",__nextHasNoMarginBottom:!0,className:"left-indent"}),(0,c.jsx)(a.CheckboxControl,{label:"Enable Snap Scrolling",checked:E,onChange:e=>U(e),help:"Enables snap scrolling behavior, where the viewport snaps to the nearest section when scrolling.",__nextHasNoMarginBottom:!0}),E&&(0,c.jsx)(a.CheckboxControl,{label:"Use CSS for Snap Scrolling",checked:F,onChange:e=>q(e),help:F?'Use ".snap-container" and ".snap-section" CSS classes for snap scrolling behavior.':"Use Group blocks configured as <section> tags for snap scrolling behavior.",__nextHasNoMarginBottom:!0,className:"left-indent"}),E&&(0,c.jsx)(a.CheckboxControl,{label:"Force Full Page Snaps",checked:D,onChange:e=>P(e),help:"When enabled, the snap scrolling will always snap to full page sections, even if the content is shorter than the viewport height.",__nextHasNoMarginBottom:!0,className:"left-indent"}),(0,c.jsx)(a.CheckboxControl,{label:"Enable Smooth Scrolling",checked:W,onChange:e=>J(e),help:"Enables smooth scrolling behavior for anchor links and general page scrolling.",__nextHasNoMarginBottom:!0}),(0,c.jsx)(a.CheckboxControl,{label:"Enable Random Tagline",checked:I,onChange:e=>A(e),help:"Replaces the default site tagline with a random tagline from your custom list on each page load.",__nextHasNoMarginBottom:!0}),I&&(0,c.jsx)(a.CheckboxControl,{label:"Random Tagline in HTML Body Only",checked:V,onChange:e=>z(e),help:"Only replace the tagline in the body of the site, not in the <head> section. It is recommended to enable this to avoid SEO issues.",__nextHasNoMarginBottom:!0,className:"left-indent"}),I&&(0,c.jsx)(a.TextareaControl,{label:"Random Tagline List",value:Q,onChange:e=>G(e),help:"Enter one tagline per line. These will be randomly selected and displayed as the site tagline.",__nextHasNoMarginBottom:!0,__next40pxDefaultSize:!0,className:"left-indent"})]})]}),(0,c.jsxs)(a.Card,{children:[(0,c.jsx)(a.CardHeader,{children:"Skip Homepage Settings"}),(0,c.jsxs)(a.CardBody,{children:[(0,c.jsx)(a.CheckboxControl,{label:"Enable Skip Homepage",checked:Y,onChange:e=>$(e),help:"Uses a small cookie and Javascript to skip the home page and automatically redirect the visitor to a different page",__nextHasNoMarginBottom:!0}),Y&&(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(a.CheckboxControl,{label:"Show Homepage Only Once",checked:X,onChange:e=>K(e),help:"Enabling this will show the front page once, then skip on subsequent visits. If this setting is disabled, the front page will never be shown. This setting uses a client-side cookie; if the user has disabled cookies or clears their browser cache, the front page will be shown again.",__nextHasNoMarginBottom:!0,className:"left-indent"}),(0,c.jsx)(a.TextControl,{label:"Skip Homepage Target URL",value:Z,onChange:e=>ee(e),help:"The URL to which visitors will be redirected when skipping the homepage.",__nextHasNoMarginBottom:!0,__next40pxDefaultSize:!0,className:"left-indent"})]})]})]})]}),(0,c.jsx)(a.__experimentalSpacer,{}),(0,c.jsxs)(a.__experimentalHStack,{justify:"flex-start",gap:1,children:[(0,c.jsx)(m,{onClick:le,disabled:!ie}),(0,c.jsx)(g,{})]}),(0,c.jsx)(a.__experimentalSpacer,{marginY:2,children:(0,c.jsx)(h,{})}),(0,c.jsx)(a.__experimentalSpacer,{marginY:20}),(0,c.jsxs)(a.__experimentalVStack,{gap:1,align:"stretch",children:[(0,c.jsx)(a.__experimentalDivider,{}),(0,c.jsx)("small",{children:"Version 1.0.20260414"}),(0,c.jsxs)("small",{children:["GitHub: ",(0,c.jsx)("a",{href:"https://github.com/aaronfury/furioustools",target:"_blank",rel:"noreferrer",children:"github.com/aaronfury/furioustools"})]})]})]})};r()(()=>{(0,s.H)(document.getElementById("furious-tools-settings-root")).render((0,c.jsx)(p,{}))})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/components/index.js"
+/*!*********************************!*\
+  !*** ./src/components/index.js ***!
+  \*********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SettingsPage: () => (/* reexport safe */ _settings_page__WEBPACK_IMPORTED_MODULE_0__.SettingsPage)
+/* harmony export */ });
+/* harmony import */ var _settings_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings-page */ "./src/components/settings-page.jsx");
+
+
+/***/ },
+
+/***/ "./src/components/notices.jsx"
+/*!************************************!*\
+  !*** ./src/components/notices.jsx ***!
+  \************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ErrorList: () => (/* binding */ ErrorList),
+/* harmony export */   Notices: () => (/* binding */ Notices)
+/* harmony export */ });
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_notices__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+const Notices = () => {
+  const {
+    removeNotice
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_0__.store);
+  const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_0__.store).getNotices());
+  if (notices.length === 0) {
+    return null;
+  }
+  const snackbarNotices = notices.filter(notice => notice.type === 'snackbar');
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SnackbarList, {
+    notices: snackbarNotices,
+    onRemove: removeNotice
+  });
+};
+const ErrorList = () => {
+  const {
+    removeNotice
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_0__.store);
+  const notices = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(select => select(_wordpress_notices__WEBPACK_IMPORTED_MODULE_0__.store).getNotices()).filter(notice => notice.status === 'error');
+  if (notices.length === 0) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.NoticeList, {
+    notices: notices,
+    onRemove: removeNotice
+  });
+};
+
+
+/***/ },
+
+/***/ "./src/components/settings-page.jsx"
+/*!******************************************!*\
+  !*** ./src/components/settings-page.jsx ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SettingsPage: () => (/* binding */ SettingsPage)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks */ "./src/hooks/index.js");
+/* harmony import */ var _notices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./notices */ "./src/components/notices.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+const SaveButton = ({
+  onClick,
+  disabled
+}) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+  variant: "primary",
+  type: "submit",
+  onClick: onClick,
+  disabled: disabled,
+  __next40pxDefaultSize: true,
+  children: "Save Settings"
+});
+const SettingsPage = () => {
+  const {
+    cleanupWpCrud,
+    setCleanupWpCrud,
+    addCustomCrud,
+    setAddCustomCrud,
+    customCrud,
+    setCustomCrud,
+    latestJquery,
+    setLatestJquery,
+    removeJqueryMigrate,
+    setRemoveJqueryMigrate,
+    trackUserLastLogin,
+    setTrackUserLastLogin,
+    searchSlug,
+    setSearchSlug,
+    customReadmore,
+    setCustomReadmore,
+    customReadmoreText,
+    setCustomReadmoreText,
+    bypassHttpValidateUrl,
+    setBypassHttpValidateUrl,
+    removeAttWidth,
+    setRemoveAttWidth,
+    styleOutboundLinks,
+    setStyleOutboundLinks,
+    styleOutboundLinksOnlyInContent,
+    setStyleOutboundLinksOnlyInContent,
+    snapScrolling,
+    setSnapScrolling,
+    snapScrollingCssMethod,
+    setSnapScrollingCssMethod,
+    snapScrollingForceFullPages,
+    setSnapScrollingForceFullPages,
+    smoothScrolling,
+    setSmoothScrolling,
+    randomTagline,
+    setRandomTagline,
+    randomTaglineBodyOnly,
+    setRandomTaglineBodyOnly,
+    randomTaglineList,
+    setRandomTaglineList,
+    skipHomepage,
+    setSkipHomepage,
+    skipHomepageShowonce,
+    setSkipHomepageShowonce,
+    skipHomepageTarget,
+    setSkipHomepageTarget,
+    redirectOnLogin,
+    setRedirectOnLogin,
+    redirectOnLoginTarget,
+    setRedirectOnLoginTarget,
+    hideLoginForm,
+    setHideLoginForm,
+    saveSettings,
+    isDirty,
+    enableErrorLogging,
+    setEnableErrorLogging,
+    showErrorsOnFrontend,
+    setShowErrorsOnFrontend
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useSettings)();
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    const handler = e => {
+      if (!isDirty) return;
+      const message = 'You have unsaved changes. Are you sure you want to leave?';
+      e.preventDefault();
+      e.returnValue = message;
+      return message;
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [isDirty]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+      children: "Furious Tools Settings"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalVStack, {
+      gap: 4,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Card, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardHeader, {
+          children: "Headers and Libraries"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardBody, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Cleanup legacy wp_head() content",
+            checked: cleanupWpCrud,
+            onChange: value => setCleanupWpCrud(value),
+            help: "This option removes some unnecessary things from the wp_head() function, mostly around WP Emoji and some metadata."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Add custom wp_head() content",
+            checked: addCustomCrud,
+            onChange: value => setAddCustomCrud(value),
+            help: "Add your own data to the <code><head></code> section. Useful for like Graph metadata or other things your theme doesn't provide. Use with caution!"
+          }), addCustomCrud && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextareaControl, {
+            label: "Custom content to add",
+            value: customCrud,
+            onChange: value => setCustomCrud(value),
+            help: "This text will be inserted directly into the <code><head></code> section of every page. Don't break nuffin'",
+            __next40pxDefaultSize: true,
+            className: "left-indent"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Use Latest jQuery (danger)",
+            checked: latestJquery,
+            onChange: value => setLatestJquery(value),
+            help: "Unloads the default version of jQuery included in WordPress and replace it with the latest version (currently 4.0.0) from the jQuery CDN. This is a major (breaking) version change and can potentially cause compatibility issues with themes and plugins that rely on the default version, so use with caution and test thoroughly."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Remove jQuery Migrate",
+            checked: removeJqueryMigrate,
+            onChange: value => setRemoveJqueryMigrate(value),
+            help: "Some glorious day, WordPress will eventually remove this legacy script. Until then, this option removes the jQuery Migrate script that is loaded by default."
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Card, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardHeader, {
+          children: "Miscellaneous Settings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardBody, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Track User Last Login",
+            checked: trackUserLastLogin,
+            onChange: value => setTrackUserLastLogin(value),
+            help: "Enable this option to track the last time a user logged in. This information is displayed in the Users list, and can also be accessed using `get_user_meta($user_id, 'last_login', true)`"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Hide Login Form",
+            checked: hideLoginForm,
+            onChange: value => setHideLoginForm(value),
+            help: "Hides the default WordPress login form located at /wp-login.php. Useful if you are using a custom login page or plugin. When enabled, can be overridden by appending '?showloginform' to the wp-login.php URL."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Include /search slug in search URLs",
+            checked: searchSlug,
+            onChange: value => setSearchSlug(value),
+            help: "If enabled, search URLs will include '/search' slug (e.g., example.com/search/query). If disabled, it will be example.com/?s=query."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Custom 'Read more' Text (classic themes only)",
+            checked: customReadmore,
+            onChange: value => setCustomReadmore(value),
+            help: "Enable this option to replace the default 'Read more..' text at the end of excerpts with your own custom text. This only works for classic themes; modern block-based themes typically handle this differently and may not be affected by this setting, but you also can generally change the text in the FSE editor."
+          }), customReadmore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+            label: "Custom 'Read more' Text",
+            value: customReadmoreText,
+            onChange: value => setCustomReadmoreText(value),
+            help: "Replace the 'Read more..' at the end of excerpts with the custom text you provide. Leave blank to use the default text.",
+            __next40pxDefaultSize: true,
+            className: "left-indent"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Bypass HTTP URL Validation",
+            checked: bypassHttpValidateUrl,
+            onChange: value => setBypassHttpValidateUrl(value),
+            help: "Disables the built-in check that a request is not coming from the localhost. This is a useful security feature and should only be temporarily bypassed for specific situations, such as same-host site import/export."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Remove Image Width/Height Attributes",
+            checked: removeAttWidth,
+            onChange: value => setRemoveAttWidth(value),
+            help: "For images and other blocks added in the editor, WordPress automatically sets a fixed-with value on the item in the DOM. This will remove that value."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Enable Error Logging",
+            checked: enableErrorLogging,
+            onChange: value => setEnableErrorLogging(value),
+            help: "Enables logging of PHP errors to a log file. This can be useful for debugging issues on the site. The log file is typically located in the wp-content directory and is named 'error_log'."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Show Errors on Frontend",
+            checked: showErrorsOnFrontend,
+            onChange: value => setShowErrorsOnFrontend(value),
+            help: "Displays PHP errors directly on the frontend of the site. This is useful for debugging but should not be enabled on a production site."
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Card, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardHeader, {
+          children: "Frontend Enhancements"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardBody, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Redirect on Login",
+            checked: redirectOnLogin,
+            onChange: value => setRedirectOnLogin(value),
+            help: "Redirect users to a specific URL after they log in."
+          }), redirectOnLogin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+            label: "Redirect on Login Target URL",
+            value: redirectOnLoginTarget,
+            onChange: value => setRedirectOnLoginTarget(value),
+            help: "The URL to which users will be redirected after logging in.",
+            __next40pxDefaultSize: true,
+            className: "left-indent"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Style Outbound Links",
+            checked: styleOutboundLinks,
+            onChange: value => setStyleOutboundLinks(value),
+            help: "If a link (<a>) has an 'href' value that links to an external website, apply specific styling to it."
+          }), styleOutboundLinks && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            class: "components-base-control left-indent",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+              label: "Only Style Outbound Links in Content",
+              checked: styleOutboundLinksOnlyInContent,
+              onChange: value => setStyleOutboundLinksOnlyInContent(value),
+              help: "If enabled, only links within the post/page content will be styled as outbound links. Links in widgets, menus, and other areas will not be affected.",
+              __nextHasNoMarginBottom: true
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              class: "components-base-control",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalText, {
+                variant: "muted",
+                size: "small",
+                as: "p",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+                  children: "NOTE:"
+                }), " You can add the ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("code", {
+                  children: ".no-outbound-style"
+                }), " CSS class to DOM elements (or their parent) to prevent them from being styled as outbound links."]
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Enable Snap Scrolling",
+            checked: snapScrolling,
+            onChange: value => setSnapScrolling(value),
+            help: "Enables snap scrolling behavior, where the viewport snaps to the nearest section when scrolling.",
+            __nextHasNoMarginBottom: true
+          }), snapScrolling && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Use CSS for Snap Scrolling",
+            checked: snapScrollingCssMethod,
+            onChange: value => setSnapScrollingCssMethod(value),
+            help: snapScrollingCssMethod ? 'Use ".snap-container" and ".snap-section" CSS classes for snap scrolling behavior.' : 'Use Group blocks configured as <section> tags for snap scrolling behavior.',
+            __nextHasNoMarginBottom: true,
+            className: "left-indent"
+          }), snapScrolling && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Force Full Page Snaps",
+            checked: snapScrollingForceFullPages,
+            onChange: value => setSnapScrollingForceFullPages(value),
+            help: "When enabled, the snap scrolling will always snap to full page sections, even if the content is shorter than the viewport height.",
+            className: "left-indent"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Enable Smooth Scrolling",
+            checked: smoothScrolling,
+            onChange: value => setSmoothScrolling(value),
+            help: "Enables smooth scrolling behavior for anchor links and general page scrolling."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Enable Random Tagline",
+            checked: randomTagline,
+            onChange: value => setRandomTagline(value),
+            help: "Replaces the default site tagline with a random tagline from your custom list on each page load."
+          }), randomTagline && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Random Tagline in HTML Body Only",
+            checked: randomTaglineBodyOnly,
+            onChange: value => setRandomTaglineBodyOnly(value),
+            help: "Only replace the tagline in the body of the site, not in the <head> section. It is recommended to enable this to avoid SEO issues.",
+            className: "left-indent"
+          }), randomTagline && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextareaControl, {
+            label: "Random Tagline List",
+            value: randomTaglineList,
+            onChange: value => setRandomTaglineList(value),
+            help: "Enter one tagline per line. These will be randomly selected and displayed as the site tagline.",
+            __next40pxDefaultSize: true,
+            className: "left-indent"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Card, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardHeader, {
+          children: "Skip Homepage Settings"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CardBody, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+            label: "Enable Skip Homepage",
+            checked: skipHomepage,
+            onChange: value => setSkipHomepage(value),
+            help: "Uses a small cookie and Javascript to skip the home page and automatically redirect the visitor to a different page"
+          }), skipHomepage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.CheckboxControl, {
+              label: "Show Homepage Only Once",
+              checked: skipHomepageShowonce,
+              onChange: value => setSkipHomepageShowonce(value),
+              help: "Enabling this will show the front page once, then skip on subsequent visits. If this setting is disabled, the front page will never be shown. This setting uses a client-side cookie; if the user has disabled cookies or clears their browser cache, the front page will be shown again.",
+              className: "left-indent"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+              label: "Skip Homepage Target URL",
+              value: skipHomepageTarget,
+              onChange: value => setSkipHomepageTarget(value),
+              help: "The URL to which visitors will be redirected when skipping the homepage.",
+              __next40pxDefaultSize: true,
+              className: "left-indent"
+            })]
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalSpacer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalHStack, {
+      justify: "flex-start",
+      gap: 1,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(SaveButton, {
+        onClick: saveSettings,
+        disabled: !isDirty
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_notices__WEBPACK_IMPORTED_MODULE_3__.Notices, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalSpacer, {
+      marginY: 2,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_notices__WEBPACK_IMPORTED_MODULE_3__.ErrorList, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalSpacer, {
+      marginY: 20
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalVStack, {
+      gap: 1,
+      align: "stretch",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalDivider, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("small", {
+        children: "Version 1.0.20260526"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("small", {
+        children: ["GitHub: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+          href: "https://github.com/aaronfury/furioustools",
+          target: "_blank",
+          rel: "noreferrer",
+          children: "github.com/aaronfury/furioustools"
+        })]
+      })]
+    })]
+  });
+};
+
+
+/***/ },
+
+/***/ "./src/hooks/index.js"
+/*!****************************!*\
+  !*** ./src/hooks/index.js ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useSettings: () => (/* reexport safe */ _use_settings__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _use_settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-settings */ "./src/hooks/use-settings.js");
+
+
+/***/ },
+
+/***/ "./src/hooks/use-settings.js"
+/*!***********************************!*\
+  !*** ./src/hooks/use-settings.js ***!
+  \***********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/notices */ "@wordpress/notices");
+/* harmony import */ var _wordpress_notices__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_notices__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const useSettings = () => {
+  const [cleanupWpCrud, setCleanupWpCrud] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [addCustomCrud, setAddCustomCrud] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [customCrud, setCustomCrud] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  const [latestJquery, setLatestJquery] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [removeJqueryMigrate, setRemoveJqueryMigrate] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [trackUserLastLogin, setTrackUserLastLogin] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [searchSlug, setSearchSlug] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [customReadmore, setCustomReadmore] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  const [customReadmoreText, setCustomReadmoreText] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  const [bypassHttpValidateUrl, setBypassHttpValidateUrl] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [removeAttWidth, setRemoveAttWidth] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [styleOutboundLinks, setStyleOutboundLinks] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [styleOutboundLinksOnlyInContent, setStyleOutboundLinksOnlyInContent] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [snapScrolling, setSnapScrolling] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [snapScrollingCssMethod, setSnapScrollingCssMethod] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [snapScrollingForceFullPages, setSnapScrollingForceFullPages] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [smoothScrolling, setSmoothScrolling] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [skipHomepage, setSkipHomepage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [skipHomepageShowonce, setSkipHomepageShowonce] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [skipHomepageTarget, setSkipHomepageTarget] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  const [hideLoginForm, setHideLoginForm] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [hideAdminBar, setHideAdminBar] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [randomTagline, setRandomTagline] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [randomTaglineBodyOnly, setRandomTaglineBodyOnly] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(true);
+  const [randomTaglineList, setRandomTaglineList] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  const [redirectOnLogin, setRedirectOnLogin] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [redirectOnLoginTarget, setRedirectOnLoginTarget] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  const [enableErrorLogging, setEnableErrorLogging] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [showErrorsOnFrontend, setShowErrorsOnFrontend] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [isDirty, setIsDirty] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const initialSettingsRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  const {
+    createErrorNotice,
+    createSuccessNotice
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_2__.store);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+      path: '/wp/v2/settings'
+    }).then(settings => {
+      setCleanupWpCrud(settings.furious_tools.cleanup_wp_crud || false);
+      setAddCustomCrud(settings.furious_tools.add_custom_crud || false);
+      setCustomCrud(settings.furious_tools.custom_crud || '');
+      setLatestJquery(settings.furious_tools.latest_jquery || false);
+      setRemoveJqueryMigrate(settings.furious_tools.remove_jquery_migrate || false);
+      setTrackUserLastLogin(settings.furious_tools.track_user_last_login || false);
+      setSearchSlug(settings.furious_tools.search_slug || false);
+      setCustomReadmore(settings.furious_tools.custom_readmore || false);
+      setCustomReadmoreText(settings.furious_tools.custom_readmore_text || '');
+      setBypassHttpValidateUrl(settings.furious_tools.bypass_http_validate_url || false);
+      setRemoveAttWidth(settings.furious_tools.remove_att_width || false);
+      setStyleOutboundLinks(settings.furious_tools.style_outbound_links || false);
+      setStyleOutboundLinksOnlyInContent(settings.furious_tools.style_outbound_links_only_in_content || false);
+      setSnapScrolling(settings.furious_tools.snap_scrolling || false);
+      setSnapScrollingCssMethod(settings.furious_tools.snap_scrolling_css_method || false);
+      setSnapScrollingForceFullPages(settings.furious_tools.snap_scrolling_force_full_pages || false);
+      setSmoothScrolling(settings.furious_tools.smooth_scrolling || false);
+      setSkipHomepage(settings.furious_tools.skip_homepage || false);
+      setSkipHomepageShowonce(settings.furious_tools.skip_homepage_showonce || false);
+      setSkipHomepageTarget(settings.furious_tools.skip_homepage_target || '');
+      setHideLoginForm(settings.furious_tools.hide_login_form || false);
+      setHideAdminBar(settings.furious_tools.hide_admin_bar || false);
+      setRandomTagline(settings.furious_tools.random_tagline || false);
+      setRandomTaglineBodyOnly(settings.furious_tools.random_tagline_body_only || true);
+      setRandomTaglineList(settings.furious_tools.random_tagline_list || '');
+      setRedirectOnLogin(settings.furious_tools.redirect_on_login || false);
+      setRedirectOnLoginTarget(settings.furious_tools.redirect_on_login_target || '');
+      setEnableErrorLogging(settings.furious_tools.enable_error_logging || false);
+      setShowErrorsOnFrontend(settings.furious_tools.show_errors_on_frontend || false);
+
+      // Capture initial loaded settings for dirty checking
+      initialSettingsRef.current = {
+        cleanup_wp_crud: settings.furious_tools.cleanup_wp_crud || false,
+        add_custom_crud: settings.furious_tools.add_custom_crud || false,
+        custom_crud: settings.furious_tools.custom_crud || '',
+        latest_jquery: settings.furious_tools.latest_jquery || false,
+        remove_jquery_migrate: settings.furious_tools.remove_jquery_migrate || false,
+        track_user_last_login: settings.furious_tools.track_user_last_login || false,
+        search_slug: settings.furious_tools.search_slug || false,
+        custom_readmore: settings.furious_tools.custom_readmore || false,
+        custom_readmore_text: settings.furious_tools.custom_readmore_text || '',
+        bypass_http_validate_url: settings.furious_tools.bypass_http_validate_url || false,
+        remove_att_width: settings.furious_tools.remove_att_width || false,
+        style_outbound_links: settings.furious_tools.style_outbound_links || false,
+        style_outbound_links_only_in_content: settings.furious_tools.style_outbound_links_only_in_content || false,
+        snap_scrolling: settings.furious_tools.snap_scrolling || false,
+        snap_scrolling_css_method: settings.furious_tools.snap_scrolling_css_method || false,
+        snap_scrolling_force_full_pages: settings.furious_tools.snap_scrolling_force_full_pages || false,
+        smooth_scrolling: settings.furious_tools.smooth_scrolling || false,
+        skip_homepage: settings.furious_tools.skip_homepage || false,
+        skip_homepage_showonce: settings.furious_tools.skip_homepage_showonce || false,
+        skip_homepage_target: settings.furious_tools.skip_homepage_target || '',
+        hide_login_form: settings.furious_tools.hide_login_form || false,
+        hide_admin_bar: settings.furious_tools.hide_admin_bar || false,
+        random_tagline: settings.furious_tools.random_tagline || false,
+        random_tagline_body_only: settings.furious_tools.random_tagline_body_only || true,
+        random_tagline_list: settings.furious_tools.random_tagline_list || '',
+        redirect_on_login: settings.furious_tools.redirect_on_login || false,
+        redirect_on_login_target: settings.furious_tools.redirect_on_login_target || '',
+        enable_error_logging: settings.furious_tools.enable_error_logging || false,
+        show_errors_on_frontend: settings.furious_tools.show_errors_on_frontend || false
+      };
+    });
+  }, []);
+
+  // mark dirty when current values differ from initial snapshot
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    if (!initialSettingsRef.current) {
+      return;
+    }
+    const current = {
+      cleanup_wp_crud: cleanupWpCrud,
+      add_custom_crud: addCustomCrud,
+      custom_crud: customCrud,
+      latest_jquery: latestJquery,
+      remove_jquery_migrate: removeJqueryMigrate,
+      track_user_last_login: trackUserLastLogin,
+      search_slug: searchSlug,
+      custom_readmore: customReadmore,
+      custom_readmore_text: customReadmoreText,
+      bypass_http_validate_url: bypassHttpValidateUrl,
+      remove_att_width: removeAttWidth,
+      style_outbound_links: styleOutboundLinks,
+      style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
+      snap_scrolling: snapScrolling,
+      snap_scrolling_css_method: snapScrollingCssMethod,
+      snap_scrolling_force_full_pages: snapScrollingForceFullPages,
+      smooth_scrolling: smoothScrolling,
+      skip_homepage: skipHomepage,
+      skip_homepage_showonce: skipHomepageShowonce,
+      skip_homepage_target: skipHomepageTarget,
+      hide_login_form: hideLoginForm,
+      hide_admin_bar: hideAdminBar,
+      random_tagline: randomTagline,
+      random_tagline_body_only: randomTaglineBodyOnly,
+      random_tagline_list: randomTaglineList,
+      redirect_on_login: redirectOnLogin,
+      redirect_on_login_target: redirectOnLoginTarget,
+      enable_error_logging: enableErrorLogging,
+      show_errors_on_frontend: showErrorsOnFrontend
+    };
+
+    // simple shallow comparison via JSON; adequate for primitive values here
+    const dirty = JSON.stringify(current) !== JSON.stringify(initialSettingsRef.current);
+    setIsDirty(dirty);
+  }, [cleanupWpCrud, addCustomCrud, customCrud, latestJquery, removeJqueryMigrate, trackUserLastLogin, searchSlug, customReadmore, customReadmoreText, bypassHttpValidateUrl, removeAttWidth, styleOutboundLinks, styleOutboundLinksOnlyInContent, snapScrolling, snapScrollingCssMethod, snapScrollingForceFullPages, smoothScrolling, skipHomepage, skipHomepageShowonce, skipHomepageTarget, hideLoginForm, hideAdminBar, randomTagline, randomTaglineBodyOnly, randomTaglineList, redirectOnLogin, redirectOnLoginTarget, enableErrorLogging, showErrorsOnFrontend]);
+  const saveSettings = () => {
+    // TODO: Add validation as needed for empty text fields when their parent setting is enabled
+
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+      path: '/wp/v2/settings',
+      method: 'POST',
+      data: {
+        furious_tools: {
+          cleanup_wp_crud: cleanupWpCrud,
+          add_custom_crud: addCustomCrud,
+          custom_crud: customCrud,
+          latest_jquery: latestJquery,
+          remove_jquery_migrate: removeJqueryMigrate,
+          track_user_last_login: trackUserLastLogin,
+          search_slug: searchSlug,
+          custom_readmore: customReadmore,
+          custom_readmore_text: customReadmoreText,
+          bypass_http_validate_url: bypassHttpValidateUrl,
+          remove_att_width: removeAttWidth,
+          style_outbound_links: styleOutboundLinks,
+          style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
+          snap_scrolling: snapScrolling,
+          snap_scrolling_css_method: snapScrollingCssMethod,
+          snap_scrolling_force_full_pages: snapScrollingForceFullPages,
+          smooth_scrolling: smoothScrolling,
+          skip_homepage: skipHomepage,
+          skip_homepage_showonce: skipHomepageShowonce,
+          skip_homepage_target: skipHomepageTarget,
+          hide_login_form: hideLoginForm,
+          hide_admin_bar: hideAdminBar,
+          random_tagline: randomTagline,
+          random_tagline_body_only: randomTaglineBodyOnly,
+          random_tagline_list: randomTaglineList,
+          redirect_on_login: redirectOnLogin,
+          redirect_on_login_target: redirectOnLoginTarget,
+          enable_error_logging: enableErrorLogging,
+          show_errors_on_frontend: showErrorsOnFrontend
+        }
+      }
+    }).then(() => {
+      if (initialSettingsRef.current) {
+        initialSettingsRef.current = JSON.parse(JSON.stringify({
+          cleanup_wp_crud: cleanupWpCrud,
+          add_custom_crud: addCustomCrud,
+          custom_crud: customCrud,
+          latest_jquery: latestJquery,
+          remove_jquery_migrate: removeJqueryMigrate,
+          track_user_last_login: trackUserLastLogin,
+          search_slug: searchSlug,
+          custom_readmore: customReadmore,
+          custom_readmore_text: customReadmoreText,
+          bypass_http_validate_url: bypassHttpValidateUrl,
+          remove_att_width: removeAttWidth,
+          style_outbound_links: styleOutboundLinks,
+          style_outbound_links_only_in_content: styleOutboundLinksOnlyInContent,
+          snap_scrolling: snapScrolling,
+          snap_scrolling_css_method: snapScrollingCssMethod,
+          snap_scrolling_force_full_pages: snapScrollingForceFullPages,
+          smooth_scrolling: smoothScrolling,
+          skip_homepage: skipHomepage,
+          skip_homepage_showonce: skipHomepageShowonce,
+          skip_homepage_target: skipHomepageTarget,
+          hide_login_form: hideLoginForm,
+          hide_admin_bar: hideAdminBar,
+          random_tagline: randomTagline,
+          random_tagline_body_only: randomTaglineBodyOnly,
+          random_tagline_list: randomTaglineList,
+          redirect_on_login: redirectOnLogin,
+          redirect_on_login_target: redirectOnLoginTarget,
+          enable_error_logging: enableErrorLogging,
+          show_errors_on_frontend: showErrorsOnFrontend
+        }));
+      }
+      setIsDirty(false);
+      createSuccessNotice('Settings saved successfully.', {
+        type: 'snackbar'
+      });
+    }).catch(e => {
+      createErrorNotice(`Failed to save settings. ${e}.`);
+    });
+  };
+  return {
+    cleanupWpCrud,
+    setCleanupWpCrud,
+    addCustomCrud,
+    setAddCustomCrud,
+    customCrud,
+    setCustomCrud,
+    latestJquery,
+    setLatestJquery,
+    removeJqueryMigrate,
+    setRemoveJqueryMigrate,
+    trackUserLastLogin,
+    setTrackUserLastLogin,
+    searchSlug,
+    setSearchSlug,
+    customReadmore,
+    setCustomReadmore,
+    customReadmoreText,
+    setCustomReadmoreText,
+    bypassHttpValidateUrl,
+    setBypassHttpValidateUrl,
+    removeAttWidth,
+    setRemoveAttWidth,
+    styleOutboundLinks,
+    setStyleOutboundLinks,
+    styleOutboundLinksOnlyInContent,
+    setStyleOutboundLinksOnlyInContent,
+    snapScrolling,
+    setSnapScrolling,
+    snapScrollingCssMethod,
+    setSnapScrollingCssMethod,
+    snapScrollingForceFullPages,
+    setSnapScrollingForceFullPages,
+    smoothScrolling,
+    setSmoothScrolling,
+    skipHomepage,
+    setSkipHomepage,
+    skipHomepageShowonce,
+    setSkipHomepageShowonce,
+    skipHomepageTarget,
+    setSkipHomepageTarget,
+    redirectOnLogin,
+    setRedirectOnLogin,
+    redirectOnLoginTarget,
+    setRedirectOnLoginTarget,
+    hideLoginForm,
+    setHideLoginForm,
+    hideAdminBar,
+    setHideAdminBar,
+    randomTagline,
+    setRandomTagline,
+    randomTaglineBodyOnly,
+    setRandomTaglineBodyOnly,
+    randomTaglineList,
+    setRandomTaglineList,
+    enableErrorLogging,
+    setEnableErrorLogging,
+    showErrorsOnFrontend,
+    setShowErrorsOnFrontend,
+    saveSettings,
+    isDirty
+  };
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useSettings);
+
+/***/ },
+
+/***/ "./src/index.scss"
+/*!************************!*\
+  !*** ./src/index.scss ***!
+  \************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "react-dom/client"
+/*!***************************!*\
+  !*** external "ReactDOM" ***!
+  \***************************/
+(module) {
+
+module.exports = window["ReactDOM"];
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/api-fetch"
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["apiFetch"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/dom-ready"
+/*!**********************************!*\
+  !*** external ["wp","domReady"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["domReady"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/notices"
+/*!*********************************!*\
+  !*** external ["wp","notices"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["notices"];
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom/client */ "react-dom/client");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom_client__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components */ "./src/components/index.js");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_1___default()(() => {
+  const rootElement = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot)(document.getElementById('furious-tools-settings-root'));
+  rootElement.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components__WEBPACK_IMPORTED_MODULE_2__.SettingsPage, {}));
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

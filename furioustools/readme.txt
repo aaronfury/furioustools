@@ -1,8 +1,8 @@
 === Furious Tools ===
 Contributors: aaroneff
-Stable tag: 1.0.20260414
+Stable tag: 1.0.20260526
 Requires at least: 6.2
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.2
 License: CC0-1.0
 License URI: https://creativecommons.org/publicdomain/zero/1.0/
