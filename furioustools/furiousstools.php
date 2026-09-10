@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {exit;}
 
 spl_autoload_register('furioustools_autoloader');
 
-function furioustools_autoloader($class_name) {
+function furioustools_autoloader(String $class_name) {
 	if (false !== strpos($class_name, 'FuriousTools')) {
 		$classes_dir = realpath(plugin_dir_path( __FILE__ )) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
 		$class_file = str_replace('\\', DIRECTORY_SEPARATOR, $class_name) . '.php';
@@ -37,11 +37,11 @@ function furioustools_init() {
 	add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'furioustools_add_settings_link');
 }
 
-function furioustools_preg_grep_keys($pattern, $input, $flags = 0) {
+function furioustools_preg_grep_keys(String $pattern, Array $input, Int $flags = 0) {
     return array_intersect_key($input, array_flip(preg_grep($pattern, array_keys($input), $flags)));
 }
 
-function furioustools_add_settings_link($links) {
+function furioustools_add_settings_link(Array $links) {
 	$settings_link = '<a href="' . admin_url('options-general.php?page=furious-tools') . '">Settings</a>';
 	array_unshift($links, $settings_link);
 	return $links;
