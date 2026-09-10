@@ -1,6 +1,6 @@
 === Furious Tools ===
 Contributors: aaroneff
-Stable tag: 1.0.20260526
+Stable tag: 1.0.20260910
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.2

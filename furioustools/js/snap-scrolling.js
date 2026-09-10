@@ -4,14 +4,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	const snapScrollingCssMethod = furiousTools.settings.snapScrollingCssMethod;
 	let snapContainer;
 	let snapSections;
-	
+
 	if ( snapScrollingCssMethod ) {
 		snapSections = document.querySelectorAll( '.snap-section' );
 		snapContainer = document.querySelector( '.snap-container' ) ?? snapSections[0]?.parentElement;
 		if ( ! snapContainer ) {
 			return;
 		}
-		
+
 		snapContainer.classList.add( 'snap-container' ); // Ensure snap-container class is present
 	} else {
 		snapSections = document.querySelectorAll( 'section' );
@@ -38,7 +38,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	if (!snapContainer.classList.contains( 'wp-site-blocks' ) ) {
 		snapSections[ snapSections.length - 1 ].style.minHeight = snapContainer.offsetHeight + 'px';
 	}
-	
+
 	// Calculate offset height from sticky elements or explicitly tagged offset elements, only if they are inside the snap container
 	if ( snapOffsetElement ) {
 		snapContainer.style.scrollPaddingTop = snapOffsetElement.offsetHeight + 'px';
@@ -54,6 +54,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			section.style.minHeight = '100vh';
 			section.style.height = 'auto';
 		});	
+	}
+
+	// Check if smooth scrolling is enabled on the root element; if so, apply it to the .snap-container as well
+	if ( getComputedStyle( document.documentElement ).scrollBehavior === 'smooth' ) {
+		snapContainer.style.scrollBehavior = 'smooth';
 	}
 
 } );
