@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, CheckboxControl, __experimentalDivider as Divider, __experimentalSpacer as Spacer, __experimentalText as Text, TextControl, TextareaControl, __experimentalVStack as VStack, __experimentalHStack as HStack } from '@wordpress/components';
+import { Button, Card, CardBody, CardHeader, CheckboxControl, __experimentalDivider as Divider, SelectControl, __experimentalSpacer as Spacer, __experimentalText as Text, TextControl, TextareaControl, __experimentalVStack as VStack, __experimentalHStack as HStack } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { useSettings } from '../hooks';
 import { Notices, ErrorList } from './notices';
@@ -43,8 +43,16 @@ const SettingsPage = () => {
 		setSnapScrollingCssMethod,
 		snapScrollingForceFullPages,
 		setSnapScrollingForceFullPages,
+		snapScrollingOffsetMethod,
+		setSnapScrollingOffsetMethod,
 		smoothScrolling,
 		setSmoothScrolling,
+		fillOnScroll,
+		setFillOnScroll,
+		highlightActiveNav,
+		setHighlightActiveNav,
+		highlightActiveNavDefaultStyle,
+		setHighlightActiveNavDefaultStyle,
 		randomTagline,
 		setRandomTagline,
 		randomTaglineBodyOnly,
@@ -260,12 +268,49 @@ const SettingsPage = () => {
 								className='left-indent'
 							/>
 						) }
+						{ snapScrolling && (
+							<SelectControl
+								label="Snap Offset Method"
+								value={ snapScrollingOffsetMethod }
+								onChange={ ( value ) => setSnapScrollingOffsetMethod( value ) }
+								options={ [
+									{ label: 'Disabled (no offset)', value: 'none' },
+									{ label: 'Scroll padding on the container', value: 'scroll-padding' },
+									{ label: 'Top padding on each section', value: 'section-padding' },
+								] }
+								help="How to keep snapped sections clear of a sticky header (any '.is-position-sticky' or '.snap-offset' element inside the container). 'Scroll padding' offsets where each section stops; 'Top padding' adds the header's height to each section's own top padding, preserving any spacing preset already set on it."
+								__next40pxDefaultSize
+								className='left-indent'
+							/>
+						) }
 						<CheckboxControl
 							label="Enable Smooth Scrolling"
 							checked={ smoothScrolling }
 							onChange={ ( value ) => setSmoothScrolling( value ) }
 							help="Enables smooth scrolling behavior for anchor links and general page scrolling."
 						/>
+						<CheckboxControl
+							label="Fill Elements on Scroll"
+							checked={ fillOnScroll }
+							onChange={ ( value ) => setFillOnScroll( value ) }
+							help="Elements with the '.fill-on-scroll' class start with a fully transparent background and no box shadow, then fade in to their assigned values over a scroll distance equal to their own height. Useful for a sticky header that should sit transparently over a hero graphic and become opaque once the page scrolls. Scrolling back up fades it out again."
+						/>
+						<CheckboxControl
+							label="Highlight Active Navigation Link"
+							checked={ highlightActiveNav }
+							onChange={ ( value ) => setHighlightActiveNav( value ) }
+							help="On single-page sites, adds the '.active-nav-link' CSS class to the navigation link whose anchor target is currently being viewed."
+							__nextHasNoMarginBottom
+						/>
+						{ highlightActiveNav && (
+							<CheckboxControl
+								label="Use Default Active Link Styling"
+								checked={ highlightActiveNavDefaultStyle }
+								onChange={ ( value ) => setHighlightActiveNavDefaultStyle( value ) }
+								help="Applies a built-in animated underline to the active navigation link. Disable this to style the '.active-nav-link' class yourself."
+								className='left-indent'
+							/>
+						) }
 						<CheckboxControl
 							label="Enable Random Tagline"
 							checked={ randomTagline }
@@ -335,7 +380,7 @@ const SettingsPage = () => {
 			<Spacer marginY={20}/>
 			<VStack gap={ 1 } align="stretch">
 				<Divider />
-				<small>Version 1.0.20260910</small>
+				<small>Version 1.0.20260916</small>
 				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
 			</VStack>
 		</div>

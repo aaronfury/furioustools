@@ -20,7 +20,11 @@ const useSettings = () => {
 	const [snapScrolling, setSnapScrolling] = useState(false);
 	const [snapScrollingCssMethod, setSnapScrollingCssMethod] = useState(false);
 	const [snapScrollingForceFullPages, setSnapScrollingForceFullPages] = useState(false);
+	const [snapScrollingOffsetMethod, setSnapScrollingOffsetMethod] = useState('scroll-padding');
 	const [smoothScrolling, setSmoothScrolling] = useState(false);
+	const [fillOnScroll, setFillOnScroll] = useState(false);
+	const [highlightActiveNav, setHighlightActiveNav] = useState(false);
+	const [highlightActiveNavDefaultStyle, setHighlightActiveNavDefaultStyle] = useState(true);
 	const [skipHomepage, setSkipHomepage] = useState(false);
 	const [skipHomepageShowonce, setSkipHomepageShowonce] = useState(false);
 	const [skipHomepageTarget, setSkipHomepageTarget] = useState('');
@@ -57,7 +61,11 @@ const useSettings = () => {
 			setSnapScrolling( settings.furious_tools.snap_scrolling || false );
 			setSnapScrollingCssMethod( settings.furious_tools.snap_scrolling_css_method || false );
 			setSnapScrollingForceFullPages( settings.furious_tools.snap_scrolling_force_full_pages || false );
+			setSnapScrollingOffsetMethod( settings.furious_tools.snap_scrolling_offset_method || 'scroll-padding' );
 			setSmoothScrolling( settings.furious_tools.smooth_scrolling || false );
+			setFillOnScroll( settings.furious_tools.fill_on_scroll || false );
+			setHighlightActiveNav( settings.furious_tools.highlight_active_nav || false );
+			setHighlightActiveNavDefaultStyle( settings.furious_tools.highlight_active_nav_default_style ?? true );
 			setSkipHomepage( settings.furious_tools.skip_homepage || false );
 			setSkipHomepageShowonce( settings.furious_tools.skip_homepage_showonce || false );
 			setSkipHomepageTarget( settings.furious_tools.skip_homepage_target || '' );
@@ -89,7 +97,11 @@ const useSettings = () => {
 				snap_scrolling: settings.furious_tools.snap_scrolling || false,
 				snap_scrolling_css_method: settings.furious_tools.snap_scrolling_css_method || false,
 				snap_scrolling_force_full_pages: settings.furious_tools.snap_scrolling_force_full_pages || false,
+				snap_scrolling_offset_method: settings.furious_tools.snap_scrolling_offset_method || 'scroll-padding',
 				smooth_scrolling: settings.furious_tools.smooth_scrolling || false,
+				fill_on_scroll: settings.furious_tools.fill_on_scroll || false,
+				highlight_active_nav: settings.furious_tools.highlight_active_nav || false,
+				highlight_active_nav_default_style: settings.furious_tools.highlight_active_nav_default_style ?? true,
 				skip_homepage: settings.furious_tools.skip_homepage || false,
 				skip_homepage_showonce: settings.furious_tools.skip_homepage_showonce || false,
 				skip_homepage_target: settings.furious_tools.skip_homepage_target || '',
@@ -128,7 +140,11 @@ const useSettings = () => {
             snap_scrolling: snapScrolling,
 			snap_scrolling_css_method: snapScrollingCssMethod,
 			snap_scrolling_force_full_pages: snapScrollingForceFullPages,
+			snap_scrolling_offset_method: snapScrollingOffsetMethod,
             smooth_scrolling: smoothScrolling,
+            fill_on_scroll: fillOnScroll,
+            highlight_active_nav: highlightActiveNav,
+            highlight_active_nav_default_style: highlightActiveNavDefaultStyle,
             skip_homepage: skipHomepage,
             skip_homepage_showonce: skipHomepageShowonce,
             skip_homepage_target: skipHomepageTarget,
@@ -163,7 +179,11 @@ const useSettings = () => {
         snapScrolling,
 		snapScrollingCssMethod,
 		snapScrollingForceFullPages,
+		snapScrollingOffsetMethod,
         smoothScrolling,
+        fillOnScroll,
+        highlightActiveNav,
+        highlightActiveNavDefaultStyle,
         skipHomepage,
         skipHomepageShowonce,
         skipHomepageTarget,
@@ -202,7 +222,11 @@ const useSettings = () => {
 					snap_scrolling: snapScrolling,
 					snap_scrolling_css_method: snapScrollingCssMethod,
 					snap_scrolling_force_full_pages: snapScrollingForceFullPages,
+					snap_scrolling_offset_method: snapScrollingOffsetMethod,
 					smooth_scrolling: smoothScrolling,
+					fill_on_scroll: fillOnScroll,
+					highlight_active_nav: highlightActiveNav,
+					highlight_active_nav_default_style: highlightActiveNavDefaultStyle,
 					skip_homepage: skipHomepage,
 					skip_homepage_showonce: skipHomepageShowonce,
 					skip_homepage_target: skipHomepageTarget,
@@ -236,7 +260,11 @@ const useSettings = () => {
                     snap_scrolling: snapScrolling,
 					snap_scrolling_css_method: snapScrollingCssMethod,
 					snap_scrolling_force_full_pages: snapScrollingForceFullPages,
+					snap_scrolling_offset_method: snapScrollingOffsetMethod,
                     smooth_scrolling: smoothScrolling,
+                    fill_on_scroll: fillOnScroll,
+                    highlight_active_nav: highlightActiveNav,
+                    highlight_active_nav_default_style: highlightActiveNavDefaultStyle,
                     skip_homepage: skipHomepage,
                     skip_homepage_showonce: skipHomepageShowonce,
                     skip_homepage_target: skipHomepageTarget,
@@ -292,8 +320,16 @@ const useSettings = () => {
 		setSnapScrollingCssMethod,
 		snapScrollingForceFullPages,
 		setSnapScrollingForceFullPages,
+		snapScrollingOffsetMethod,
+		setSnapScrollingOffsetMethod,
 		smoothScrolling,
 		setSmoothScrolling,
+		fillOnScroll,
+		setFillOnScroll,
+		highlightActiveNav,
+		setHighlightActiveNav,
+		highlightActiveNavDefaultStyle,
+		setHighlightActiveNavDefaultStyle,
 		skipHomepage,
 		setSkipHomepage,
 		skipHomepageShowonce,

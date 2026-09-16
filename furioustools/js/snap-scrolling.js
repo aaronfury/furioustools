@@ -2,6 +2,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	const snapScrollingForceFullPages = furiousTools.settings.snapScrollingForceFullPages;
 	const snapScrollingCssMethod = furiousTools.settings.snapScrollingCssMethod;
+	const snapScrollingOffsetMethod = furiousTools.settings.snapScrollingOffsetMethod;
 	let snapContainer;
 	let snapSections;
 
@@ -41,7 +42,17 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	// Calculate offset height from sticky elements or explicitly tagged offset elements, only if they are inside the snap container
 	if ( snapOffsetElement ) {
-		snapContainer.style.scrollPaddingTop = snapOffsetElement.offsetHeight + 'px';
+		const snapOffsetHeight = snapOffsetElement.offsetHeight;
+
+		if ( snapScrollingOffsetMethod === 'scroll-padding' ) {
+			snapContainer.style.scrollPaddingTop = snapOffsetHeight + 'px';
+		} else if ( snapScrollingOffsetMethod === 'section-padding' ) {
+			// Computed padding resolves WordPress spacing presets to pixels, so the preset value is kept and the offset added on top of it
+			snapSections.forEach( ( section ) => {
+				const sectionPaddingTop = parseFloat( getComputedStyle( section ).paddingTop ) || 0;
+				section.style.paddingTop = ( sectionPaddingTop + snapOffsetHeight ) + 'px';
+			} );
+		}
 	} else {
 		Array.from(snapContainer.children).forEach( ( child ) => {
 			child.classList.add( 'snap-section' ); // Make sure all children are snap sections if there's no sticky header (otherwise it doesn't get displayed)

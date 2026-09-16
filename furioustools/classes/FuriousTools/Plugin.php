@@ -107,9 +107,27 @@ class Plugin {
 					"settings" => [
 						"snapScrollingForceFullPages" => ( $this->options['snap_scrolling_force_full_pages']),
 						"snapScrollingCssMethod" => ( $this->options['snap_scrolling_css_method']),
+						"snapScrollingOffsetMethod" => ( $this->options['snap_scrolling_offset_method'] ?? 'scroll-padding'),
 					]
 				]);
 				wp_enqueue_style( 'furioustools-snap-scrolling', plugins_url( '../../css/snap-scrolling.css', __FILE__ ) );
+			} );
+		}
+
+		if ( $this->options['fill_on_scroll'] ?? false ) {
+			add_action( 'wp_enqueue_scripts', function() {
+				wp_enqueue_script( 'furioustools-fill-on-scroll', plugins_url( '../../js/fill-on-scroll.js', __FILE__ ), [], null, true );
+				wp_enqueue_style( 'furioustools-fill-on-scroll', plugins_url( '../../css/fill-on-scroll.css', __FILE__ ) );
+			} );
+		}
+
+		if ( $this->options['highlight_active_nav'] ?? false ) {
+			add_action( 'wp_enqueue_scripts', function() {
+				wp_enqueue_script( 'furioustools-highlight-active-nav', plugins_url( '../../js/highlight-active-nav.js', __FILE__ ), [], null, true );
+
+				if ( $this->options['highlight_active_nav_default_style'] ?? false ) {
+					wp_enqueue_style( 'furioustools-highlight-active-nav', plugins_url( '../../css/highlight-active-nav.css', __FILE__ ) );
+				}
 			} );
 		}
 	}

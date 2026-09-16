@@ -22,6 +22,8 @@ A WordPress Plugin to add some light functionality and customization to WordPres
 	- `[nonce]` creates a verification nonce for form submissions
 	- `[childposts]` prints or return a list of child posts for the current post or a specific post
 - __Smooth Scrolling__ - Enables CSS smooth scrolling so that clicking on a link to a an achor on the page (like #Heading1) will scroll the page instead of jumping directly to it
+- __Snap Scrolling__ - The browser window "snaps" into position as the user scrolls. See below for more details.
+- __Fill on Scroll__ - Sets an item's `background-color` and `box-shadow` values transparent initially, then fills them as the page scrolls. Enable the option and then add the `.fill-on-scroll` class to the desired object. This is mostly meant for sticky header bars on web pages that can be transparent over a hero graphic, then opaque once the page scrolls.
 - __Error Logging and Display Errors on Frontend__ - Options to enable PHP error logging (to the default wp-content/errors.log) and/or to display PHP errors on the frontend.
 
 ## childpost shortcode options
@@ -66,4 +68,7 @@ If you choose the CSS class-based approach, you can (theoretically) assign the c
 - Group (optional, footer)
 
 ### Snap offset
-The plugin will automatically attempt to compensate for sticky headers that block the top of the browser viewport. If that doesn't work or you have some other object, you can assign the `.snap-offset` class to it, and the Javascript will attempt to calculate its height and set the snap offset accordingly.
+The snap scrolling supports a few methods of defining an offset to compensate for a sticky header:
+- __None__ - There is no offset. Snap scrolling will scroll each snap section to the very top of the viewport
+- __Scroll padding on the container__ - Sets an offset equal to the height of an object with the '.snap-offset' or '.is-position-sticky' class; the forner is a manual class and the latter is added by WordPress when you set the position as sticky in the FSE. _Make sure to only have a single object with either class_, otherwise who knows what'll happen. At any rate, this is the preferred method for handling offset in most cases.
+- __Top padding to each section__ - This alternative is useful if your sticky container is transparent. The "scroll padding" method leaves the bottom of the previous section visible behind the sticky; this method adds padding to the current section to push down the content and prevent it from being obscured by the sticky.

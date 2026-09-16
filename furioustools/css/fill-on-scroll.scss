@@ -1,0 +1,9 @@
+// Start transparent before the script runs so the element does not flash at its assigned values on load.
+// The script adds .fill-on-scroll-ready before reading those values, so this rule never hides them from it.
+// Only applied when scripting is available, otherwise the element would stay transparent for good.
+@media (scripting: enabled) {
+	.fill-on-scroll:not(.fill-on-scroll-ready) {
+		background-color: transparent !important;
+		box-shadow: none !important;
+	}
+}
