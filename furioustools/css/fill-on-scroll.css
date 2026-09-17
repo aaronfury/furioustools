@@ -1,1 +1,1 @@
-@media(scripting: enabled){.fill-on-scroll:not(.fill-on-scroll-ready){background-color:rgba(0,0,0,0) !important;box-shadow:none !important}}
+@media(scripting: enabled){.fill-on-scroll{background-color:rgba(0,0,0,0) !important;box-shadow:none !important}}.fill-on-scroll-item{transition:background-color .3s ease,box-shadow .3s ease}

@@ -1,8 +1,8 @@
 === Furious Tools ===
 Contributors: aaroneff
-Stable tag: 1.0.20260916
+Stable tag: 1.0.20260917
 Requires at least: 6.2
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.2
 License: CC0-1.0
 License URI: https://creativecommons.org/publicdomain/zero/1.0/
@@ -18,6 +18,7 @@ Furious Tools is a collection of tweaks and feaures for WordPress that have been
     - Adding an icon to external links
     - Enabling smooth scrolling
     - Enabling snap scrolling
+    - Enabling a simple "fill on scroll" effect for backgrounds and shadows
     - Highlighting the navigation link for the section currently being viewed on single-page sites
     - Fading in the background and shadow of sticky elements (such as header bars over a hero graphic) as the page scrolls
 - Various other \"advanced\" options like upgrading the jQuery version or adding custom content in the \\ tag of pages

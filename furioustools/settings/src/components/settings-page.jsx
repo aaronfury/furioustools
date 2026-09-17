@@ -293,7 +293,7 @@ const SettingsPage = () => {
 							label="Fill Elements on Scroll"
 							checked={ fillOnScroll }
 							onChange={ ( value ) => setFillOnScroll( value ) }
-							help="Elements with the '.fill-on-scroll' class start with a fully transparent background and no box shadow, then fade in to their assigned values over a scroll distance equal to their own height. Useful for a sticky header that should sit transparently over a hero graphic and become opaque once the page scrolls. Scrolling back up fades it out again."
+							help="Elements with the '.fill-on-scroll' class have their background and box shadow hidden until the page scrolls past them by their own height (or 100px, whichever is greater), at which point the assigned values transition in. Useful for a sticky header that should sit transparently over a hero graphic and become opaque once the page scrolls. Scrolling back up hides them again."
 						/>
 						<CheckboxControl
 							label="Highlight Active Navigation Link"
@@ -380,7 +380,7 @@ const SettingsPage = () => {
 			<Spacer marginY={20}/>
 			<VStack gap={ 1 } align="stretch">
 				<Divider />
-				<small>Version 1.0.20260916</small>
+				<small>Version 1.0.20260917</small>
 				<small>GitHub: <a href="https://github.com/aaronfury/furioustools" target="_blank" rel="noreferrer">github.com/aaronfury/furioustools</a></small>
 			</VStack>
 		</div>
