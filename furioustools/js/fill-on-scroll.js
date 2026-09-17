@@ -7,21 +7,27 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		return;
 	}
 
+	// A snap scrolling container scrolls in place of the page, so each item is measured against whichever one it sits in
+	const scrollPosition = ( scroller ) => scroller ? scroller.scrollTop : window.scrollY;
+	const offsetTop = ( element, scroller ) => element.getBoundingClientRect().top - ( scroller ? scroller.getBoundingClientRect().top : 0 );
+
 	const items = [ ...elements ].map( ( element ) => {
 		element.classList.add( 'fill-on-scroll-item' ); // Carries the transition once .fill-on-scroll comes back off
-		return { element, top: element.getBoundingClientRect().top + window.scrollY };
+
+		// The natural position is only readable at the top of the scroller, where a sticky or fixed item is not displaced,
+		// so assume the top of the content until then rather than measuring against a scroll position the page loaded at
+		return { element, scroller: element.closest( '.snap-container' ), top: 0 };
 	} );
 
 	const update = () => {
-		const scrolled = window.scrollY;
-
 		items.forEach( ( item ) => {
-			// Nothing is displaced at the top of the page, so the natural position can be taken again
-			if ( scrolled === 0 ) {
-				item.top = item.element.getBoundingClientRect().top;
+			const position = scrollPosition( item.scroller );
+
+			if ( position <= 0 ) {
+				item.top = offsetTop( item.element, item.scroller );
 			}
 
-			const filled = scrolled > item.top + Math.max( item.element.offsetHeight, fillOffset );
+			const filled = position > item.top + Math.max( item.element.offsetHeight, fillOffset );
 			item.element.classList.toggle( 'fill-on-scroll', ! filled );
 		} );
 	};
@@ -38,7 +44,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 	};
 
-	window.addEventListener( 'scroll', onScroll, { passive: true } );
+	// Capturing on the window catches scrolling of the page and of any container inside it
+	window.addEventListener( 'scroll', onScroll, { capture: true, passive: true } );
 	window.addEventListener( 'resize', onScroll, { passive: true } );
 
 	// A page can arrive already scrolled, from an anchor link or from the browser restoring the previous position
