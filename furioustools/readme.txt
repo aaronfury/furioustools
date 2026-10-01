@@ -1,6 +1,6 @@
 === Furious Tools ===
 Contributors: aaroneff
-Stable tag: 1.0.20260917
+Stable tag: 1.0.20261001
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.2
@@ -27,9 +27,8 @@ Furious Tools is a collection of tweaks and feaures for WordPress that have been
 1. Activate the plugin
 2. Use the settings page to enable features and configure their specific parameters.
 
-
 == Screenshots ==
 1. Settings page for Furious Tools.
 
 == Changelog ==
-1.0.20260413 - Initial release to the WordPress Plugin Directory
+1.0.20261001 - Initial release to the WordPress Plugin Directory

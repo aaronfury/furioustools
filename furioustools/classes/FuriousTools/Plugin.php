@@ -184,7 +184,7 @@ class Plugin {
 	function load_skiphomepage_scripts() {
 		$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
 
-		wp_register_script('js-cookie', plugins_url('furioustools/js/js-cookie/dist/js.cookie.min.js', ), [], null, true );
+		wp_register_script('js-cookie', "https://cdn.jsdelivr.net/npm/js-cookie@3.0.8/dist/js.cookie.min.js", [], null, true );
 		wp_enqueue_script('js-cookie');
 		wp_register_script('skiphomepage', plugins_url('furioustools/js/plugin.js', ), array('js-cookie'), null, true);
 		wp_enqueue_script('skiphomepage');
