@@ -172,51 +172,36 @@ class Plugin {
 		}
 	}
 
-	function load_skiphomepage($query) {
-		// Script must be loaded on every page because of the "override" to remove the cookie if the home page is accessed from a link
-		add_action('wp_enqueue_scripts', [$this, 'load_skiphomepage_scripts']);
+	function load_skiphomepage() {
+		if ( ! is_front_page() || is_customize_preview() ) return;
 
-		if ( is_front_page() ) {
-			$this->load_skiphomepage_redirect();
-		};
-	}
+		$target = $this->get_skiphomepage_target();
+		if ( ! $target ) return;
 
-	function load_skiphomepage_scripts() {
-		$scriptvars = 'var siteurl="' . get_option('siteurl') . '";';
+		if ( $this->options['skip_homepage_showonce'] ) {
+			$seen_before = isset( $_COOKIE['skiphomepage'] );
+			setcookie( 'skiphomepage', '1', time() + 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true );
 
-		wp_register_script('js-cookie', "https://cdn.jsdelivr.net/npm/js-cookie@3.0.8/dist/js.cookie.min.js", [], null, true );
-		wp_enqueue_script('js-cookie');
-		wp_register_script('skiphomepage', plugins_url('furioustools/js/plugin.js', ), array('js-cookie'), null, true);
-		wp_enqueue_script('skiphomepage');
-		// Appends the homepage URL as a variable to the script, so that the script can use it for comparison
-		wp_add_inline_script('skiphomepage', $scriptvars, 'before');
-	}
-
-	function load_skiphomepage_redirect() {
-		// If the option is enabled, always set the cookie on the homepage
-		setcookie(
-			'skiphomepage',
-			true,
-			time() + 25920000, // 30 days
-			COOKIEPATH,
-			COOKIE_DOMAIN,
-			is_ssl(),
-			false
-		);
-
-		// Redirect if show once is not enabled, or if it is enabled and the cookie is already set
-		if (!$this->options['skip_homepage_showonce'] || $this->options['skip_homepage_showonce'] && isset($_COOKIE['skiphomepage'])) {
-			// TODO: Move this logic into the save function of the setting so that it doesn't have to do this every time
-			$redirect_target = wp_parse_url($this->options['skip_homepage_target']);
-			if (isset($redirect_target['host'])) {
-				$redirectpage = ($redirect_target['scheme'] ?? 'http') . '://' . $this->options['skip_homepage_target'];
-			} else {
-				$redirectpage = site_url($this->options['skip_homepage_target']);
-			}
-			
-			wp_redirect( esc_url($redirectpage), 302, 'Furious Tools');
-			exit;
+			// Show the homepage on the first visit, or when navigating to it from elsewhere on this site
+			if ( ! $seen_before || wp_get_referer() ) return;
 		}
+
+		nocache_headers();
+		wp_redirect( $target, 302, 'Furious Tools' );
+		exit;
+	}
+
+	private function get_skiphomepage_target() {
+		$target = trim( $this->options['skip_homepage_target'] ?? '' );
+		if ( '' === $target ) return '';
+
+		$parts = wp_parse_url( $target );
+		$url = isset( $parts['host'] ) ? $target : home_url( $target );
+
+		// Prevent a redirect loop if the target is the homepage itself
+		if ( untrailingslashit( $url ) === untrailingslashit( home_url() ) ) return '';
+
+		return $url;
 	}
 	
 	function cleanup_wp_crud() {
